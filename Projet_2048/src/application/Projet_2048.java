@@ -10,6 +10,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import model.Partie;
 
 /**
  *
@@ -19,6 +20,11 @@ public class Projet_2048 extends Application {
     
     @Override
     public void start(Stage stage) throws Exception {
+        Partie partie = new Partie();
+        partie.afficherCube();
+        partie.initCube();
+        partie.afficherCube();
+        
         Parent root = FXMLLoader.load(getClass().getResource("FXMLDocument.fxml"));
         
         Scene scene = new Scene(root);
