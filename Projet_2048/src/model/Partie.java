@@ -9,7 +9,7 @@ package model;
  *
  * @author nKBlaZy
  */
-public class Partie {
+public class Partie implements Parametres {
     private int score;
     private Cube cube;
 

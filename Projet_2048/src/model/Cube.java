@@ -14,14 +14,14 @@ import java.util.Random;
  *
  * @author nKBlaZy
  */
-public class Cube {
+public class Cube implements Parametres{
     private Case[][][] cube; //[z][y][x]
     private Partie partie;
     private int valeurMax;
     
     public Cube (Partie _p) {
         partie = _p;
-        cube = new Case[3][3][3];
+        cube = new Case[TAILLE][TAILLE][TAILLE];
         valeurMax = 0;
     }
     
@@ -48,9 +48,9 @@ public class Cube {
     private List<int[]> casesLibres() {
         ArrayList<int[]> casesLibres = new ArrayList<>();
         
-        for (int k = 0 ; k < 3 ; k++) {
-            for (int j = 0 ; j < 3 ; j++) {
-                for (int i = 0 ; i < 3 ; i++) {
+        for (int k = 0 ; k < TAILLE ; k++) {
+            for (int j = 0 ; j < TAILLE ; j++) {
+                for (int i = 0 ; i < TAILLE ; i++) {
                     if (cube[k][j][i] == null) {
                         casesLibres.add(new int[]{i,j,k});
                     }
