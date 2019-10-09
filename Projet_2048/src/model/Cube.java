@@ -68,4 +68,14 @@ public class Cube {
     public Case[][][] getCube() {
         return cube;
     }
+    
+        public void victory() {
+        System.out.println("Victoire ! Vous avez atteint le score de" + this.valeurMax);
+        // System.exit(0);
+    }
+
+    public void gameOver() {
+        System.out.println("Plus de déplacements possibles! Votre score est " + this.valeurMax);
+        // System.exit(1);
+    }
 }

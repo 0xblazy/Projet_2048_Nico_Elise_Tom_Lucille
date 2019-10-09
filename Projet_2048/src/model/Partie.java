@@ -30,4 +30,5 @@ public class Partie {
     public int getScore() {
         return score;
     }
+    
 }
