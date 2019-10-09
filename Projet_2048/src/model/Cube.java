@@ -7,10 +7,8 @@ package model;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
-import java.util.Set;
 
 /**
  *
@@ -27,19 +25,26 @@ public class Cube {
         valeurMax = 0;
     }
     
+    // Génère une nouvelle case
     public void nouvelleCase() {
         List<int[]> casesLibres = casesLibres();
         Random ra = new Random();
         
+        // Si il y a des cases libres
         if (casesLibres.size() > 0) {
+            // Récupère les coordonnées d'une case libre aléatoire
             int[] c = casesLibres.get(ra.nextInt(casesLibres.size()));
-            System.out.println(Arrays.toString(c));
+            // System.out.println(Arrays.toString(c));
+            
+            // Créé la case
             cube[c[2]][c[1]][c[0]] = new Case((1 + ra.nextInt(2)) * 2, c[0], c[1], c[2]);
             
+            // Change la valeurMax du cube si la case générée est plus grande que la valeurMax actuelle
             if (valeurMax < cube[c[2]][c[1]][c[0]].getValeur()) valeurMax = cube[c[2]][c[1]][c[0]].getValeur();
         }
     } 
     
+    // Retourne la liste des cases libres
     private List<int[]> casesLibres() {
         ArrayList<int[]> casesLibres = new ArrayList<>();
         
@@ -69,7 +74,7 @@ public class Cube {
         return cube;
     }
     
-        public void victory() {
+    public void victory() {
         System.out.println("Victoire ! Vous avez atteint le score de" + this.valeurMax);
         // System.exit(0);
     }
