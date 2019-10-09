@@ -12,12 +12,14 @@ package model;
 public class Case {
     private int valeur;
     private int x, y, z; // x: largeur, y: hauteur, z: profondeur
+    private Cube cube;
 
-    public Case(int _v, int _x, int _y, int _z) {
+    public Case(int _v, int _x, int _y, int _z, Cube _c) {
         valeur = _v;
         x = _x;
         y = _y;
         z = _z;
+        cube = _c;
     }
 
     @Override

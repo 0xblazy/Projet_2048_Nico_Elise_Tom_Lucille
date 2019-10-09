@@ -37,7 +37,7 @@ public class Cube implements Parametres{
             // System.out.println(Arrays.toString(c));
             
             // Créé la case
-            cube[c[2]][c[1]][c[0]] = new Case((1 + ra.nextInt(2)) * 2, c[0], c[1], c[2]);
+            cube[c[2]][c[1]][c[0]] = new Case((1 + ra.nextInt(2)) * 2, c[0], c[1], c[2], this);
             
             // Change la valeurMax du cube si la case générée est plus grande que la valeurMax actuelle
             if (valeurMax < cube[c[2]][c[1]][c[0]].getValeur()) valeurMax = cube[c[2]][c[1]][c[0]].getValeur();
