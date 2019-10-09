@@ -60,6 +60,22 @@ public class Cube implements Parametres{
         
         return casesLibres;
     }
+    
+    private void DeplacerCase(Case[] casesAuBord, int direction, int rangee){
+        
+    }
+    
+    public Case[] getCasesAuBord(int direction) { //retourne les cases au bord d'une direction donnée
+        Case[] cAuBord = new Case[9];
+        for(int i = 0; i<TAILLE*TAILLE; i++){ //i = coord Z, la couche
+            for(int j = 0; j<TAILLE*TAILLE; j++){ //j = coord Y, représentation en ligne
+                for(int k = 0; k<TAILLE*TAILLE; k++){ //k = coord X, représentation en colonne
+                    
+                }
+            }
+        }
+        return cAuBord;
+    }
 
     @Override
     public String toString() {
