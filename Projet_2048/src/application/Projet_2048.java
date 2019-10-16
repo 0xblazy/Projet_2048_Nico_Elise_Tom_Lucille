@@ -21,9 +21,7 @@ public class Projet_2048 extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         Partie partie = new Partie();
-        partie.afficherCube();
-        partie.initCube();
-        partie.afficherCube();
+        partie.start();
         
         Parent root = FXMLLoader.load(getClass().getResource("FXMLDocument.fxml"));
         

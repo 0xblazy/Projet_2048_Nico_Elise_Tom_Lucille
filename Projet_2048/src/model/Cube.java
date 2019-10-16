@@ -36,7 +36,7 @@ public class Cube implements Parametres {
         return valeurMax;
     }
     // Génère une nouvelle case
-    public void nouvelleCase() {
+    public boolean nouvelleCase() {
         List<int[]> casesLibres = casesLibres();
         Random ra = new Random();
 
@@ -57,7 +57,9 @@ public class Cube implements Parametres {
             if (valeurMax < cube[c[2]][c[1]][c[0]].getValeur()) {
                 valeurMax = cube[c[2]][c[1]][c[0]].getValeur();
             }
+            return true;
         }
+        return false;
     }
 
     // Retourne la liste des cases libres
@@ -78,11 +80,11 @@ public class Cube implements Parametres {
     }
 
     public boolean lanceurDeplacerCases(int direction) {
-        Case[] extremites = this.getCasesAuBord(direction); //extremites = tableau de 9 cases au bord d'une direction donnée par l'utilisateur
+        Case[] casesAuBord = this.getCasesAuBord(direction); //extremites = tableau de 9 cases au bord d'une direction donnée par l'utilisateur
         deplacement = false; // pour vérifier si on a bougé au moins une case après le déplacement, avant d'en rajouter une nouvelle
         scoreTour = 0; //Initialisation du score en début de chaque tour
         for (int i = 0; i < TAILLE*TAILLE; i++) { //On parcours les 3 grilles de jeux
-            this.deplacerCase(extremites, i, direction, 0); 
+            this.deplacerCase(casesAuBord, direction, i, 0); 
         }
         return deplacement;
     }
@@ -127,10 +129,10 @@ public class Cube implements Parametres {
                     this.scoreTour += this.fusion(casesAuBord[rangee]); //On incrémente le score du tour
                     casesAuBord[rangee] = voisin.getVoisinDirect(-direction);
                     this.cube[voisin.getZ()][voisin.getY()][voisin.getX()]=null;
-                    this.deplacerCase(casesAuBord, rangee, direction, compteur + 1);
+                    this.deplacerCase(casesAuBord, direction, rangee, compteur + 1);
                 } else {
                     casesAuBord[rangee] = voisin;
-                    this.deplacerCase(casesAuBord, rangee, direction, compteur + 1);
+                    this.deplacerCase(casesAuBord, direction, rangee, compteur + 1);
                 }
             }
         }
@@ -147,9 +149,9 @@ public class Cube implements Parametres {
 
     public Case[] getCasesAuBord(int direction) { //retourne les cases au bord d'une direction donnée
         Case[] cAuBord = new Case[9];
-        for (int i = 0; i < TAILLE * TAILLE; i++) { //i = coord Z, la couche
-            for (int j = 0; j < TAILLE * TAILLE; j++) { //j = coord Y, représentation en ligne
-                for (int k = 0; k < TAILLE * TAILLE; k++) { //k = coord X, représentation en colonne
+        for (int i = 0; i < TAILLE; i++) { //i = coord Z, la couche
+            for (int j = 0; j < TAILLE; j++) { //j = coord Y, représentation en ligne
+                for (int k = 0; k < TAILLE; k++) { //k = coord X, représentation en colonne
                     Case c = cube[i][j][k];
                     switch (direction) {
                         case HAUT:
