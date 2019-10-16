@@ -20,13 +20,21 @@ public class Cube implements Parametres {
     private Partie partie;
     private int valeurMax;
     private boolean deplacement;
+    private int scoreTour;
 
     public Cube(Partie _p) {
         partie = _p;
         cube = new Case[TAILLE][TAILLE][TAILLE];
         valeurMax = 0;
     }
+    
+    public int getScoreTour(){
+        return scoreTour;
+    }
 
+    public int getValeurMax(){
+        return valeurMax;
+    }
     // Génère une nouvelle case
     public void nouvelleCase() {
         List<int[]> casesLibres = casesLibres();
@@ -72,6 +80,7 @@ public class Cube implements Parametres {
     public boolean lanceurDeplacerCases(int direction) {
         Case[] extremites = this.getCasesAuBord(direction); //extremites = tableau de 9 cases au bord d'une direction donnée par l'utilisateur
         deplacement = false; // pour vérifier si on a bougé au moins une case après le déplacement, avant d'en rajouter une nouvelle
+        scoreTour = 0; //Initialisation du score en début de chaque tour
         for (int i = 0; i < TAILLE*TAILLE; i++) { //On parcours les 3 grilles de jeux
             this.deplacerCase(extremites, i, direction, 0); 
         }
@@ -113,9 +122,9 @@ public class Cube implements Parametres {
             Case voisin = casesAuBord[rangee].getVoisinDirect(-direction);
             if (voisin != null) {
                 if (casesAuBord[rangee].valeurEgale(voisin)) {
-                    this.fusion(casesAuBord[rangee]);
+                    this.scoreTour += this.fusion(casesAuBord[rangee]); //On incrémente le score du tour
                     casesAuBord[rangee] = voisin.getVoisinDirect(-direction);
-                     this.cube[voisin.getZ()][voisin.getY()][voisin.getX()]=null;
+                    this.cube[voisin.getZ()][voisin.getY()][voisin.getX()]=null;
                     this.deplacerCase(casesAuBord, rangee, direction, compteur + 1);
                 } else {
                     casesAuBord[rangee] = voisin;
