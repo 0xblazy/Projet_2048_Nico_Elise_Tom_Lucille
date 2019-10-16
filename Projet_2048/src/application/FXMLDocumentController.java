@@ -26,6 +26,7 @@ public class FXMLDocumentController implements Initializable {
         System.out.println("You clicked me!");
         label.setText("Hello World!");
     }
+    //private Cube grilleModele = new Cube(Partie p);
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
