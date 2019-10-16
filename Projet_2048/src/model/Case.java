@@ -77,41 +77,41 @@ public class Case {
     }
     
     public Case getVoisinDirect(int direction){
-        switch(direction){
+        switch (direction) {
             case HAUT:
-                if(x == 0){
+                if (x == 0) {
                     return null;
-                } else{
+                } else {
                     return cube.getCube()[z][y][x-1];
                 }
             case BAS:
-                if(x == TAILLE - 1){
+                if (x == TAILLE - 1) {
                     return null;
-                } else{
+                } else {
                     return cube.getCube()[z][y][x+1];
                 }
-            case DROITE:
-                if(y == TAILLE - 1){
-                    return null;
-                } else{
-                    return cube.getCube()[z][y+1][x];
-                }
             case GAUCHE:
-                if(y == 0){
+                if (y == 0) {
                     return null;
-                } else{
+                } else {
                     return cube.getCube()[z][y-1][x];
                 }
-            case AVANT:
-                if(y == 0){
+            case DROITE:
+                if (y == TAILLE - 1) {
                     return null;
-                } else{
+                } else {
+                    return cube.getCube()[z][y+1][x];
+                }
+            case AVANT:
+                if (z == 0) {
+                    return null;
+                } else {
                     return cube.getCube()[z-1][y][x];
                 }
             case ARRIERE:
-                if(y == TAILLE - 1){
+                if (z == TAILLE - 1) {
                     return null;
-                } else{
+                } else {
                     return cube.getCube()[z+1][y][x];
                 }
         }
