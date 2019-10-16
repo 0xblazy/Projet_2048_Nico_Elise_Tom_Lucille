@@ -115,6 +115,15 @@ public class Cube implements Parametres {
             }
         }
     }
+    
+    private int fusion(Case c) {
+        c.setValeur(c.getValeur() * 2);
+        if (this.valeurMax < c.getValeur()) {
+            this.valeurMax = c.getValeur();
+        }
+        deplacement = true;
+        return c.getValeur();
+    }
 
     public Case[] getCasesAuBord(int direction) { //retourne les cases au bord d'une direction donnée
         Case[] cAuBord = new Case[9];
