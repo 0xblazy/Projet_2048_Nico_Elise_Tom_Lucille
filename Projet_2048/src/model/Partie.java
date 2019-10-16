@@ -35,7 +35,7 @@ public class Partie extends Thread implements Parametres {
         boolean nouvelleCase;
         // while (!cube.partieFinie()) {
         while (0 == 0) {
-            System.out.println("Score : " + score + " Valeur maximale : " + cube.getValeurMax());
+            System.out.println("Score : " + score + " Max : " + cube.getValeurMax());
             afficherCube();
             System.out.println("Déplacer vers la Gauche (q), Droite (d), Haut (z), Bas (s), Avant (r), Arrière (f)");
             String s = sc.nextLine();
@@ -65,6 +65,7 @@ public class Partie extends Thread implements Parametres {
                     break;
             }
             boolean deplacement = cube.lanceurDeplacerCases(direction);
+            score += cube.getScoreTour();
             if (deplacement) {
                 nouvelleCase = cube.nouvelleCase();
                 if (!nouvelleCase) cube.gameOver();

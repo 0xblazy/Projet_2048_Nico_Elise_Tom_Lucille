@@ -5,19 +5,11 @@
  */
 package model;
 
-import static model.Parametres.ARRIERE;
-import static model.Parametres.AVANT;
-import static model.Parametres.BAS;
-import static model.Parametres.DROITE;
-import static model.Parametres.GAUCHE;
-import static model.Parametres.HAUT;
-import static model.Parametres.TAILLE;
-
 /**
  *
  * @author nKBlaZy
  */
-public class Case {
+public class Case implements Parametres {
     private int valeur;
     private int x, y, z; // x: largeur, y: hauteur, z: profondeur
     private Cube cube;
@@ -79,41 +71,71 @@ public class Case {
     public Case getVoisinDirect(int direction){
         switch (direction) {
             case HAUT:
-                if (x == 0) {
-                    return null;
-                } else {
-                    return cube.getCube()[z][y][x-1];
-                }
-            case BAS:
-                if (x == TAILLE - 1) {
-                    return null;
-                } else {
-                    return cube.getCube()[z][y][x+1];
-                }
-            case GAUCHE:
                 if (y == 0) {
                     return null;
                 } else {
-                    return cube.getCube()[z][y-1][x];
+                    for (int j = y - 1 ; j >= 0 ; j--) {
+                        if (cube.getCube()[z][j][x] != null) {
+                            return cube.getCube()[z][j][x];
+                        }
+                    }
                 }
-            case DROITE:
+                break;
+            case BAS:
                 if (y == TAILLE - 1) {
                     return null;
                 } else {
-                    return cube.getCube()[z][y+1][x];
+                    for (int j = y + 1 ; j < TAILLE ; j++) {
+                        if (cube.getCube()[z][j][x] != null) {
+                            return cube.getCube()[z][j][x];
+                        }
+                    }
                 }
+                break;
+            case GAUCHE:
+                if (x == 0) {
+                    return null;
+                } else {
+                    for (int i = x - 1 ; i >= 0 ; i--) {
+                        if (cube.getCube()[z][y][i] != null) {
+                            return cube.getCube()[z][y][i];
+                        }
+                    }
+                }
+                break;
+            case DROITE:
+                if (x == TAILLE - 1) {
+                    return null;
+                } else {
+                    for (int i = x + 1 ; i < TAILLE ; i++) {
+                        if (cube.getCube()[z][y][i] != null) {
+                            return cube.getCube()[z][y][i];
+                        }
+                    }
+                }
+                break;
             case AVANT:
                 if (z == 0) {
                     return null;
                 } else {
-                    return cube.getCube()[z-1][y][x];
+                    for (int k = z - 1 ; k >= 0 ; k--) {
+                        if (cube.getCube()[k][y][x] != null) {
+                            return cube.getCube()[k][y][x];
+                        }
+                    }
                 }
+                break;
             case ARRIERE:
                 if (z == TAILLE - 1) {
                     return null;
                 } else {
-                    return cube.getCube()[z+1][y][x];
+                    for (int k = z + 1 ; k < TAILLE ; k++) {
+                        if (cube.getCube()[k][y][x] != null) {
+                            return cube.getCube()[k][y][x];
+                        }
+                    }
                 }
+                break;
         }
         return null;
     }

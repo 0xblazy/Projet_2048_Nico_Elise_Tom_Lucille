@@ -14,8 +14,8 @@ public interface Parametres {
     static final int HAUT = 1;  //coordonnées x
     static final int BAS = -1;
     
-    static final int DROITE = 2;  //coordonnées y
-    static final int GAUCHE = -2;
+    static final int GAUCHE = 2;  //coordonnées y
+    static final int DROITE = -2;
     
     static final int AVANT = 3;  //coordonnées z
     static final int ARRIERE = -3;
