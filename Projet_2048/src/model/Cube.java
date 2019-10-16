@@ -69,6 +69,15 @@ public class Cube implements Parametres {
         return casesLibres;
     }
 
+    public boolean lanceurDeplacerCases(int direction) {
+        Case[] extremites = this.getCasesAuBord(direction); //extremites = tableau de 9 cases au bord d'une direction donnée par l'utilisateur
+        deplacement = false; // pour vérifier si on a bougé au moins une case après le déplacement, avant d'en rajouter une nouvelle
+        for (int i = 0; i < TAILLE*TAILLE; i++) { //On parcours les 3 grilles de jeux
+            this.deplacerCase(extremites, i, direction, 0); 
+        }
+        return deplacement;
+    }
+    
     private void deplacerCase(Case[] casesAuBord, int direction, int rangee, int compteur) {
        if (casesAuBord[rangee] != null) {
             if ((direction == HAUT && casesAuBord[rangee].getY() != compteur)
@@ -118,8 +127,8 @@ public class Cube implements Parametres {
     
     private int fusion(Case c) {
         c.setValeur(c.getValeur() * 2);
-        if (this.valeurMax < c.getValeur()) {
-            this.valeurMax = c.getValeur();
+        if (this.valeurMax < c.getValeur()) { //On vérifie si la nouvelle case générée n'est pas une valeur max des 3 grilles
+            this.valeurMax = c.getValeur(); //Si elle l'est, la valeur max des grilles est mise à jour
         }
         deplacement = true;
         return c.getValeur();
