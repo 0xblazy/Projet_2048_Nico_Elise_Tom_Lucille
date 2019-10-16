@@ -24,7 +24,7 @@ public class Partie implements Parametres {
     }
 
     public void afficherCube() {
-        System.out.println(cube);
+        System.out.println(cube + "\n");
     }
 
     public int getScore() {
