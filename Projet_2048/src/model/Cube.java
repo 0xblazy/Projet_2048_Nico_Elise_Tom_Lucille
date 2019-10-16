@@ -96,6 +96,7 @@ public class Cube implements Parametres {
                     || (direction == AVANT && casesAuBord[rangee].getZ() != compteur)
                     || (direction == ARRIERE && casesAuBord[rangee].getZ() != TAILLE - 1 - compteur)) {
                 this.cube[casesAuBord[rangee].getZ()][casesAuBord[rangee].getY()][casesAuBord[rangee].getX()]=null;
+                 //réinitialisation à null pour la case
                 switch (direction) {
                     case HAUT:
                         casesAuBord[rangee].setY(compteur);
@@ -117,6 +118,7 @@ public class Cube implements Parametres {
                         break;
                 }
                 this.cube[casesAuBord[rangee].getZ()][casesAuBord[rangee].getY()][casesAuBord[rangee].getX()]=casesAuBord[rangee];
+                //ajout à la case sa nouvelle valeur
                 deplacement = true;
             }
             Case voisin = casesAuBord[rangee].getVoisinDirect(-direction);
@@ -153,6 +155,7 @@ public class Cube implements Parametres {
                         case HAUT:
                             if ((cAuBord[k+3*i] == null) || (cAuBord[k+3*i].getY() > j)) { 
                                 cAuBord[k+3*i] = c;
+                                // k+3*i = coordonnée x à laquelle on ajoute 3*i selon le tableau dans lequel on est (exemple: tableau 1, i=0 donc k=1, par contre si tableau 2, i=1 donc k=4...)
                             }
                             break;
                         case BAS:
@@ -163,6 +166,7 @@ public class Cube implements Parametres {
                         case GAUCHE:
                             if ((cAuBord[j+3*i] == null) || (cAuBord[j+3*i].getX() > k)) {
                                 cAuBord[j+3*i] = c;
+                                // j+3*i = coordonnée j à laquelle on ajoute 3*i selon le tableau dans lequel on est (exemple: si j=1 et tableau 2, i=1 donc j=4...)
                             }
                             break;
                         case DROITE:
@@ -173,6 +177,7 @@ public class Cube implements Parametres {
                         case AVANT:
                             if ((cAuBord[k+3*j] == null) || (cAuBord[k+3*j].getZ() > i)) {
                                 cAuBord[k+3*j] = c;
+                                //k+3*j = coordonnée k à laquelle on ajoute 3*j selon la ligne dans laquelle on est (exemple: si j=1 et k=1, alors c=4 et est en deuxième ligne première colonne)
                             }
                             break;
                         case ARRIERE:
