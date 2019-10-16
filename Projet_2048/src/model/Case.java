@@ -117,4 +117,12 @@ public class Case {
         }
         return null;
     }
+    
+    public boolean valeurEgale(Case c) {
+        if (c != null) {
+            return this.valeur == c.valeur;
+        } else {
+            return false;
+        }
+    }
 }
