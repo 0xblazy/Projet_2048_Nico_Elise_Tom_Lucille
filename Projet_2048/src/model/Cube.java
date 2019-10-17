@@ -225,4 +225,27 @@ public class Cube implements Parametres {
         System.out.println("Plus de déplacements possibles! Votre score est " + this.valeurMax);
         // System.exit(1);
     }
+        // Vérifie que la partie est bien finie et retourne un booléen
+    public boolean partieFinie(){
+        if (this.casesLibres().size() > 0){
+            return false;
+        } else {
+            for (int i=0; i<TAILLE; i++) {
+                for (int j=0; j<TAILLE; j++) {
+                    for (int k=0; k<TAILLE; k++) {
+                       Case c = this.cube[i][j][k];
+                       for (int d = 1 ; d <=3 ; d++) {
+                           Case voisin = c.getVoisinDirect(d);
+                           if (voisin != null) {
+                               if (c.valeurEgale(voisin)) {
+                                   return false;
+                               }
+                           }
+                        }
+                    }  
+                }
+            }
+        }
+        return true;
+    }
 }
