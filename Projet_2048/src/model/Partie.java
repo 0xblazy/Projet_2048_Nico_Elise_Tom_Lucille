@@ -33,16 +33,19 @@ public class Partie extends Thread implements Parametres {
         initCube();
         Scanner sc = new Scanner(System.in);
         boolean nouvelleCase;
-        // while (!cube.partieFinie()) {
-        while (0 == 0) {
+        // Boucle de jeu
+        while (!cube.partieFinie() && cube.getValeurMax() < OBJECTIF) {
+            // Affichage
             System.out.println("Score : " + score + " Max : " + cube.getValeurMax());
             afficherCube();
+            // Demande de direction
             System.out.println("Déplacer vers la Gauche (q), Droite (d), Haut (z), Bas (s), Avant (r), Arrière (f)");
             String s = sc.nextLine();
             while (!(s.equals("q") || s.equals("d")  || s.equals("z") || s.equals("s") || s.equals("r") || s.equals("f"))) {
                 System.out.println("Saisie incorrecte");
                 s = sc.nextLine();
             }
+            // Définition de la direction
             int direction;
             switch (s) {
                 case "q":
@@ -64,13 +67,21 @@ public class Partie extends Thread implements Parametres {
                     direction = ARRIERE;
                     break;
             }
+            // Déplacements
             boolean deplacement = cube.lanceurDeplacerCases(direction);
+            // Score
             score += cube.getScoreTour();
+            // Génération d'une nouvelle case si déplacement
             if (deplacement) {
                 nouvelleCase = cube.nouvelleCase();
                 if (!nouvelleCase) cube.gameOver();
             }
-            if (cube.getValeurMax() >= OBJECTIF) cube.victory();
+        }
+        afficherCube();
+        if (cube.getValeurMax() >= OBJECTIF) {
+            cube.victory();
+        } else {
+            cube.gameOver();
         }
     }
 

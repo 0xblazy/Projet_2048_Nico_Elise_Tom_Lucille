@@ -153,7 +153,7 @@ public class Cube implements Parametres {
         return c.getValeur();
     }
 
-    public Case[] getCasesAuBord(int direction) { //retourne les cases au bord d'une direction donnée
+    private Case[] getCasesAuBord(int direction) { //retourne les cases au bord d'une direction donnée
         Case[] cAuBord = new Case[TAILLE * TAILLE];
         for (int i = 0; i < TAILLE; i++) { //i = coord Z, la couche
             for (int j = 0; j < TAILLE; j++) { //j = coord Y, représentation en ligne
@@ -225,7 +225,8 @@ public class Cube implements Parametres {
         System.out.println("Plus de déplacements possibles! Votre score est " + this.valeurMax);
         // System.exit(1);
     }
-        // Vérifie que la partie est bien finie et retourne un booléen
+        
+    // Vérifie que la partie est bien finie et retourne un booléen
     public boolean partieFinie(){
         if (this.casesLibres().size() > 0){
             return false;
