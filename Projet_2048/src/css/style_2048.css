@@ -5,6 +5,24 @@ and open the template in the editor.
 */
 /* 
     Created on : 16 oct. 2019, 12:18:56
-    Author     : Lucile
+    Author     : Lucille
 */
 
+.container{
+    -fx-background-color: white;
+    -fx-border-color: none;
+}
+.grid{
+    -fx-background-color: white;
+    -fx-border-color: green;
+    -fx-border-width: 2px;
+}
+.score{
+    -fx-background-color: pink;
+}
+.movePane{
+    
+}
+.move{
+    
+}
