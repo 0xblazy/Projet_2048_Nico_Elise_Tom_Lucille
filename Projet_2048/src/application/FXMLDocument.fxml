@@ -8,10 +8,9 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-
 <AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="524.0" prefWidth="774.0" styleClass="container" stylesheets="@../css/style_2048.css">
+      <Pane fx:id="container" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="524.0" prefWidth="774.0" styleClass="container" stylesheets="@../css/style_2048.css">
          <padding>
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
          </padding>
@@ -57,21 +56,21 @@
                   <Font size="18.0" />
                </font>
             </Label>
-            <Pane layoutX="311.0" layoutY="19.0" prefHeight="141.0" prefWidth="153.0">
+            <Pane fx:id="move_pane" layoutX="311.0" layoutY="39.0" prefHeight="141.0" prefWidth="153.0">
                <children>
-                  <Label fx:id="move" layoutX="50.0" layoutY="30.0" prefHeight="27.0" prefWidth="54.0" text="MOVES">
+                  <Label fx:id="move_label" layoutX="50.0" layoutY="30.0" prefHeight="27.0" prefWidth="54.0" text="MOVES">
                      <font>
                         <Font size="16.0" />
                      </font>
                   </Label>
-                  <Label layoutX="68.0" layoutY="71.0" text="0">
+                  <Label fx:id="nb_move" layoutX="68.0" layoutY="71.0" text="0">
                      <font>
                         <Font size="30.0" />
                      </font>
                   </Label>
                </children>
             </Pane>
-            <Button contentDisplay="CENTER" layoutX="361.0" layoutY="180.0" mnemonicParsing="false" style="-fx-border-color: white;" text="START" />
+            <Button fx:id="start_button" contentDisplay="CENTER" layoutX="361.0" layoutY="180.0" mnemonicParsing="false" style="-fx-border-color: white;" text="START" />
          </children>
       </Pane>
    </children>
