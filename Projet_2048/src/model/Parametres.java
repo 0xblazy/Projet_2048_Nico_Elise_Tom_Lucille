@@ -23,4 +23,10 @@ public interface Parametres {
     static final int TAILLE = 3;
     static final int OBJECTIF = 2048;
     
+    static final int CORRECT_DATA = -121;
+    static final int UPDATED = -122;
+    static final int ERROR_NOPLAYER = -123;
+    static final int ERROR_WRONG_PASS = -124;
+    static final int ERROR_SQL = -125;
+    static final int NO_UPDATE = -126;
 }
