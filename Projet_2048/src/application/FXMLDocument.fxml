@@ -51,12 +51,12 @@
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                </rowConstraints>
             </GridPane>
-            <Label fx:id="score" layoutX="620.0" layoutY="146.0" styleClass="score" text="SCORE">
+            <Label fx:id="score" layoutX="372.0" layoutY="65.0" styleClass="score" text="SCORE">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
-            <Pane fx:id="move_pane" layoutX="311.0" layoutY="39.0" prefHeight="141.0" prefWidth="153.0" styleClass="movePane">
+            <Pane fx:id="move_pane" layoutX="109.0" layoutY="22.0" prefHeight="141.0" prefWidth="153.0" styleClass="movePane">
                <children>
                   <Label fx:id="move_label" layoutX="50.0" layoutY="30.0" prefHeight="27.0" prefWidth="54.0" text="MOVES">
                      <font>
@@ -70,8 +70,17 @@
                   </Label>
                </children>
             </Pane>
-            <Button fx:id="start_button" contentDisplay="CENTER" layoutX="355.0" layoutY="180.0" mnemonicParsing="false" style="-fx-border-color: white;" text="START" />
-            <Button layoutY="-1.0" mnemonicParsing="false" text="PARTIE" />
+            <Button fx:id="start_button" contentDisplay="CENTER" layoutX="153.0" layoutY="177.0" mnemonicParsing="false" style="-fx-border-color: white;" text="START" />
+            <Button layoutY="-1.0" mnemonicParsing="false" text="PARTIE">
+               <contextMenu>
+                  <ContextMenu>
+                    <items>
+                      <MenuItem mnemonicParsing="false" text="Recommencer" />
+                        <MenuItem mnemonicParsing="false" text="Abanonner" />
+                        <MenuItem mnemonicParsing="false" text="Sauvegarder" />
+                    </items>
+                  </ContextMenu>
+               </contextMenu></Button>
          </children>
       </Pane>
    </children>

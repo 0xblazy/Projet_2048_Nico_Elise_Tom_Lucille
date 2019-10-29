@@ -9,12 +9,12 @@ and open the template in the editor.
 */
 
 .container{
-    -fx-background-color: white;
+    -fx-background-color: beige;
     -fx-border-color: none;
 }
 .grid{
-    -fx-background-color: white;
-    -fx-border-color: green;
+    -fx-background-color: silver;
+    -fx-border-color: grey;
     -fx-border-width: 2px;
 }
 .score{
