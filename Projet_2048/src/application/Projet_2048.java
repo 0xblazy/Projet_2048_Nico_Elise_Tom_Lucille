@@ -22,6 +22,7 @@ public class Projet_2048 extends Application {
     
     @Override
     public void start(Stage stage) throws Exception {
+        
         BaseDeDonnees bdd = new BaseDeDonnees();
         if (bdd.connection()) {
             //System.out.println(bdd.creationJoueur("Smithy", "smith"));

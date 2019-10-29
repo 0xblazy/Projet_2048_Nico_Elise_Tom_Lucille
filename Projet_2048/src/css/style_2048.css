@@ -18,10 +18,10 @@ and open the template in the editor.
     -fx-border-width: 2px;
 }
 .score{
-    -fx-background-color: pink;
+    -fx-background-color: goldenrod;
 }
 .movePane{
-    
+    -fx-background-color: lightcyan;
 }
 .move{
     
