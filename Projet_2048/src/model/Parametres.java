@@ -29,4 +29,7 @@ public interface Parametres {
     static final int ERROR_WRONG_PASS = -124;
     static final int ERROR_SQL = -125;
     static final int NO_UPDATE = -126;
+    
+    //********PARAMETRES GRAPHIQUES********
+    //static final int SIZE_GRID = 0;
 }

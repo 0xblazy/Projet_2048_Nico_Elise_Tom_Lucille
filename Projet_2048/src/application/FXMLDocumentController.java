@@ -23,7 +23,9 @@ import javafx.scene.layout.Pane;
 public class FXMLDocumentController implements Initializable {
     
     @FXML
-    private Label score; // value will be injected by the FXMLLoader
+    private Label scoreLabel; // value will be injected by the FXMLLoader
+    @FXML
+    private Label nb_score; //Valeur du score à l'écran
     @FXML
     private Label move_label; //le mot "Move" dans le jeu
     @FXML
@@ -43,6 +45,7 @@ public class FXMLDocumentController implements Initializable {
     
     //private Cube grilleModele = new Cube(Partie p);
     // variables globales non définies dans la vue (fichier .fxml)
+    //Cases du jeu
     private final Pane p = new Pane(); // panneau utilisé pour dessiner une tuile "2"
     private final Label c = new Label("2");
     private int x_1 = 22, x_2 = 267, x_3 = 514, y = 270;
@@ -54,12 +57,15 @@ public class FXMLDocumentController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
         System.out.println("le contrôleur initialise la vue");
-        // utilisation de styles pour la grille et la tuile (voir styles.css)
+        // utilisation de styles pour la grille et la tuile (voir style_2048.css)
         p.getStyleClass().add("pane"); 
         c.getStyleClass().add("tuile");
         grid1.getStyleClass().add("grid1");
         grid2.getStyleClass().add("grid2");
         grid3.getStyleClass().add("grid3");
+        scoreLabel.getStyleClass().add("scoreLabel");
+        move_pane.getStyleClass().add("move_pane");
+        
         GridPane.setHalignment(c, HPos.CENTER);
         container.getChildren().add(p);
         p.getChildren().add(c);

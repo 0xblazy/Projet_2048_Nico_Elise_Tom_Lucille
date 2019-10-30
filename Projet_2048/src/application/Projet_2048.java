@@ -54,6 +54,7 @@ public class Projet_2048 extends Application {
         
         stage.setScene(scene);
         stage.show();
+        
     }
 
     /**
