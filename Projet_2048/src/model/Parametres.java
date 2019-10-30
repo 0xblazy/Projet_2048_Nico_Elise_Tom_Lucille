@@ -31,5 +31,5 @@ public interface Parametres {
     static final int NO_UPDATE = -126;
     
     //********PARAMETRES GRAPHIQUES********
-    //static final int SIZE_GRID = 0;
+    static final int LNG_COTE = 0; //Longeur d'un côté de la case
 }

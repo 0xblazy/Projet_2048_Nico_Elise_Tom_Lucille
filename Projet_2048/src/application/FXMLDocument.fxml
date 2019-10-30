@@ -10,12 +10,12 @@
 
 <AnchorPane stylesheets="@../css/style_2048.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Pane fx:id="container" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="524.0" prefWidth="774.0" styleClass="container" stylesheets="@../css/style_2048.css">
+      <Pane fx:id="container" layoutX="-7.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="524.0" prefWidth="774.0" styleClass="container" stylesheets="@../css/style_2048.css">
          <padding>
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
          </padding>
          <children>
-            <GridPane fx:id="grid1" alignment="BOTTOM_LEFT" gridLinesVisible="true" layoutX="22.0" layoutY="270.0" prefHeight="240.0" prefWidth="240.0" styleClass="grid">
+            <GridPane fx:id="grid1" alignment="BOTTOM_LEFT" gridLinesVisible="true" layoutX="25.0" layoutY="270.0" prefHeight="240.0" prefWidth="240.0" styleClass="grid">
               <columnConstraints>
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -27,7 +27,7 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
             </GridPane>
-            <GridPane fx:id="grid2" alignment="BOTTOM_LEFT" gridLinesVisible="true" layoutX="267.0" layoutY="270.0" prefHeight="240.0" prefWidth="240.0" styleClass="grid">
+            <GridPane fx:id="grid2" alignment="BOTTOM_LEFT" gridLinesVisible="true" layoutX="268.0" layoutY="270.0" prefHeight="240.0" prefWidth="240.0" styleClass="grid">
                <columnConstraints>
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -39,7 +39,7 @@
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                </rowConstraints>
             </GridPane>
-            <GridPane fx:id="grid3" alignment="BOTTOM_LEFT" gridLinesVisible="true" layoutX="514.0" layoutY="270.0" prefHeight="240.0" prefWidth="240.0" styleClass="grid">
+            <GridPane fx:id="grid3" alignment="BOTTOM_LEFT" gridLinesVisible="true" layoutX="511.0" layoutY="270.0" prefHeight="240.0" prefWidth="240.0" styleClass="grid">
                <columnConstraints>
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -51,40 +51,48 @@
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                </rowConstraints>
             </GridPane>
-            <Pane fx:id="move_pane" layoutX="311.0" layoutY="6.0" prefHeight="141.0" prefWidth="153.0" styleClass="move_pane">
+            <Pane fx:id="move_pane" layoutX="316.0" layoutY="14.0" prefHeight="135.0" prefWidth="145.0" styleClass="move_pane">
                <children>
-                  <Label fx:id="move_label" layoutX="50.0" layoutY="30.0" prefHeight="27.0" prefWidth="54.0" text="MOVES">
+                  <Label fx:id="move_label" layoutX="34.0" layoutY="14.0" prefHeight="35.0" prefWidth="77.0" styleClass="move_label" text="MOVES" textAlignment="CENTER">
                      <font>
-                        <Font size="16.0" />
+                        <Font size="23.0" />
                      </font>
                   </Label>
-                  <Label fx:id="nb_move" layoutX="42.0" layoutY="71.0" prefHeight="45.0" prefWidth="70.0" text="0">
+                  <Label fx:id="nb_move" alignment="CENTER" layoutX="17.0" layoutY="60.0" prefHeight="61.0" prefWidth="111.0" styleClass="nb_move" text="0" textAlignment="CENTER">
                      <font>
                         <Font size="30.0" />
                      </font>
                   </Label>
                </children>
             </Pane>
-            <Button fx:id="start_button" contentDisplay="CENTER" layoutX="362.0" layoutY="202.0" mnemonicParsing="false" style="-fx-border-color: white;" text="START" />
-            <Button layoutY="-1.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="63.0" text="PARTIE">
+            <Button fx:id="start_button" contentDisplay="CENTER" layoutX="357.0" layoutY="199.0" mnemonicParsing="false" styleClass="bouton" text="START" />
+            <Button fx:id="game_button" mnemonicParsing="false" prefHeight="33.0" prefWidth="88.0" styleClass="bouton" text="PARTIE">
                <contextMenu>
                   <ContextMenu>
                     <items>
-                      <MenuItem mnemonicParsing="false" text="Recommencer" />
-                        <MenuItem mnemonicParsing="false" text="Abanonner" />
-                        <MenuItem mnemonicParsing="false" text="Sauvegarder" />
+                      <MenuItem fx:id="pt_restart" mnemonicParsing="false" styleClass="bouton" text="Recommencer" />
+                        <MenuItem fx:id="pt_giveup" mnemonicParsing="false" styleClass="bouton" text="Abanonner" />
+                        <MenuItem fx:id="pt_save" mnemonicParsing="false" styleClass="bouton" text="Sauvegarder" />
                     </items>
                   </ContextMenu>
                </contextMenu></Button>
-            <Button layoutX="63.0" layoutY="-1.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="70.0" text="OPTION" />
-            <Pane fx:id="score_pane" layoutX="607.0" layoutY="6.0" prefHeight="141.0" prefWidth="153.0" styleClass="score_pane">
+            <Button fx:id="option_button" layoutX="88.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="88.0" styleClass="bouton" text="OPTION">
+               <contextMenu>
+                  <ContextMenu>
+                    <items>
+                        <MenuItem fx:id="op_theme" mnemonicParsing="false" styleClass="bouton" text="Changer theme" />
+                      <MenuItem fx:id="op_son" mnemonicParsing="false" styleClass="bouton" text="Son" />
+                    </items>
+                  </ContextMenu>
+               </contextMenu></Button>
+            <Pane fx:id="score_pane" layoutX="510.0" layoutY="88.0" prefHeight="61.0" prefWidth="264.0" styleClass="score_pane">
                <children>
-                  <Label fx:id="scoreLabel" layoutX="50.0" layoutY="14.0" prefHeight="27.0" prefWidth="54.0" styleClass="scoreLabel" text="SCORE">
+                  <Label fx:id="score_label" layoutX="14.0" layoutY="14.0" prefHeight="34.0" prefWidth="94.0" styleClass="score_label" text="SCORE">
                      <font>
-                        <Font size="17.0" />
+                        <Font size="23.0" />
                      </font>
                   </Label>
-                  <Label fx:id="nb_score" layoutX="50.0" layoutY="94.0" prefHeight="35.0" prefWidth="70.0" styleClass="nb_score" text="0">
+                  <Label fx:id="nb_score" layoutX="139.0" layoutY="13.0" prefHeight="35.0" prefWidth="102.0" styleClass="nb_score" text="0">
                      <font>
                         <Font size="24.0" />
                      </font>

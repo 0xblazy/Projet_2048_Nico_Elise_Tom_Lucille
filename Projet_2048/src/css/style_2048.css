@@ -9,29 +9,60 @@ and open the template in the editor.
 */
 
 .container{
-    -fx-background-color: beige;
+    -fx-background-color: #F6DFD0;
     -fx-border-color: none;
 }
 .grid{
-    -fx-background-color: silver;
-    -fx-border-color: grey;
+    -fx-background-color: #F9EAE0;
+    -fx-border-color: #594E49;
     -fx-border-width: 2px;
 }
-.scoreLabel{
+.case_label{
+    -fx-text-fill: white;
+}
+.case_pane{
+    -fx-width: 60px;
+    -fx-height: 60px;
+    -fx-background-color: red;
+    -fx-border: none;
+}
+.score_label{
     -fx-background-color: none;
-    -fx-color: red;
+    -fx-text-fill: #39291F;
+    -fx-font-family: "Bauhaus 93";
+    -fx-font-size: 30px;
 }
 .nb_score{
-    -fx-backgroud-color:none;
-    -fx-color: grey;
+    -fx-backgroud-color: none;
+    -fx-text-fill: #594E49;
+    -fx-font-family: "Segoe UI";
+    -fx-font-size: 30px;
 }
 .score_pane{
-    -fx-backgroud-color:none;
+    -fx-background-color: #E2CBBE;
 }
 .move_pane{
-    -fx-background-color: lightcyan;
-    -fx-color: violet;
+    -fx-background-color: #B99F92;
+    -fx-border-width: 0px;
+}
+.move_label{
+    -fx-background-color: none;
+    -fx-text-fill: #F7EFEB;
+    -fx-font-family: "Calibri";
+    -fx-text-weight: bold;
+    -fx-font-size: 25px;
 }
 .nb_move{
-    
+    -fx-text-fill: #F7EFEB;
+    -fx-font-family: "Impact";
+    -fx-font-size: 40px;
+    -fx-padding: 5 5 5 5;
+}
+.bouton{
+    -fx-border-radius: 0px;
+    -fx-padding: 4 10 4 10;
+    -fx-background-color: #C49A89;
+    -fx-text-fill: white;
+    -fx-font-family: "Arial";
+    -fx-font-size: 13px;
 }
