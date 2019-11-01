@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.effect.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.geometry.*?>
 <?import java.lang.*?>
@@ -15,7 +16,7 @@
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
          </padding>
          <children>
-            <GridPane fx:id="grid1" alignment="BOTTOM_LEFT" gridLinesVisible="true" layoutX="25.0" layoutY="270.0" prefHeight="240.0" prefWidth="240.0" styleClass="grid">
+            <GridPane fx:id="grid1" alignment="BOTTOM_LEFT" gridLinesVisible="true" layoutX="26.0" layoutY="270.0" prefHeight="240.0" prefWidth="240.0" styleClass="grid">
               <columnConstraints>
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -27,7 +28,7 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
             </GridPane>
-            <GridPane fx:id="grid2" alignment="BOTTOM_LEFT" gridLinesVisible="true" layoutX="268.0" layoutY="270.0" prefHeight="240.0" prefWidth="240.0" styleClass="grid">
+            <GridPane fx:id="grid2" alignment="BOTTOM_LEFT" gridLinesVisible="true" layoutX="269.0" layoutY="270.0" prefHeight="240.0" prefWidth="240.0" styleClass="grid">
                <columnConstraints>
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -39,7 +40,7 @@
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                </rowConstraints>
             </GridPane>
-            <GridPane fx:id="grid3" alignment="BOTTOM_LEFT" gridLinesVisible="true" layoutX="511.0" layoutY="270.0" prefHeight="240.0" prefWidth="240.0" styleClass="grid">
+            <GridPane fx:id="grid3" alignment="BOTTOM_LEFT" gridLinesVisible="true" layoutX="512.0" layoutY="270.0" prefHeight="240.0" prefWidth="240.0" styleClass="grid">
                <columnConstraints>
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -65,26 +66,32 @@
                   </Label>
                </children>
             </Pane>
-            <Button fx:id="start_button" contentDisplay="CENTER" layoutX="357.0" layoutY="199.0" mnemonicParsing="false" styleClass="bouton" text="START" />
-            <Button fx:id="game_button" mnemonicParsing="false" prefHeight="33.0" prefWidth="88.0" styleClass="bouton" text="PARTIE">
-               <contextMenu>
-                  <ContextMenu>
-                    <items>
-                      <MenuItem fx:id="pt_restart" mnemonicParsing="false" styleClass="bouton" text="Recommencer" />
-                        <MenuItem fx:id="pt_giveup" mnemonicParsing="false" styleClass="bouton" text="Abanonner" />
-                        <MenuItem fx:id="pt_save" mnemonicParsing="false" styleClass="bouton" text="Sauvegarder" />
-                    </items>
-                  </ContextMenu>
-               </contextMenu></Button>
-            <Button fx:id="option_button" layoutX="88.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="88.0" styleClass="bouton" text="OPTION">
-               <contextMenu>
-                  <ContextMenu>
-                    <items>
-                        <MenuItem fx:id="op_theme" mnemonicParsing="false" styleClass="bouton" text="Changer theme" />
-                      <MenuItem fx:id="op_son" mnemonicParsing="false" styleClass="bouton" text="Son" />
-                    </items>
-                  </ContextMenu>
-               </contextMenu></Button>
+            <Pane fx:id="menu_pane" prefHeight="37.0" prefWidth="196.0" styleClass="menu_pane">
+               <children>
+                  <Button fx:id="option_button" layoutX="116.0" layoutY="7.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="70.0" styleClass="bouton" text="OPTION">
+                     <contextMenu>
+                        <ContextMenu>
+                          <items>
+                              <MenuItem fx:id="op_theme" mnemonicParsing="false" styleClass="bouton" text="Changer theme" />
+                            <MenuItem fx:id="op_son" mnemonicParsing="false" styleClass="bouton" text="Son" />
+                          </items>
+                        </ContextMenu>
+                     </contextMenu>
+                  </Button>
+                  <Button fx:id="game_button" layoutX="14.0" layoutY="7.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="70.0" styleClass="bouton" text="PARTIE">
+                     <contextMenu>
+                        <ContextMenu>
+                          <items>
+                            <MenuItem fx:id="pt_restart" mnemonicParsing="false" styleClass="bouton" text="Recommencer" />
+                              <MenuItem fx:id="pt_giveup" mnemonicParsing="false" styleClass="bouton" text="Abanonner" />
+                              <MenuItem fx:id="pt_save" mnemonicParsing="false" styleClass="bouton" text="Sauvegarder" />
+                          </items>
+                        </ContextMenu>
+                     </contextMenu>
+                  </Button>
+               </children>
+            </Pane>
+            <Button fx:id="start_button" contentDisplay="CENTER" layoutX="357.0" layoutY="199.0" mnemonicParsing="false" styleClass="bouton_start" text="START" />
             <Pane fx:id="score_pane" layoutX="510.0" layoutY="88.0" prefHeight="61.0" prefWidth="264.0" styleClass="score_pane">
                <children>
                   <Label fx:id="score_label" layoutX="14.0" layoutY="14.0" prefHeight="34.0" prefWidth="94.0" styleClass="score_label" text="SCORE">
@@ -96,6 +103,9 @@
                      <font>
                         <Font size="24.0" />
                      </font>
+                     <effect>
+                        <Glow />
+                     </effect>
                   </Label>
                </children>
             </Pane>
