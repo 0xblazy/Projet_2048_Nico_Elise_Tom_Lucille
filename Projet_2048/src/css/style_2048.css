@@ -19,9 +19,12 @@ and open the template in the editor.
 }
 .case_label{
     -fx-text-fill: white;
-    -fx-font-size: 30px;
+    -fx-font-size: 45px;
+    -fx-text-align: center;
 }
-
+.case_pane{
+    -fx-background-color: #563623;
+}
 .score_label{
     -fx-background-color: none;
     -fx-text-fill: #39291F;
@@ -64,10 +67,15 @@ and open the template in the editor.
 .menu_pane{
     -fx-background-color: #C49A89;
 }
-.bouton{
+.bouton_menu{
     -fx-padding: 4 10 4 10;
     -fx-background-color: none;
     -fx-text-fill: white;
     -fx-font-family: "Arial";
     -fx-font-size: 13px;
+}
+bouton_sous_menu{
+    -fx-background-color: #C49A89;
+    -fx-text-fill: white;
+    
 }

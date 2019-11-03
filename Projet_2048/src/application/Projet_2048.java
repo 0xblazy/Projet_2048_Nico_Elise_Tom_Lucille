@@ -44,16 +44,16 @@ public class Projet_2048 extends Application {
             bdd.deconnection();
         }
         
-        
-        Partie partie = new Partie();
-        partie.start();
-        
         Parent root = FXMLLoader.load(getClass().getResource("FXMLDocument.fxml"));
+        Scene scene = new Scene(root,800,600);
+        boolean add = scene.getStylesheets().add("css/style_2048.css");
         
-        Scene scene = new Scene(root);
         stage.setTitle("2048");
         stage.setScene(scene);
         stage.show();
+        
+        Partie partie = new Partie();
+        partie.start();
         
     }
 

@@ -69,9 +69,10 @@ public class FXMLDocumentController implements Initializable {
     // variables globales non définies dans la vue (fichier .fxml)
     //Cases du jeu
     private final Pane case_pane = new Pane(); // panneau utilisé pour dessiner une tuile "2"
-    private final Label case_label = new Label("2");  
-    private int x_1 = 22, x_2 = 267, x_3 = 514, y = 270;
-    private int objectifx_1 = 22, objectifx_2 = 267, objectifx_3 = 514, objectify = 270;
+    private final Label case_label = new Label("2");
+    private final int wh_case=77; //largeur et hauteur de la case (en px)
+    private int x_1 = 38, x_2 = 282, x_3 = 525, y = 272;
+    private int objectifx_1 = 38, objectifx_2 = 282, objectifx_3 = 525, objectify = 272;
 
 
     
@@ -94,15 +95,15 @@ public class FXMLDocumentController implements Initializable {
         move_pane.getStyleClass().add("move_pane");
         move_label.getStyleClass().add("move_label");
         nb_move.getStyleClass().add("nb_move");
-        
-        start_button.getStyleClass().add("bouton");
-        option_button.getStyleClass().add("bouton");
-        game_button.getStyleClass().add("bouton");
-        
+        //buouton start et les boutons du menu
+        start_button.getStyleClass().add("bouton_start");
+        option_button.getStyleClass().add("bouton_menu");
+        game_button.getStyleClass().add("bouton_menu");
+        //boutons sous-menu MENU>>PARTIE>>
         pt_restart.getStyleClass().add("bouton");
         pt_giveup.getStyleClass().add("bouton");
         pt_save.getStyleClass().add("bouton");
-        
+        //boutons sous-menu MENU>>OPTION>>
         op_son.getStyleClass().add("bouton");
         op_theme.getStyleClass().add("bouton");
         
@@ -110,23 +111,31 @@ public class FXMLDocumentController implements Initializable {
         GridPane.setHalignment(case_label, HPos.CENTER);
         grid1.getChildren().add(case_pane); //ajout de la case à son conteneur: la grille 1
         case_pane.getChildren().add(case_label);
-        // on place la tuile en précisant les coordonnées (x,y) du coin supérieur gauche d'une des trois grille
-        case_pane.setLayoutX(x_1);
-        case_pane.setLayoutX(x_2);
-        case_pane.setLayoutX(x_3);
-        case_pane.setLayoutY(y);
-        //On rend les composants créés via le code visibles
+        // on place la tuile en précisant les coordonnées (x,y) du coin supérieur gauche d'une des trois grilles
+        //Case 0,0 grille 1: layout X=38, layout Y=271
+        //Case 0,0 grille 2: layout X=282
+        //Case 0,0 grille 3: layout X=525
+        case_pane.setLayoutX(x_1);  //a gauche
+        case_pane.setLayoutY(y);    //en haut
+        case_pane.setPrefSize(wh_case, wh_case);
+        case_pane.setVisible(false);
+        case_label.setVisible(false);
+    }
+    
+    @FXML
+    private void clickStart(ActionEvent event) {
+        System.out.println("touche START appuyée");
         case_pane.setVisible(true);
         case_label.setVisible(true);
-        
     }
+
     @FXML
     public void keyPressed(KeyEvent ke) {
         System.out.println("touche appuyée");
         String touche = ke.getText();
         if (touche.compareTo("q") == 0) { // utilisateur appuie sur "q" pour envoyer la tuile vers la gauche
-            if (objectifx_1 > 24) { // possible uniquement si on est pas dans la colonne la plus à gauche
-                objectifx_2 -= (int) 397 / 4; // on définit la position que devra atteindre la tuile en abscisse (modèle). Le thread se chargera de mettre la vue à jour
+            if (objectifx_1 > 38) { // possible uniquement si on est pas dans la colonne la plus à gauche
+                objectifx_2 -= (int) 240 / 3; // on définit la position que devra atteindre la tuile en abscisse (modèle). Le thread se chargera de mettre la vue à jour
                 move_label.setText(Integer.toString(Integer.parseInt(move_label.getText()) + 1)); // mise à jour du compteur de mouvement
             }
         }else if (touche.compareTo("d") == 0) { // utilisateur appuie sur "d" pour envoyer la tuile vers la droite

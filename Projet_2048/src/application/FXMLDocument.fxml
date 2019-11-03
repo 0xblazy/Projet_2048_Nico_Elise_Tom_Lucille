@@ -9,14 +9,14 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane stylesheets="@../css/style_2048.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane stylesheets="@../css/style_2048.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.FXMLDocumentController">
    <children>
-      <Pane fx:id="container" layoutX="-7.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="524.0" prefWidth="774.0" styleClass="container" stylesheets="@../css/style_2048.css">
+      <Pane fx:id="container" layoutX="-7.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" styleClass="container" stylesheets="@../css/style_2048.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <padding>
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
          </padding>
          <children>
-            <GridPane fx:id="grid1" alignment="BOTTOM_LEFT" gridLinesVisible="true" layoutX="26.0" layoutY="270.0" prefHeight="240.0" prefWidth="240.0" styleClass="grid">
+            <GridPane fx:id="grid1" alignment="BOTTOM_LEFT" gridLinesVisible="true" layoutX="37.0" layoutY="270.0" prefHeight="240.0" prefWidth="240.0" styleClass="grid">
               <columnConstraints>
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -28,7 +28,7 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
             </GridPane>
-            <GridPane fx:id="grid2" alignment="BOTTOM_LEFT" gridLinesVisible="true" layoutX="269.0" layoutY="270.0" prefHeight="240.0" prefWidth="240.0" styleClass="grid">
+            <GridPane fx:id="grid2" alignment="BOTTOM_LEFT" gridLinesVisible="true" layoutX="280.0" layoutY="270.0" prefHeight="240.0" prefWidth="240.0" styleClass="grid">
                <columnConstraints>
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -40,7 +40,7 @@
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                </rowConstraints>
             </GridPane>
-            <GridPane fx:id="grid3" alignment="BOTTOM_LEFT" gridLinesVisible="true" layoutX="512.0" layoutY="270.0" prefHeight="240.0" prefWidth="240.0" styleClass="grid">
+            <GridPane fx:id="grid3" alignment="BOTTOM_LEFT" gridLinesVisible="true" layoutX="523.0" layoutY="270.0" prefHeight="240.0" prefWidth="240.0" styleClass="grid">
                <columnConstraints>
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -72,8 +72,8 @@
                      <contextMenu>
                         <ContextMenu>
                           <items>
-                              <MenuItem fx:id="op_theme" mnemonicParsing="false" styleClass="bouton" text="Changer theme" />
-                            <MenuItem fx:id="op_son" mnemonicParsing="false" styleClass="bouton" text="Son" />
+                              <MenuItem fx:id="op_theme" mnemonicParsing="false" styleClass="bouton_sous_menu" text="Changer theme" />
+                            <MenuItem fx:id="op_son" mnemonicParsing="false" styleClass="bouton_sous_menu" text="Son" />
                           </items>
                         </ContextMenu>
                      </contextMenu>
@@ -82,17 +82,17 @@
                      <contextMenu>
                         <ContextMenu>
                           <items>
-                            <MenuItem fx:id="pt_restart" mnemonicParsing="false" styleClass="bouton" text="Recommencer" />
-                              <MenuItem fx:id="pt_giveup" mnemonicParsing="false" styleClass="bouton" text="Abanonner" />
-                              <MenuItem fx:id="pt_save" mnemonicParsing="false" styleClass="bouton" text="Sauvegarder" />
+                            <MenuItem fx:id="pt_restart" mnemonicParsing="false" styleClass="bouton_sous_menu" text="Recommencer" />
+                              <MenuItem fx:id="pt_giveup" mnemonicParsing="false" styleClass="bouton_sous_menu" text="Abanonner" />
+                              <MenuItem fx:id="pt_save" mnemonicParsing="false" styleClass="bouton_sous_menu" text="Sauvegarder" />
                           </items>
                         </ContextMenu>
                      </contextMenu>
                   </Button>
                </children>
             </Pane>
-            <Button fx:id="start_button" contentDisplay="CENTER" layoutX="357.0" layoutY="199.0" mnemonicParsing="false" styleClass="bouton_start" text="START" />
-            <Pane fx:id="score_pane" layoutX="510.0" layoutY="88.0" prefHeight="61.0" prefWidth="264.0" styleClass="score_pane">
+            <Button fx:id="start_button" contentDisplay="CENTER" layoutX="357.0" layoutY="199.0" mnemonicParsing="false" onAction="#clickStart" styleClass="bouton_start" text="START" />
+            <Pane fx:id="score_pane" layoutX="536.0" layoutY="88.0" prefHeight="61.0" prefWidth="264.0" styleClass="score_pane">
                <children>
                   <Label fx:id="score_label" layoutX="14.0" layoutY="14.0" prefHeight="34.0" prefWidth="94.0" styleClass="score_label" text="SCORE">
                      <font>
