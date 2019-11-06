@@ -89,4 +89,8 @@ public class Partie extends Thread implements Parametres {
         return score;
     }
     
+    public Cube getCube() {
+        return cube;
+    }
+    
 }
