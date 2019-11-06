@@ -21,15 +21,18 @@ and open the template in the editor.
     -fx-text-fill: white;
     -fx-font-size: 45px;
     -fx-text-align: center;
+    -fx-font-family: "Impact";
 }
 .case_pane{
     -fx-background-color: #563623;
+    -fx-text-align: center;
 }
 .score_label{
     -fx-background-color: none;
     -fx-text-fill: #39291F;
     -fx-font-family: "Bauhaus 93";
     -fx-font-size: 30px;
+    -fx-text-transform: uppercase;
 }
 .nb_score{
     -fx-backgroud-color: none;
@@ -45,11 +48,13 @@ and open the template in the editor.
     -fx-border-width: 0px;
 }
 .move_label{
+    -fx-text-alignment:center;
     -fx-background-color: none;
     -fx-text-fill: #F7EFEB;
     -fx-font-family: "Calibri";
     -fx-text-weight: bold;
     -fx-font-size: 25px;
+    -fx-padding: 5 5 5 5;
 }
 .nb_move{
     -fx-text-fill: #F7EFEB;
@@ -58,6 +63,7 @@ and open the template in the editor.
     -fx-padding: 5 5 5 5;
 }
 .bouton_start{
+    -fx-position:absolute;
     -fx-padding: 4 10 4 10;
     -fx-background-color: #C49A89;
     -fx-text-fill: white;

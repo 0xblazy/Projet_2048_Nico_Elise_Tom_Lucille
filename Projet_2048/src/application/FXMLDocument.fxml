@@ -9,9 +9,9 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane stylesheets="@../css/style_2048.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.FXMLDocumentController">
+<AnchorPane stylesheets="@../css/style_2048_kawaii.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.FXMLDocumentController">
    <children>
-      <Pane fx:id="container" layoutX="-7.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" styleClass="container" stylesheets="@../css/style_2048.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <Pane fx:id="container" layoutX="-7.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" styleClass="container" stylesheets="@../css/style_2048_kawaii.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <padding>
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
          </padding>
@@ -52,9 +52,9 @@
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                </rowConstraints>
             </GridPane>
-            <Pane fx:id="move_pane" layoutX="316.0" layoutY="14.0" prefHeight="135.0" prefWidth="145.0" styleClass="move_pane">
+            <Pane fx:id="move_pane" layoutX="328.0" layoutY="14.0" prefHeight="135.0" prefWidth="145.0" styleClass="move_pane">
                <children>
-                  <Label fx:id="move_label" layoutX="34.0" layoutY="14.0" prefHeight="35.0" prefWidth="77.0" styleClass="move_label" text="MOVES" textAlignment="CENTER">
+                  <Label fx:id="move_label" ellipsisString="" layoutX="26.0" layoutY="14.0" prefHeight="40.0" prefWidth="89.0" styleClass="move_label" text="MOVES" textAlignment="CENTER">
                      <font>
                         <Font size="23.0" />
                      </font>
@@ -68,7 +68,7 @@
             </Pane>
             <Pane fx:id="menu_pane" prefHeight="37.0" prefWidth="196.0" styleClass="menu_pane">
                <children>
-                  <Button fx:id="option_button" layoutX="116.0" layoutY="7.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="70.0" styleClass="bouton" text="OPTION">
+                  <Button fx:id="option_button" layoutX="116.0" layoutY="7.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="70.0" styleClass="bouton_menu" text="OPTION">
                      <contextMenu>
                         <ContextMenu>
                           <items>
@@ -78,7 +78,7 @@
                         </ContextMenu>
                      </contextMenu>
                   </Button>
-                  <Button fx:id="game_button" layoutX="14.0" layoutY="7.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="70.0" styleClass="bouton" text="PARTIE">
+                  <Button fx:id="game_button" layoutX="14.0" layoutY="7.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="70.0" styleClass="bouton_menu" text="PARTIE">
                      <contextMenu>
                         <ContextMenu>
                           <items>
@@ -91,20 +91,20 @@
                   </Button>
                </children>
             </Pane>
-            <Button fx:id="start_button" contentDisplay="CENTER" layoutX="357.0" layoutY="199.0" mnemonicParsing="false" onAction="#clickStart" styleClass="bouton_start" text="START" />
+            <Button fx:id="start_button" contentDisplay="CENTER" layoutX="321.0" layoutY="181.0" mnemonicParsing="false" onAction="#clickStart" styleClass="bouton_start" text="START" />
             <Pane fx:id="score_pane" layoutX="536.0" layoutY="88.0" prefHeight="61.0" prefWidth="264.0" styleClass="score_pane">
                <children>
-                  <Label fx:id="score_label" layoutX="14.0" layoutY="14.0" prefHeight="34.0" prefWidth="94.0" styleClass="score_label" text="SCORE">
+                  <Label fx:id="score_label" layoutX="14.0" layoutY="14.0" prefHeight="34.0" prefWidth="135.0" styleClass="score_label" text="score">
                      <font>
                         <Font size="23.0" />
                      </font>
                   </Label>
-                  <Label fx:id="nb_score" layoutX="139.0" layoutY="13.0" prefHeight="35.0" prefWidth="102.0" styleClass="nb_score" text="0">
+                  <Label fx:id="nb_score" layoutX="161.0" layoutY="12.0" prefHeight="39.0" prefWidth="95.0" styleClass="nb_score" text="0">
                      <font>
                         <Font size="24.0" />
                      </font>
                      <effect>
-                        <Glow />
+                        <Glow level="0.0" />
                      </effect>
                   </Label>
                </children>

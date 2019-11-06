@@ -1,0 +1,92 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 6 nov. 2019, 15:33:14
+    Author     : Lucille
+*/
+.container{
+    -fx-background-color: #F8D2F2;
+    -fx-border-color: none;
+}
+.grid{
+    -fx-background-color: #FCE9F9;
+    -fx-border-color: #F4A8E8;
+    -fx-border-width: 3px;
+}
+.case_label{
+    -fx-text-fill: white;
+    -fx-font-size: 45px;
+    -fx-text-align: center;
+    -fx-font-family: "Impact";
+}
+.case_pane{
+    -fx-background-color: #563623;
+    -fx-text-align: center;
+}
+.score_label{
+    -fx-background-color: none;
+    -fx-text-fill: white;
+    -fx-font-family: "rilakkuma dingbat";
+    -fx-font-size: 25px;
+}
+.nb_score{
+    -fx-backgroud-color: none;
+    -fx-text-fill: white;
+    -fx-font-family: "Gill Sans Ultra Bold Condensed";
+    -fx-font-size: 30px;
+}
+.score_pane{
+    -fx-text-alignment: center;
+    -fx-background-color: #C3D3FF;
+    -fx-border-color: #AFC2F9;
+    -fx-border-width: 2px;
+}
+.move_pane{
+    -fx-text-alignment: center;
+    -fx-background-color: #C3D3FF;
+    -fx-border-color: #AFC2F9;
+    -fx-border-width: 2px;
+}
+.move_label{
+    -fx-text-align: center;
+    -fx-background-color: none;
+    -fx-text-fill: white;
+    -fx-font-family: "Agency FB";
+    -fx-text-weight: bold;
+    -fx-font-size: 35px;
+    -fx-margin: auto;
+    -fx-padding: 5 5 5 5;
+}
+.nb_move{
+    -fx-text-fill: white;
+    -fx-font-family: "Agency FB";
+    -fx-font-weight: bold;
+    -fx-font-size: 40px;
+    -fx-padding: 5 5 5 5;
+}
+.bouton_start{
+    -fx-position:absolute;
+    -fx-background-color: #F9AFEE;
+    -fx-text-fill: white;
+    -fx-font-family: "rilakkuma dingbat";
+    -fx-font-size: 25px;
+    
+}
+.menu_pane{
+    -fx-background-color: #FB7AD4;
+}
+.bouton_menu{
+    -fx-padding: 4 10 4 10;
+    -fx-background-color: none;
+    -fx-text-fill: white;
+    -fx-font-family: "Agency FB";
+    -fx-font-size: 18px;
+}
+bouton_sous_menu{
+    -fx-background-color: #FB7AD4;
+    -fx-text-fill: white;
+    
+}

@@ -127,6 +127,7 @@ public class FXMLDocumentController implements Initializable {
         System.out.println("touche START appuyée");
         case_pane.setVisible(true);
         case_label.setVisible(true);
+        
     }
 
     @FXML
