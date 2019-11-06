@@ -72,6 +72,20 @@ public class BaseDeDonnees implements Parametres {
         }
     }
     
+    public int insertionPartie (String _nom, int _score, int val_max){
+         try {
+            int result = stmt.executeUpdate("INSERT INTO Partie(joueur, score, valeur_max) VALUES ('" + _nom  + "', '" +_score  + "', '" + val_max +"')");
+            if (result < 1) {
+                return NO_UPDATE;
+            } else {
+                return UPDATED;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(BaseDeDonnees.class.getName()).log(Level.SEVERE, null, ex);
+            return ERROR_SQL;
+        }
+    }
+    
     // Vérifie le nom et le mot de passe et retourne retourne un code en fonction de la situation
     public int connectJoueur(String _nom, String _mdp) {
         try {
@@ -136,6 +150,7 @@ public class BaseDeDonnees implements Parametres {
         }
     }
     
+    
     // Hash le mot de passe passé en paramètre avec l'algorithme SHA-256
     private String hashMdp(String _mdp) {
         try {
@@ -152,4 +167,29 @@ public class BaseDeDonnees implements Parametres {
         }
         return null;
     }
+    
+     public List<int[]> getHistorique(String _joueur) {
+        List<int[]> list = new ArrayList<>();
+        try {
+            ResultSet rs = stmt.executeQuery("SELECT score, valeur_max FROM Partie WHERE joueur= '" + _joueur +"'");
+            while (rs.next()) {
+                list.add(new int[]{rs.getInt("score"), rs.getInt("valeur_max")});
+            }
+            return list;
+        } catch (SQLException ex) {
+            Logger.getLogger(BaseDeDonnees.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
+     
+     public int getNbParties(String joueur){
+        try {
+            ResultSet rs = stmt.executeQuery("SELECT COUNT(*) FROM Partie WHERE joueur= '" + joueur + "'");
+            rs.next();
+            return rs.getInt("COUNT(*)");
+        } catch (SQLException ex) {
+            Logger.getLogger(BaseDeDonnees.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return 0;
+     }
 }

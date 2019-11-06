@@ -35,12 +35,18 @@ public class Projet_2048 extends Application {
             //System.out.println(bdd.setScoreMax("Yolo", 42));
             //System.out.println(bdd.getScoreMax("Smithy"));
             //bdd.creationJoueur("Nico", "pass");
-            //bdd.setScoreMax("Nico", 64);
-            //List<Object[]> list = bdd.getClassement();
-            /*for (Object[] j : list) {
+            /*bdd.setScoreMax("Nico", 64);
+            List<Object[]> list = bdd.getClassement();
+            for (Object[] j : list) {
                 System.out.println(j[0].toString() + " " + (int) j[1]);
-            }*/            
-        
+            } */   
+            //System.out.println(bdd.insertionPartie("Smithy", 0, 2048) == -122);
+            /*List<int[]> list = bdd.getHistorique("Smithy");
+            for (int[] j : list) {
+                System.out.println(j[0] + " " + j[1]);
+            }*/
+            //System.out.println(bdd.getNbParties("Smithy"));
+            
             bdd.deconnection();
         }
         
