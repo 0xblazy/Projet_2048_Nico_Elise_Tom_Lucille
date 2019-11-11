@@ -54,7 +54,7 @@ public class Projet_2048 extends Application {
         Scene scene = new Scene(root,800,600);
         boolean add = scene.getStylesheets().add("css/style_2048.css");
         
-        stage.setTitle("2048");
+        stage.setTitle("2048.exe");
         stage.setScene(scene);
         stage.show();
         

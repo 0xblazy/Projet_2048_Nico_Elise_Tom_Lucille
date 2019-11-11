@@ -42,6 +42,7 @@ and open the template in the editor.
 }
 .score_pane{
     -fx-background-color: #E2CBBE;
+    -fx-border-width: 0px;
 }
 .move_pane{
     -fx-background-color: #B99F92;
@@ -63,22 +64,24 @@ and open the template in the editor.
     -fx-padding: 5 5 5 5;
 }
 .bouton_start{
-    -fx-position:absolute;
+    -fx-position: absolute;
     -fx-padding: 4 10 4 10;
+    -fx-top: 50%;
+    -fx-left: 50%;
     -fx-background-color: #C49A89;
     -fx-text-fill: white;
-    -fx-font-family: "Arial";
-    -fx-font-size: 13px;
+    -fx-font-family: "Goudy Stout";
+    -fx-margin: auto;
+    -fx-font-size: 18px;
 }
-.menu_pane{
-    -fx-background-color: #C49A89;
+.menu_bar{
+    -fx-background-color: none;
 }
 .bouton_menu{
-    -fx-padding: 4 10 4 10;
-    -fx-background-color: none;
+    -fx-background-color: #C49A89;
     -fx-text-fill: white;
     -fx-font-family: "Arial";
-    -fx-font-size: 13px;
+    -fx-font-size: 16px;
 }
 bouton_sous_menu{
     -fx-background-color: #C49A89;

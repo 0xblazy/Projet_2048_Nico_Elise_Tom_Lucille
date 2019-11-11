@@ -68,15 +68,23 @@ and open the template in the editor.
     -fx-padding: 5 5 5 5;
 }
 .bouton_start{
-    -fx-position:absolute;
+    -fx-position: absolute;
+    -fx-padding: 4 10 4 10;
+    -fx-top: 50%;
+    -fx-left: 50%;
     -fx-background-color: #F9AFEE;
     -fx-text-fill: white;
     -fx-font-family: "rilakkuma dingbat";
-    -fx-font-size: 25px;
+    -fx-margin: auto;
+    -fx-font-size: 23px;
     
 }
 .menu_pane{
     -fx-background-color: #FB7AD4;
+}
+.menu_bar{
+    -fx-background-color: none;
+    -fx-text-fill: white;
 }
 .bouton_menu{
     -fx-padding: 4 10 4 10;

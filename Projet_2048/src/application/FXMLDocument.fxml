@@ -11,7 +11,7 @@
 
 <AnchorPane stylesheets="@../css/style_2048_kawaii.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.FXMLDocumentController">
    <children>
-      <Pane fx:id="container" layoutX="-7.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" styleClass="container" stylesheets="@../css/style_2048_kawaii.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <Pane fx:id="container" layoutX="-7.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" styleClass="container" stylesheets="@../css/style_2048.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <padding>
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
          </padding>
@@ -66,32 +66,7 @@
                   </Label>
                </children>
             </Pane>
-            <Pane fx:id="menu_pane" prefHeight="37.0" prefWidth="196.0" styleClass="menu_pane">
-               <children>
-                  <Button fx:id="option_button" layoutX="116.0" layoutY="7.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="70.0" styleClass="bouton_menu" text="OPTION">
-                     <contextMenu>
-                        <ContextMenu>
-                          <items>
-                              <MenuItem fx:id="op_theme" mnemonicParsing="false" styleClass="bouton_sous_menu" text="Changer theme" />
-                            <MenuItem fx:id="op_son" mnemonicParsing="false" styleClass="bouton_sous_menu" text="Son" />
-                          </items>
-                        </ContextMenu>
-                     </contextMenu>
-                  </Button>
-                  <Button fx:id="game_button" layoutX="14.0" layoutY="7.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="70.0" styleClass="bouton_menu" text="PARTIE">
-                     <contextMenu>
-                        <ContextMenu>
-                          <items>
-                            <MenuItem fx:id="pt_restart" mnemonicParsing="false" styleClass="bouton_sous_menu" text="Recommencer" />
-                              <MenuItem fx:id="pt_giveup" mnemonicParsing="false" styleClass="bouton_sous_menu" text="Abanonner" />
-                              <MenuItem fx:id="pt_save" mnemonicParsing="false" styleClass="bouton_sous_menu" text="Sauvegarder" />
-                          </items>
-                        </ContextMenu>
-                     </contextMenu>
-                  </Button>
-               </children>
-            </Pane>
-            <Button fx:id="start_button" contentDisplay="CENTER" layoutX="321.0" layoutY="181.0" mnemonicParsing="false" onAction="#clickStart" styleClass="bouton_start" text="START" />
+            <Button fx:id="start_button" contentDisplay="CENTER" layoutX="335.0" layoutY="187.0" mnemonicParsing="false" onAction="#clickStart" styleClass="bouton_start" text="START" />
             <Pane fx:id="score_pane" layoutX="536.0" layoutY="88.0" prefHeight="61.0" prefWidth="264.0" styleClass="score_pane">
                <children>
                   <Label fx:id="score_label" layoutX="14.0" layoutY="14.0" prefHeight="34.0" prefWidth="135.0" styleClass="score_label" text="score">
@@ -109,6 +84,22 @@
                   </Label>
                </children>
             </Pane>
+            <MenuBar fx:id="menu_bar" prefHeight="34.0" prefWidth="214.0" styleClass="menu_bar">
+              <menus>
+                <Menu fx:id="game_button" mnemonicParsing="false" styleClass="bouton_menu" text="Partie">
+                  <items>
+                    <MenuItem fx:id="pt_save" mnemonicParsing="false" styleClass="bouton_sous_menu" text="Sauvegarder" />
+                        <MenuItem fx:id="pt_giveup" mnemonicParsing="false" styleClass="bouton_sous_menu" text="Abandonner" />
+                        <MenuItem fx:id="pt_restart" mnemonicParsing="false" styleClass="bouton_sous_menu" text="Recommencer" />
+                  </items>
+                </Menu>
+                <Menu fx:id="option_button" mnemonicParsing="false" styleClass="bouton_menu" text="Option">
+                  <items>
+                    <MenuItem fx:id="logout_button" mnemonicParsing="false" styleClass="bouton_sous_menu" text="Déconnexion" />
+                  </items>
+                </Menu>
+              </menus>
+            </MenuBar>
          </children>
       </Pane>
    </children>

@@ -13,6 +13,8 @@ import javafx.fxml.Initializable;
 import javafx.geometry.HPos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
@@ -47,21 +49,27 @@ public class FXMLDocumentController implements Initializable {
     private Label nb_move; //Nombre de mouvements effectués
     
     @FXML
-    private Button option_button;
-    @FXML
-    private Button game_button;
-    @FXML
     private Button start_button; //Bouton "START"
-    @FXML
-    
-    private MenuItem pt_restart; //item du menu "Partie"
-    @FXML
-    private MenuItem pt_giveup;
-    @FXML
-    private MenuItem pt_save;
     
     @FXML
-    private MenuItem op_theme; //item du menu "Option"
+    private Menu option_button;
+    @FXML
+    private Menu game_button;
+    
+    @FXML
+    private MenuBar menu_bar;
+    @FXML
+    private MenuItem pt_restart; //bouton "recommencer"
+    @FXML
+    private MenuItem pt_giveup; //bouton "abandonner"
+    @FXML
+    private MenuItem pt_save; //bouton "sauvegarder"
+    
+    @FXML
+    private MenuItem logout_button; //bouton déconnexion
+    
+    @FXML
+    private MenuItem op_theme;
     @FXML
     private MenuItem op_son;
     
@@ -97,15 +105,18 @@ public class FXMLDocumentController implements Initializable {
         nb_move.getStyleClass().add("nb_move");
         //buouton start et les boutons du menu
         start_button.getStyleClass().add("bouton_start");
+        //MENU
+        menu_bar.getStyleClass().add("menu_bar");
         option_button.getStyleClass().add("bouton_menu");
         game_button.getStyleClass().add("bouton_menu");
         //boutons sous-menu MENU>>PARTIE>>
-        pt_restart.getStyleClass().add("bouton");
-        pt_giveup.getStyleClass().add("bouton");
-        pt_save.getStyleClass().add("bouton");
-        //boutons sous-menu MENU>>OPTION>>
-        op_son.getStyleClass().add("bouton");
-        op_theme.getStyleClass().add("bouton");
+        pt_restart.getStyleClass().add("bouton_sous_menu");
+        pt_giveup.getStyleClass().add("bouton_sous_menu");
+        pt_save.getStyleClass().add("bouton_sous_menu");
+        logout_button.getStyleClass().add("bouton_sous_menu");
+        //bouton SON et THEME (switch)
+        //op_son.getStyleClass().add("bouton");
+        //op_theme.getStyleClass().add("bouton");
         
         GridPane.setHalignment(case_pane, HPos.CENTER);
         GridPane.setHalignment(case_label, HPos.CENTER);
