@@ -26,6 +26,8 @@ import javafx.scene.layout.Pane;
  */
 public class FXMLDocumentController implements Initializable {
     
+    
+    
     private Pane container; // panneau recouvrant toute la fenêtre
     @FXML
     private GridPane grid1; //Grille à gauche dans le jeu
@@ -77,7 +79,17 @@ public class FXMLDocumentController implements Initializable {
     // variables globales non définies dans la vue (fichier .fxml)
     //Cases du jeu
     private final Pane case_pane = new Pane(); // panneau utilisé pour dessiner une tuile "2"
-    private final Label case_label = new Label("2");
+    private final Label case_label_2 = new Label("2");
+    private final Label case_label_4 = new Label("4");
+    private final Label case_label_8 = new Label("8");
+    private final Label case_label_16 = new Label("16");
+    private final Label case_label_32 = new Label("32");
+    private final Label case_label_64 = new Label("64");
+    private final Label case_label_128 = new Label("128");
+    private final Label case_label_256 = new Label("256");
+    private final Label case_label_512 = new Label("512");
+    private final Label case_label_1024 = new Label("1024");
+    private final Label case_label_2048 = new Label("2048");
     private final int wh_case=77; //largeur et hauteur de la case (en px)
     private int x_1 = 38, x_2 = 282, x_3 = 525, y = 272;
     private int objectifx_1 = 38, objectifx_2 = 282, objectifx_3 = 525, objectify = 272;
@@ -90,8 +102,18 @@ public class FXMLDocumentController implements Initializable {
         System.out.println("le contrôleur initialise la vue");
         // utilisation de styles pour la grille et la tuile (voir style_2048.css)
         case_pane.getStyleClass().add("case_pane");
-        case_label.getStyleClass().add("case_label");
-        //Définition de la taille d'une case
+        case_pane.getStyleClass().add("case_pane");
+        case_label_2.getStyleClass().add("case_label_2");
+        case_label_4.getStyleClass().add("case_label_4");
+        case_label_8.getStyleClass().add("case_label_8");
+        case_label_16.getStyleClass().add("case_label_16");
+        case_label_32.getStyleClass().add("case_label_32");
+        case_label_64.getStyleClass().add("case_label_64");
+        case_label_128.getStyleClass().add("case_label_128");
+        case_label_256.getStyleClass().add("case_label_256");
+        case_label_512.getStyleClass().add("case_label_512");
+        case_label_1024.getStyleClass().add("case_label_1024");
+        case_label_2048.getStyleClass().add("case_label_2048");        //Définition de la taille d'une case
         grid1.getStyleClass().add("grid");
         grid2.getStyleClass().add("grid");
         grid3.getStyleClass().add("grid");
@@ -136,8 +158,7 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private void clickStart(ActionEvent event) {
         System.out.println("touche START appuyée");
-        case_pane.setVisible(true);
-        case_label.setVisible(true);
+        
         
     }
 

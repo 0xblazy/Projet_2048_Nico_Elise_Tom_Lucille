@@ -17,8 +17,78 @@ and open the template in the editor.
     -fx-border-color: #594E49;
     -fx-border-width: 2px;
 }
-.case_label{
-    -fx-text-fill: white;
+.case_label_2{
+    -fx-text-fill: papayawhip;
+    -fx-font-size: 45px;
+    -fx-text-align: center;
+    -fx-font-family: "Impact";
+}
+
+.case_label_4{
+    -fx-text-fill: moccasin;
+    -fx-font-size: 45px;
+    -fx-text-align: center;
+    -fx-font-family: "Impact";
+}
+
+.case_label_8{
+    -fx-text-fill: palegoldenrod;
+    -fx-font-size: 45px;
+    -fx-text-align: center;
+    -fx-font-family: "Impact";
+}
+
+.case_label_16{
+    -fx-text-fill: burlywood;
+    -fx-font-size: 45px;
+    -fx-text-align: center;
+    -fx-font-family: "Impact";
+}
+
+.case_label_32{
+    -fx-text-fill: tan;
+    -fx-font-size: 45px;
+    -fx-text-align: center;
+    -fx-font-family: "Impact";
+}
+
+.case_label_64{
+    -fx-text-fill: lightsalmon;
+    -fx-font-size: 45px;
+    -fx-text-align: center;
+    -fx-font-family: "Impact";
+}
+
+.case_label_128{
+    -fx-text-fill: sandybrown;
+    -fx-font-size: 45px;
+    -fx-text-align: center;
+    -fx-font-family: "Impact";
+}
+
+.case_label_256{
+    -fx-text-fill: lightcoral;
+    -fx-font-size: 45px;
+    -fx-text-align: center;
+    -fx-font-family: "Impact";
+}
+
+.case_label_512{
+    -fx-text-fill: goldenrod;
+    -fx-font-size: 45px;
+    -fx-text-align: center;
+    -fx-font-family: "Impact";
+}
+
+.case_label_1024{
+    -fx-text-fill: orange;
+    -fx-font-size: 45px;
+    -fx-text-align: center;
+    -fx-font-family: "Impact";
+}
+
+.case_label_2048{
+    -fx-text-fill: gold;
     -fx-font-size: 45px;
     -fx-text-align: center;
     -fx-font-family: "Impact";
