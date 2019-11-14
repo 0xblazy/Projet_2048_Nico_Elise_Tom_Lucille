@@ -5,6 +5,7 @@
  */
 package application;
 
+import bdd.BaseDeDonnees;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -19,6 +20,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import model.Partie;
 
 /**
  *
@@ -75,8 +77,9 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private MenuItem op_son;
     
-    //private Cube grilleModele = new Cube(Partie p);
     // variables globales non définies dans la vue (fichier .fxml)
+    private BaseDeDonnees bdd;
+    private Partie partie;
     //Cases du jeu
     private final Pane case_pane = new Pane(); // panneau utilisé pour dessiner une tuile "2"
     private final Label case_label_2 = new Label("2");
@@ -98,7 +101,7 @@ public class FXMLDocumentController implements Initializable {
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        bdd = BaseDeDonnees.getInstance();
         System.out.println("le contrôleur initialise la vue");
         // utilisation de styles pour la grille et la tuile (voir style_2048.css)
         case_pane.getStyleClass().add("case_pane");
@@ -125,7 +128,7 @@ public class FXMLDocumentController implements Initializable {
         move_pane.getStyleClass().add("move_pane");
         move_label.getStyleClass().add("move_label");
         nb_move.getStyleClass().add("nb_move");
-        //buouton start et les boutons du menu
+        //bouton start et les boutons du menu
         start_button.getStyleClass().add("bouton_start");
         //MENU
         menu_bar.getStyleClass().add("menu_bar");
@@ -141,9 +144,9 @@ public class FXMLDocumentController implements Initializable {
         //op_theme.getStyleClass().add("bouton");
         
         GridPane.setHalignment(case_pane, HPos.CENTER);
-        GridPane.setHalignment(case_label, HPos.CENTER);
+        GridPane.setHalignment(case_label_2, HPos.CENTER);
         grid1.getChildren().add(case_pane); //ajout de la case à son conteneur: la grille 1
-        case_pane.getChildren().add(case_label);
+        case_pane.getChildren().add(case_label_2);
         // on place la tuile en précisant les coordonnées (x,y) du coin supérieur gauche d'une des trois grilles
         //Case 0,0 grille 1: layout X=38, layout Y=271
         //Case 0,0 grille 2: layout X=282
@@ -152,20 +155,21 @@ public class FXMLDocumentController implements Initializable {
         case_pane.setLayoutY(y);    //en haut
         case_pane.setPrefSize(wh_case, wh_case);
         case_pane.setVisible(false);
-        case_label.setVisible(false);
+        case_label_2.setVisible(false);
     }
     
     @FXML
     private void clickStart(ActionEvent event) {
         System.out.println("touche START appuyée");
-        
-        
+        Partie partie = new Partie();
+        partie.start();
     }
 
     @FXML
     public void keyPressed(KeyEvent ke) {
         System.out.println("touche appuyée");
         String touche = ke.getText();
+        
         if (touche.compareTo("q") == 0) { // utilisateur appuie sur "q" pour envoyer la tuile vers la gauche
             if (objectifx_1 > 38) { // possible uniquement si on est pas dans la colonne la plus à gauche
                 objectifx_2 -= (int) 240 / 3; // on définit la position que devra atteindre la tuile en abscisse (modèle). Le thread se chargera de mettre la vue à jour

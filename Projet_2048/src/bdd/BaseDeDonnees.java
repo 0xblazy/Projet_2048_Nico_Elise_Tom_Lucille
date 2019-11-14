@@ -29,6 +29,13 @@ public class BaseDeDonnees implements Parametres {
     private String password = "projet2048";
     private Connection connection = null;
     private Statement stmt;
+    private static final BaseDeDonnees INSTANCE = new BaseDeDonnees();
+    
+    private BaseDeDonnees () {}
+    
+    public static BaseDeDonnees getInstance() {
+        return INSTANCE;
+    }
     
     // Essaye de se connecter à la base de données, retourne true si la connection est établie
     public boolean connection() {
@@ -61,20 +68,6 @@ public class BaseDeDonnees implements Parametres {
     public int creationJoueur (String _nom, String _mdp) {  
         try {
             int result = stmt.executeUpdate("INSERT INTO Joueur(nom, mdp) VALUES ('" + _nom + "', '" + hashMdp(_mdp) +"')");
-            if (result < 1) {
-                return NO_UPDATE;
-            } else {
-                return UPDATED;
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(BaseDeDonnees.class.getName()).log(Level.SEVERE, null, ex);
-            return ERROR_SQL;
-        }
-    }
-    
-    public int insertionPartie (String _nom, int _score, int val_max){
-         try {
-            int result = stmt.executeUpdate("INSERT INTO Partie(joueur, score, valeur_max) VALUES ('" + _nom  + "', '" +_score  + "', '" + val_max +"')");
             if (result < 1) {
                 return NO_UPDATE;
             } else {
@@ -150,6 +143,48 @@ public class BaseDeDonnees implements Parametres {
         }
     }
     
+    // Ajoute une partie, retourne un code en fonction de la situation
+    public int insertionPartie (String _nom, int _score, int val_max){
+         try {
+            int result = stmt.executeUpdate("INSERT INTO Partie(joueur, score, valeur_max) VALUES ('" + _nom  + "', '" +_score  + "', '" + val_max +"')");
+            if (result < 1) {
+                return NO_UPDATE;
+            } else {
+                return UPDATED;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(BaseDeDonnees.class.getName()).log(Level.SEVERE, null, ex);
+            return ERROR_SQL;
+        }
+    }
+    
+    // Retourne l'historique des parties d'un joueur
+    public List<int[]> getHistorique(String _joueur) {
+        List<int[]> list = new ArrayList<>();
+        try {
+            ResultSet rs = stmt.executeQuery("SELECT score, valeur_max FROM Partie WHERE joueur= '" + _joueur +"'");
+            while (rs.next()) {
+                list.add(new int[]{rs.getInt("score"), rs.getInt("valeur_max")});
+            }
+            return list;
+        } catch (SQLException ex) {
+            Logger.getLogger(BaseDeDonnees.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
+    
+    // Retourne le nombre de parties d'un joueur
+    public int getNbParties(String joueur){
+        try {
+            ResultSet rs = stmt.executeQuery("SELECT COUNT(*) FROM Partie WHERE joueur= '" + joueur + "'");
+            rs.next();
+            return rs.getInt("COUNT(*)");
+        } catch (SQLException ex) {
+            Logger.getLogger(BaseDeDonnees.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return 0;
+     }
+    
     
     // Hash le mot de passe passé en paramètre avec l'algorithme SHA-256
     private String hashMdp(String _mdp) {
@@ -167,29 +202,4 @@ public class BaseDeDonnees implements Parametres {
         }
         return null;
     }
-    
-     public List<int[]> getHistorique(String _joueur) {
-        List<int[]> list = new ArrayList<>();
-        try {
-            ResultSet rs = stmt.executeQuery("SELECT score, valeur_max FROM Partie WHERE joueur= '" + _joueur +"'");
-            while (rs.next()) {
-                list.add(new int[]{rs.getInt("score"), rs.getInt("valeur_max")});
-            }
-            return list;
-        } catch (SQLException ex) {
-            Logger.getLogger(BaseDeDonnees.class.getName()).log(Level.SEVERE, null, ex);
-            return null;
-        }
-    }
-     
-     public int getNbParties(String joueur){
-        try {
-            ResultSet rs = stmt.executeQuery("SELECT COUNT(*) FROM Partie WHERE joueur= '" + joueur + "'");
-            rs.next();
-            return rs.getInt("COUNT(*)");
-        } catch (SQLException ex) {
-            Logger.getLogger(BaseDeDonnees.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return 0;
-     }
 }

@@ -23,7 +23,7 @@ public class Projet_2048 extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         
-        BaseDeDonnees bdd = new BaseDeDonnees();
+        BaseDeDonnees bdd = BaseDeDonnees.getInstance();
         if (bdd.connection()) {
             //System.out.println(bdd.creationJoueur("Smithy", "smith"));
             //System.out.println(bdd.connectJoueur("Smithy", "smith"));
@@ -52,15 +52,11 @@ public class Projet_2048 extends Application {
         
         Parent root = FXMLLoader.load(getClass().getResource("FXMLDocument.fxml"));
         Scene scene = new Scene(root,800,600);
-        boolean add = scene.getStylesheets().add("css/style_2048.css");
+        boolean add = scene.getStylesheets().add("css/style_2048_kawaii.css");
         
-        stage.setTitle("2048.exe");
+        stage.setTitle("2048 3D");
         stage.setScene(scene);
-        stage.show();
-        
-        Partie partie = new Partie();
-        partie.start();
-        
+        stage.show();        
     }
 
     /**

@@ -5,6 +5,7 @@
  */
 package model;
 
+import bdd.BaseDeDonnees;
 import java.util.Scanner;
 
 /**
@@ -14,8 +15,11 @@ import java.util.Scanner;
 public class Partie extends Thread implements Parametres {
     private int score;
     private Cube cube;
+    private BaseDeDonnees bdd;
+    private int direction;
 
     public Partie() {
+        bdd = BaseDeDonnees.getInstance();
         cube = new Cube(this);
         score = 0;
     }
@@ -46,7 +50,6 @@ public class Partie extends Thread implements Parametres {
                 s = sc.nextLine();
             }
             // Définition de la direction
-            int direction;
             switch (s) {
                 case "q":
                     direction = GAUCHE;
@@ -92,5 +95,8 @@ public class Partie extends Thread implements Parametres {
     public Cube getCube() {
         return cube;
     }
-    
+
+    public void setDirection(int _direction) {
+        this.direction = _direction;
+    }    
 }

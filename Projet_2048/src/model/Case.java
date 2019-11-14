@@ -12,60 +12,18 @@ package model;
 public class Case implements Parametres {
     private int valeur;
     private int x, y, z; // x: largeur, y: hauteur, z: profondeur
+    private int oldX, oldY, oldZ; // anciennes valeurs de x, y et z
     private Cube cube;
 
     public Case(int _v, int _x, int _y, int _z, Cube _c) {
         valeur = _v;
         x = _x;
+        oldX = _x;
         y = _y;
+        oldY = _y;
         z = _z;
+        oldZ = _z;
         cube = _c;
-    }
-
-    @Override
-    public String toString() {
-        if (valeur < 10) {
-            return "  " + valeur + " ";
-        }
-        if (valeur < 100) {
-            return " " + valeur + " ";
-        }
-        if (valeur < 1000) {
-            return " " + valeur;
-        }
-        return Integer.toString(valeur);
-    }
-
-    public int getValeur() {
-        return valeur;
-    }
-
-    public int getX() {
-        return x;
-    }
-
-    public int getY() {
-        return y;
-    }
-
-    public int getZ() {
-        return z;
-    }
-
-    public void setValeur(int valeur) {
-        this.valeur = valeur;
-    }
-
-    public void setX(int x) {
-        this.x = x;
-    }
-
-    public void setY(int y) {
-        this.y = y;
-    }
-
-    public void setZ(int z) {
-        this.z = z;
     }
     
     public Case getVoisinDirect(int direction){
@@ -146,5 +104,66 @@ public class Case implements Parametres {
         } else {
             return false;
         }
+    }
+
+    @Override
+    public String toString() {
+        if (valeur < 10) {
+            return "  " + valeur + " ";
+        }
+        if (valeur < 100) {
+            return " " + valeur + " ";
+        }
+        if (valeur < 1000) {
+            return " " + valeur;
+        }
+        return Integer.toString(valeur);
+    }
+
+    public int getValeur() {
+        return valeur;
+    }
+
+    public int getX() {
+        return x;
+    }
+
+    public int getOldX() {
+        return oldX;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public int getOldY() {
+        return oldY;
+    }
+
+    public int getZ() {
+        return z;
+    }
+
+    public int getOldZ() {
+        return oldZ;
+    }
+
+    public void setValeur(int valeur) {
+        this.valeur = valeur;
+    }
+
+    public void setX(int x) {
+        this.oldX = this.x;
+        this.x = x;
+    }
+
+    public void setY(int y) {
+        this.oldY = this.y;
+        this.y = y;
+    }
+
+    public void setZ(int z) {
+        this.oldZ = this.z;
+        this.z = z;
     }
 }
