@@ -15,6 +15,8 @@ and open the template in the editor.
     -fx-background-color: #FCE9F9;
     -fx-border-color: #F4A8E8;
     -fx-border-width: 3px;
+    -fx-halignment: center;
+    -fx-alignment: CENTER;
 }
 .case_label{
     -fx-text-fill: white;
@@ -93,7 +95,7 @@ and open the template in the editor.
     -fx-font-family: "Agency FB";
     -fx-font-size: 18px;
 }
-bouton_sous_menu{
+.bouton_sous_menu{
     -fx-background-color: #FB7AD4;
     -fx-text-fill: white;
     

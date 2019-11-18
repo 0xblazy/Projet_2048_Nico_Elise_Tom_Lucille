@@ -16,6 +16,8 @@ and open the template in the editor.
     -fx-background-color: #F9EAE0;
     -fx-border-color: #594E49;
     -fx-border-width: 2px;
+    -fx-halignment: center;
+    -fx-alignment: CENTER;
 }
 .case_label_2{
     -fx-text-fill: papayawhip;
@@ -153,7 +155,7 @@ and open the template in the editor.
     -fx-font-family: "Arial";
     -fx-font-size: 16px;
 }
-bouton_sous_menu{
+.bouton_sous_menu{
     -fx-background-color: #C49A89;
     -fx-text-fill: white;
     

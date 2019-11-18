@@ -21,11 +21,13 @@ public class Cube implements Parametres {
     private int valeurMax;
     private boolean deplacement;
     private int scoreTour;
+    private int idCases;
 
     public Cube(Partie _p) {
         partie = _p;
         cube = new Case[TAILLE][TAILLE][TAILLE];
         valeurMax = 0;
+        idCases = 0;
     }
     
     public int getScoreTour(){
@@ -49,10 +51,11 @@ public class Cube implements Parametres {
 
             // Créé la case
             if (Math.random() < 0.66) {
-                cube[c[2]][c[1]][c[0]] = new Case(2, c[0], c[1], c[2], this);
+                cube[c[2]][c[1]][c[0]] = new Case(2, c[0], c[1], c[2], idCases, this);
             } else {
-                cube[c[2]][c[1]][c[0]] = new Case(4, c[0], c[1], c[2], this);
+                cube[c[2]][c[1]][c[0]] = new Case(4, c[0], c[1], c[2], idCases, this);
             }
+            idCases++;
 
             // Change la valeurMax du cube si la case générée est plus grande que la valeurMax actuelle
             if (valeurMax < cube[c[2]][c[1]][c[0]].getValeur()) {
@@ -214,6 +217,22 @@ public class Cube implements Parametres {
 
     public Case[][][] getCube() {
         return cube;
+    }
+    
+    public Case getCase(int _id) {
+        for (int k = 0 ; k < TAILLE ; k++) {
+            for (int j = 0 ; j < TAILLE ; j++) {
+                for (int i = 0 ; i < TAILLE ; i++) {
+                    Case c = cube[k][j][i];
+                    if (c != null) {
+                        if (c.getId() == _id) {
+                            return c;
+                        }
+                    }
+                }
+            }
+        }
+        return null;
     }
 
     public void victory() {

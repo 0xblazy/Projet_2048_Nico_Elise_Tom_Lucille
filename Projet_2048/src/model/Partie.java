@@ -5,23 +5,29 @@
  */
 package model;
 
+import application.FXMLDocumentController;
 import bdd.BaseDeDonnees;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author nKBlaZy
  */
 public class Partie extends Thread implements Parametres {
-    private int score;
+    private int score, move;
     private Cube cube;
     private BaseDeDonnees bdd;
     private int direction;
+    private FXMLDocumentController controller;
 
-    public Partie() {
+    public Partie(FXMLDocumentController _controller) {
         bdd = BaseDeDonnees.getInstance();
         cube = new Cube(this);
         score = 0;
+        move = 0;
+        controller = _controller;
     }
     
     private void initCube() {
@@ -35,6 +41,7 @@ public class Partie extends Thread implements Parametres {
     
     public void run() {
         initCube();
+        controller.updatePanes();
         Scanner sc = new Scanner(System.in);
         boolean nouvelleCase;
         // Boucle de jeu
@@ -42,43 +49,24 @@ public class Partie extends Thread implements Parametres {
             // Affichage
             System.out.println("Score : " + score + " Max : " + cube.getValeurMax());
             afficherCube();
-            // Demande de direction
-            System.out.println("Déplacer vers la Gauche (q), Droite (d), Haut (z), Bas (s), Avant (r), Arrière (f)");
-            String s = sc.nextLine();
-            while (!(s.equals("q") || s.equals("d")  || s.equals("z") || s.equals("s") || s.equals("r") || s.equals("f"))) {
-                System.out.println("Saisie incorrecte");
-                s = sc.nextLine();
-            }
-            // Définition de la direction
-            switch (s) {
-                case "q":
-                    direction = GAUCHE;
-                    break;
-                case "d":
-                    direction = DROITE;
-                    break;
-                case "z":
-                    direction = HAUT;
-                    break;
-                case "s":
-                    direction = BAS;
-                    break;
-                case "r":
-                    direction = AVANT;
-                    break;
-                default:
-                    direction = ARRIERE;
-                    break;
+            synchronized(this) {
+                try {
+                    wait();
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(Partie.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
             // Déplacements
             boolean deplacement = cube.lanceurDeplacerCases(direction);
             // Score
             score += cube.getScoreTour();
+            move++;
             // Génération d'une nouvelle case si déplacement
             if (deplacement) {
                 nouvelleCase = cube.nouvelleCase();
                 if (!nouvelleCase) cube.gameOver();
             }
+            controller.updatePanes();
         }
         afficherCube();
         if (cube.getValeurMax() >= OBJECTIF) {
@@ -90,6 +78,10 @@ public class Partie extends Thread implements Parametres {
 
     public int getScore() {
         return score;
+    }
+
+    public int getMove() {
+        return move;
     }
     
     public Cube getCube() {

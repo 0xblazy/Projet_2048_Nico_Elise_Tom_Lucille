@@ -11,18 +11,22 @@ package model;
  */
 public class Case implements Parametres {
     private int valeur;
+    private int oldValeur;
     private int x, y, z; // x: largeur, y: hauteur, z: profondeur
     private int oldX, oldY, oldZ; // anciennes valeurs de x, y et z
+    private final int id; // identifiant de la case
     private Cube cube;
 
-    public Case(int _v, int _x, int _y, int _z, Cube _c) {
+    public Case(int _v, int _x, int _y, int _z, int _id, Cube _c) {
         valeur = _v;
+        oldValeur = _v;
         x = _x;
         oldX = _x;
         y = _y;
         oldY = _y;
         z = _z;
         oldZ = _z;
+        id = _id;
         cube = _c;
     }
     
@@ -124,6 +128,10 @@ public class Case implements Parametres {
         return valeur;
     }
 
+    public int getOldValeur() {
+        return oldValeur;
+    }
+
     public int getX() {
         return x;
     }
@@ -148,7 +156,12 @@ public class Case implements Parametres {
         return oldZ;
     }
 
+    public int getId() {
+        return id;
+    }
+
     public void setValeur(int valeur) {
+        this.oldValeur = this.valeur;
         this.valeur = valeur;
     }
 
