@@ -7,9 +7,18 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" styleClass="mainFxmlClass" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="application.FXMLConnexionController">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.FXMLConnexionController">
     <stylesheets>
-        <URL value="@fxmlconnexion.css"/>
+        <URL value="@fxmlconnexion.css" />
     </stylesheets>
+   <children>
+      <Pane fx:id="container" prefHeight="600.0" prefWidth="800.0" stylesheets="@../css/fxmlconnexion.css">
+         <children>
+            <Pane fx:id="fields_pane" layoutX="221.0" layoutY="200.0" prefHeight="213.0" prefWidth="351.0" stylesheets="@../css/fxmlconnexion.css" />
+            <TextField fx:id="txt_connexion" layoutX="380.0" layoutY="275.0" />
+            <TextField fx:id="txt_mdp" layoutX="380.0" layoutY="323.0" />
+            <Label fx:id="label_identifiant" layoutX="250.0" layoutY="279.0" text="Identifiant" />
+            <Label fx:id="label_mdp" layoutX="250.0" layoutY="327.0" text="Mot de passe" />
+         </children></Pane>
+   </children>
 </AnchorPane>
