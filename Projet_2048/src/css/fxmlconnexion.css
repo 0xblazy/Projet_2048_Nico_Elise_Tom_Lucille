@@ -1,3 +1,23 @@
 .container{
     -fx-background-color: black;
 }
+
+.field_pane{
+    -fx-background-color: grey;
+}
+
+.label_id{
+    
+}
+
+.txt_connexion{
+    
+}
+
+.txt_mdp{
+    
+}
+
+.connexion_bouton{
+    
+}
