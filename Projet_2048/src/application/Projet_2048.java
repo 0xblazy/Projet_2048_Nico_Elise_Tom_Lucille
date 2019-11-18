@@ -11,6 +11,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import model.Partie;
 
@@ -55,6 +56,7 @@ public class Projet_2048 extends Application {
         boolean add = scene.getStylesheets().add("css/style_2048_kawaii.css");
         
         stage.setTitle("2048 3D");
+        stage.getIcons().add(new Image("file:logo.png"));
         stage.setScene(scene);
         stage.show();        
     }
