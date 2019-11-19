@@ -60,13 +60,13 @@ public class Partie extends Thread implements Parametres {
             boolean deplacement = cube.lanceurDeplacerCases(direction);
             // Score
             score += cube.getScoreTour();
-            move++;
             // Génération d'une nouvelle case si déplacement
             if (deplacement) {
+                move++;
                 nouvelleCase = cube.nouvelleCase();
+                controller.updatePanes();
                 if (!nouvelleCase) cube.gameOver();
             }
-            controller.updatePanes();
         }
         afficherCube();
         if (cube.getValeurMax() >= OBJECTIF) {

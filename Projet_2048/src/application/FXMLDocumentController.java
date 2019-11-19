@@ -89,6 +89,7 @@ public class FXMLDocumentController implements Initializable, Parametres {
     // variables globales non définies dans la vue (fichier .fxml)
     private BaseDeDonnees bdd;
     private Partie partie;
+    private double destX, destY, currX, currY;
     //Cases du jeu
     private final Map<Integer, Pane> panes = new HashMap<>();
     private final int wh_case = 80; //largeur et hauteur de la case (en px)
@@ -158,32 +159,32 @@ public class FXMLDocumentController implements Initializable, Parametres {
 
         if (touche.compareTo("q") == 0) {
             partie.setDirection(GAUCHE);
-            synchronized(partie) {
+            synchronized (partie) {
                 partie.notify();
             }
         } else if (touche.compareTo("d") == 0) {
             partie.setDirection(DROITE);
-            synchronized(partie) {
+            synchronized (partie) {
                 partie.notify();
             }
         } else if (touche.compareTo("z") == 0) {
             partie.setDirection(HAUT);
-            synchronized(partie) {
+            synchronized (partie) {
                 partie.notify();
             }
         } else if (touche.compareTo("s") == 0) {
             partie.setDirection(BAS);
-            synchronized(partie) {
+            synchronized (partie) {
                 partie.notify();
             }
         } else if (touche.compareTo("r") == 0) {
             partie.setDirection(AVANT);
-            synchronized(partie) {
+            synchronized (partie) {
                 partie.notify();
             }
         } else if (touche.compareTo("f") == 0) {
             partie.setDirection(ARRIERE);
-            synchronized(partie) {
+            synchronized (partie) {
                 partie.notify();
             }
         }
@@ -205,32 +206,76 @@ public class FXMLDocumentController implements Initializable, Parametres {
                             if (c != null) {
                                 if (panes.containsKey(c.getId())) {
                                     Pane p = panes.get(c.getId());
-                                    if (c.getZ() != c.getOldZ()) {
-                                        switch (c.getZ()) {
-                                            case 0:
-                                                p.relocate(x_1 + c.getX() * wh_case, p.getLayoutY());
-                                                break;
-                                            case 1:
-                                                p.relocate(x_2 + c.getX() * wh_case, p.getLayoutY());
-                                                break;
-                                            case 2:
-                                                p.relocate(x_3 + c.getX() * wh_case, p.getLayoutY());
-                                                break;
+                                    destX = c.getX() * wh_case;
+                                    destY = y + c.getY() * wh_case;
+                                    switch (c.getZ()) {
+                                        case 0:
+                                            destX += x_1;
+                                            break;
+                                        case 1:
+                                            destX += x_2;
+                                            break;
+                                        case 2:
+                                            destX += x_3;
+                                            break;
+                                    }
+                                    currX = p.getLayoutX();
+                                    currY = p.getLayoutY();
+                                    if (Math.abs((int) (destX - currX)) < 240) {
+                                        if (currX != destX) {
+                                            Task task = new Task<Void>() {
+                                                @Override
+                                                protected Void call() throws Exception {
+                                                    while(currX != destX) {
+                                                        if (currX < destX) {
+                                                            currX += 1;
+                                                        } else {
+                                                            currX -= 1;
+                                                        }
+                                                        Platform.runLater(new Runnable() {
+                                                            @Override
+                                                            public void run() {
+                                                                p.relocate(currX, destY);
+                                                                p.setVisible(true);
+                                                            }
+                                                        });
+                                                        Thread.sleep(5);
+                                                    }
+                                                    return null;
+                                                }
+                                            };
+                                            Thread thread = new Thread(task);
+                                            thread.setDaemon(true);
+                                            thread.start();
+                                        } else if (currY != destY) {
+                                            Task task = new Task<Void>() {
+                                                @Override
+                                                protected Void call() throws Exception {
+                                                    while(currY != destY) {
+                                                        if (currY < destY) {
+                                                            currY += 1;
+                                                        } else {
+                                                            currY -= 1;
+                                                        }
+                                                        Platform.runLater(new Runnable() {
+                                                            @Override
+                                                            public void run() {
+                                                                p.relocate(destX, currY);
+                                                                p.setVisible(true);
+                                                            }
+                                                        });
+                                                        Thread.sleep(5);
+                                                    }
+                                                    return null;
+                                                }
+                                            };
+                                            Thread thread = new Thread(task);
+                                            thread.setDaemon(true);
+                                            thread.start();
                                         }
-                                    } else if (c.getX() != c.getOldX()) {
-                                        switch (c.getZ()) {
-                                            case 0:
-                                                p.relocate(x_1 + c.getX() * wh_case, p.getLayoutY());
-                                                break;
-                                            case 1:
-                                                p.relocate(x_2 + c.getX() * wh_case, p.getLayoutY());
-                                                break;
-                                            case 2:
-                                                p.relocate(x_3 + c.getX() * wh_case, p.getLayoutY());
-                                                break;
-                                        }
-                                    } else if (c.getY() != c.getOldY()) {
-                                        p.relocate(p.getLayoutX(), y + c.getY() * wh_case);
+                                    } else {
+                                        p.relocate(destX, destY);
+                                        p.setVisible(true);
                                     }
                                     if (c.getValeur() != c.getOldValeur()) {
                                         Label l = (Label) p.getChildren().get(0);

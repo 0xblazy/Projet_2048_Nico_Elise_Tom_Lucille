@@ -84,14 +84,14 @@ and open the template in the editor.
 
 .case_label_1024{
     -fx-text-fill: orange;
-    -fx-font-size: 45px;
+    -fx-font-size: 35px;
     -fx-text-align: center;
     -fx-font-family: "Impact";
 }
 
 .case_label_2048{
     -fx-text-fill: gold;
-    -fx-font-size: 45px;
+    -fx-font-size: 35px;
     -fx-text-align: center;
     -fx-font-family: "Impact";
 }

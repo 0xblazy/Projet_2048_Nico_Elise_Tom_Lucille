@@ -236,7 +236,7 @@ public class Cube implements Parametres {
     }
 
     public void victory() {
-        System.out.println("Victoire ! Vous avez atteint le score de" + this.valeurMax);
+        System.out.println("Victoire ! Vous avez atteint le score de " + this.valeurMax);
         // System.exit(0);
     }
 

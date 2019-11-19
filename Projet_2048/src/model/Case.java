@@ -13,7 +13,6 @@ public class Case implements Parametres {
     private int valeur;
     private int oldValeur;
     private int x, y, z; // x: largeur, y: hauteur, z: profondeur
-    private int oldX, oldY, oldZ; // anciennes valeurs de x, y et z
     private final int id; // identifiant de la case
     private Cube cube;
 
@@ -21,11 +20,8 @@ public class Case implements Parametres {
         valeur = _v;
         oldValeur = _v;
         x = _x;
-        oldX = _x;
         y = _y;
-        oldY = _y;
         z = _z;
-        oldZ = _z;
         id = _id;
         cube = _c;
     }
@@ -136,24 +132,12 @@ public class Case implements Parametres {
         return x;
     }
 
-    public int getOldX() {
-        return oldX;
-    }
-
     public int getY() {
         return y;
     }
 
-    public int getOldY() {
-        return oldY;
-    }
-
     public int getZ() {
         return z;
-    }
-
-    public int getOldZ() {
-        return oldZ;
     }
 
     public int getId() {
@@ -166,17 +150,14 @@ public class Case implements Parametres {
     }
 
     public void setX(int x) {
-        this.oldX = this.x;
         this.x = x;
     }
 
     public void setY(int y) {
-        this.oldY = this.y;
         this.y = y;
     }
 
     public void setZ(int z) {
-        this.oldZ = this.z;
         this.z = z;
     }
 }
