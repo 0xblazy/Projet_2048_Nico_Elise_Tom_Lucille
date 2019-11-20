@@ -11,7 +11,7 @@ CREATE TABLE IF NOT EXISTS Joueur (
 CREATE TABLE IF NOT EXISTS Partie (
     id INT AUTO_INCREMENT,
     joueur VARCHAR(50) NOT NULL,
-    deplacemenents INT,
+    deplacements INT,
     temps INT,
     score INT,
     valeur_max INT,
