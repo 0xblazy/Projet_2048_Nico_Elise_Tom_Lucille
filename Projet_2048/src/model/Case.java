@@ -14,6 +14,7 @@ public class Case implements Parametres {
     private int oldValeur;
     private int x, y, z; // x: largeur, y: hauteur, z: profondeur
     private final int id; // identifiant de la case
+    private boolean changeDeGrille;
     private Cube cube;
 
     public Case(int _v, int _x, int _y, int _z, int _id, Cube _c) {
@@ -23,6 +24,7 @@ public class Case implements Parametres {
         y = _y;
         z = _z;
         id = _id;
+        changeDeGrille = false;
         cube = _c;
     }
     
@@ -144,6 +146,10 @@ public class Case implements Parametres {
         return id;
     }
 
+    public boolean isChangeDeGrille() {
+        return changeDeGrille;
+    }
+
     public void setValeur(int valeur) {
         this.oldValeur = this.valeur;
         this.valeur = valeur;
@@ -158,6 +164,13 @@ public class Case implements Parametres {
     }
 
     public void setZ(int z) {
+        if (!changeDeGrille && this.z != z) {
+            changeDeGrille = true;
+        }
         this.z = z;
+    }
+
+    public void setChangeDeGrille(boolean changeDeGrille) {
+        this.changeDeGrille = changeDeGrille;
     }
 }

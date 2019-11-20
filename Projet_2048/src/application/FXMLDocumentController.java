@@ -221,7 +221,8 @@ public class FXMLDocumentController implements Initializable, Parametres {
                                     }
                                     currX = p.getLayoutX();
                                     currY = p.getLayoutY();
-                                    if (Math.abs((int) (destX - currX)) < 240) {
+                                    if (false) {
+                                    /*if (!c.isChangeDeGrille()) {*/
                                         if (currX != destX) {
                                             Task task = new Task<Void>() {
                                                 @Override
@@ -276,6 +277,7 @@ public class FXMLDocumentController implements Initializable, Parametres {
                                     } else {
                                         p.relocate(destX, destY);
                                         p.setVisible(true);
+                                        c.setChangeDeGrille(false);
                                     }
                                     if (c.getValeur() != c.getOldValeur()) {
                                         Label l = (Label) p.getChildren().get(0);
