@@ -129,7 +129,7 @@ public class BaseDeDonnees implements Parametres {
     }
     
     // Retourne le classement des joueurs
-    public List<Object[]> getClassement() {
+    public List<Object[]> getClassementScore() {
         List<Object[]> list = new ArrayList<>();
         try {
             ResultSet rs = stmt.executeQuery("SELECT nom, score_max FROM Joueur ORDER BY score_max DESC");
@@ -143,6 +143,34 @@ public class BaseDeDonnees implements Parametres {
         }
     }
     
+    public List<Object[]> getClassementDeplacements() {
+        List<Object[]> list = new ArrayList<>();
+        try {
+            ResultSet rs = stmt.executeQuery("SELECT nom, deplacements FROM Joueur ORDER BY deplacements DESC");
+            while (rs.next()) {
+                list.add(new Object[]{rs.getString("nom"), rs.getInt("deplacements")});
+            }
+            return list;
+        } catch (SQLException ex) {
+            Logger.getLogger(BaseDeDonnees.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
+    
+    public List<Object[]> getClassementTemps() {
+        List<Object[]> list = new ArrayList<>();
+        try {
+            ResultSet rs = stmt.executeQuery("SELECT nom, temps FROM Joueur ORDER BY temps DESC");
+            while (rs.next()) {
+                list.add(new Object[]{rs.getString("nom"), rs.getInt("temps")});
+            }
+            return list;
+        } catch (SQLException ex) {
+            Logger.getLogger(BaseDeDonnees.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
+   
     // Ajoute une partie, retourne un code en fonction de la situation
     public int insertionPartie (String _nom, int _score, int val_max){
          try {

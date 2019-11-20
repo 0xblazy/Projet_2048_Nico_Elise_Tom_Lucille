@@ -16,37 +16,14 @@ import java.sql.Statement;
 
 public class Joueur implements Parametres {
     private String nom ;
-    private String mdp ;
+    //private String mdp ; //peut être utile pour récupérer le mdp en cas d'oubli de l'utilisateur
     private int scoreMax;
-    private Statement stmt;
-    private Joueur j = new Joueur(nom,mdp,scoreMax);
     
-    public Joueur(String _nom, String _mdp, int score_max) {
+    public Joueur(String _nom, int score_max) {
         nom=_nom;
-        mdp=_mdp;
         scoreMax=score_max;
     }
 
-   
-   public int Score_max(int score_max) {
-       if (j.scoreMax<score_max) {
-           return score_max;
-       } else {
-           return scoreMax;
-       }
-   }
-   
-   public String sauvegarde(String nom, int _score) throws SQLException {
-        Score_max(scoreMax);
-        if (_score < scoreMax ) {
-            stmt.executeUpdate("UPDATE Joueur SET score = '" + _score + "' WHERE nom = '" + nom + "'");
-            return "score enregistré";
-        } else {
-            stmt.executeUpdate("UPDATE Joueur SET score_max = '" + _score + "' WHERE nom = '" + nom + "'");
-            return "score max enregistré";
-        }
-    }
-   
     public String getNom(){
         return nom;
     }
@@ -54,7 +31,18 @@ public class Joueur implements Parametres {
     public void setNom(String _nom){
         nom=_nom;
     }
+    
+    public int getScoreMax(){
+        return scoreMax;
+    }
 
+    public void setScoreMax(int score_max){
+        if (this.scoreMax<score_max) {
+           scoreMax=score_max;
+        }
+    }
+    
+    /*
     public String getMdp(){
         return mdp;
     }
@@ -62,14 +50,6 @@ public class Joueur implements Parametres {
     public void setMdp(String _mdp){
         mdp=_mdp;
     }
-    
-    public int getScoreMax(){
-        return scoreMax;
-    }
-
-    public void setScoreMax(int score_max){
-        scoreMax=score_max;
-    }
- 
+    */
     
 }
