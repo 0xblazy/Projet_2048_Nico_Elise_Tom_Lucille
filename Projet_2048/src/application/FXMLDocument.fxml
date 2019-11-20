@@ -90,7 +90,7 @@
                   <items>
                     <MenuItem fx:id="pt_save" mnemonicParsing="false" styleClass="bouton_sous_menu" text="Sauvegarder" />
                         <MenuItem fx:id="pt_giveup" mnemonicParsing="false" styleClass="bouton_sous_menu" text="Abandonner" />
-                        <MenuItem fx:id="pt_restart" mnemonicParsing="false" styleClass="bouton_sous_menu" text="Recommencer" />
+                        <MenuItem fx:id="pt_restart" mnemonicParsing="false" onAction="#clickRecommencer" styleClass="bouton_sous_menu" text="Recommencer" />
                   </items>
                 </Menu>
                 <Menu fx:id="option_button" mnemonicParsing="false" styleClass="bouton_menu" text="Option">

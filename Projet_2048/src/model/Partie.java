@@ -16,6 +16,7 @@ import java.util.logging.Logger;
  * @author nKBlaZy
  */
 public class Partie extends Thread implements Parametres {
+
     private int score, move;
     private Cube cube;
     private BaseDeDonnees bdd;
@@ -29,7 +30,7 @@ public class Partie extends Thread implements Parametres {
         move = 0;
         controller = _controller;
     }
-    
+
     private void initCube() {
         cube.nouvelleCase();
         cube.nouvelleCase();
@@ -38,7 +39,7 @@ public class Partie extends Thread implements Parametres {
     private void afficherCube() {
         System.out.println(cube + "\n");
     }
-    
+
     public void run() {
         initCube();
         controller.updatePanes();
@@ -49,11 +50,12 @@ public class Partie extends Thread implements Parametres {
             // Affichage
             System.out.println("Score : " + score + " Max : " + cube.getValeurMax());
             afficherCube();
-            synchronized(this) {
+            synchronized (this) {
                 try {
                     wait();
                 } catch (InterruptedException ex) {
-                    Logger.getLogger(Partie.class.getName()).log(Level.SEVERE, null, ex);
+                    Thread.currentThread().interrupt();
+                    break;
                 }
             }
             // Déplacements
@@ -65,14 +67,22 @@ public class Partie extends Thread implements Parametres {
                 move++;
                 nouvelleCase = cube.nouvelleCase();
                 controller.updatePanes();
-                if (!nouvelleCase) cube.gameOver();
+                if (!nouvelleCase) {
+                    cube.gameOver();
+                }
             }
         }
-        afficherCube();
-        if (cube.getValeurMax() >= OBJECTIF) {
-            cube.victory();
+        if (!isInterrupted()) {
+            afficherCube();
+            if (cube.getValeurMax() >= OBJECTIF) {
+                cube.victory();
+                controller.victory();
+            } else {
+                cube.gameOver();
+                controller.gameOver();
+            }
         } else {
-            cube.gameOver();
+            System.out.println("Partie interrompue");
         }
     }
 
@@ -83,12 +93,12 @@ public class Partie extends Thread implements Parametres {
     public int getMove() {
         return move;
     }
-    
+
     public Cube getCube() {
         return cube;
     }
 
     public void setDirection(int _direction) {
         this.direction = _direction;
-    }    
+    }
 }

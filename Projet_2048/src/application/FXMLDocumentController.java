@@ -11,6 +11,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.application.Platform;
 import javafx.concurrent.Task;
@@ -19,11 +20,16 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.HPos;
 import javafx.geometry.Pos;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
@@ -153,40 +159,59 @@ public class FXMLDocumentController implements Initializable, Parametres {
     }
 
     @FXML
+    private void clickRecommencer(ActionEvent event) {
+        System.out.println("Recommencer");
+        Alert alert = new Alert(AlertType.CONFIRMATION);
+        alert.setTitle("Recommencer la partie");
+        alert.setHeaderText("Recommencer la partie");
+        alert.setContentText("Voulez-vous recommencer la partie ?\nToute progression non sauvegardée sera perdue");
+        alert.setGraphic(new ImageView("/img/reset.png"));
+        if (alert.showAndWait().get() == ButtonType.OK) {
+            resetGame();
+        } else {
+            alert.close();
+        }
+    }
+
+    @FXML
     public void keyPressed(KeyEvent ke) {
         System.out.println("touche appuyée");
         String touche = ke.getText();
 
-        if (touche.compareTo("q") == 0) {
-            partie.setDirection(GAUCHE);
-            synchronized (partie) {
-                partie.notify();
+        if (partie != null) {
+            if (touche.compareTo("q") == 0) {
+                partie.setDirection(GAUCHE);
+                synchronized (partie) {
+                    partie.notify();
+                }
+            } else if (touche.compareTo("d") == 0) {
+                partie.setDirection(DROITE);
+                synchronized (partie) {
+                    partie.notify();
+                }
+            } else if (touche.compareTo("z") == 0) {
+                partie.setDirection(HAUT);
+                synchronized (partie) {
+                    partie.notify();
+                }
+            } else if (touche.compareTo("s") == 0) {
+                partie.setDirection(BAS);
+                synchronized (partie) {
+                    partie.notify();
+                }
+            } else if (touche.compareTo("r") == 0) {
+                partie.setDirection(AVANT);
+                synchronized (partie) {
+                    partie.notify();
+                }
+            } else if (touche.compareTo("f") == 0) {
+                partie.setDirection(ARRIERE);
+                synchronized (partie) {
+                    partie.notify();
+                }
             }
-        } else if (touche.compareTo("d") == 0) {
-            partie.setDirection(DROITE);
-            synchronized (partie) {
-                partie.notify();
-            }
-        } else if (touche.compareTo("z") == 0) {
-            partie.setDirection(HAUT);
-            synchronized (partie) {
-                partie.notify();
-            }
-        } else if (touche.compareTo("s") == 0) {
-            partie.setDirection(BAS);
-            synchronized (partie) {
-                partie.notify();
-            }
-        } else if (touche.compareTo("r") == 0) {
-            partie.setDirection(AVANT);
-            synchronized (partie) {
-                partie.notify();
-            }
-        } else if (touche.compareTo("f") == 0) {
-            partie.setDirection(ARRIERE);
-            synchronized (partie) {
-                partie.notify();
-            }
+        } else if (touche.compareTo(" ") == 0) {
+            clickStart(new ActionEvent());
         }
     }
 
@@ -224,7 +249,7 @@ public class FXMLDocumentController implements Initializable, Parametres {
                             currX = p.getLayoutX();
                             currY = p.getLayoutY();
                             if (false) {
-                                /*if (!c.isChangeDeGrille()) {*/
+                                /*if (!c.isChangeDeGrille()) {
                                 if (currX != destX) {
                                     Task task = new Task<Void>() {
                                         @Override
@@ -275,7 +300,7 @@ public class FXMLDocumentController implements Initializable, Parametres {
                                     Thread thread = new Thread(task);
                                     thread.setDaemon(true);
                                     thread.start();
-                                }
+                                }*/
                             } else {
                                 p.relocate(destX, destY);
                                 p.setVisible(true);
@@ -328,6 +353,7 @@ public class FXMLDocumentController implements Initializable, Parametres {
         }
     }
 
+    // Supprime les cases détruites dans le modèle sur la vue et dans panes
     private void cleanMap() {
         Iterator it = panes.entrySet().iterator();
         while (it.hasNext()) {
@@ -345,4 +371,68 @@ public class FXMLDocumentController implements Initializable, Parametres {
         }
     }
 
+    // Affiche un pop up en cas de victoire
+    public void victory() {
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                Alert alert = new Alert(AlertType.INFORMATION);
+                alert.setTitle("Victoire");
+                alert.setHeaderText("Bien joué, vous avez atteint l'objectif !!!");
+                alert.setContentText("Vous avez terminé la partie\nScore : " + partie.getScore() + "\nDéplacements : " + partie.getMove());
+                alert.setGraphic(new ImageView("/img/victory.png"));
+                if (alert.showAndWait().get() == ButtonType.OK) {
+                    resetGame();
+                    alert.close();
+                }
+            }
+        });
+    }
+
+    // Affiche un pop up en cas de défaite
+    public void gameOver() {
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                Alert alert = new Alert(AlertType.INFORMATION);
+                alert.setTitle("Défaite");
+                alert.setHeaderText("Vous n'avez pas atteint l'objectif...");
+                alert.setContentText("Vous avez atteint " + partie.getCube().getValeurMax() + "\nScore : " + partie.getScore() + "\nDéplacements : " + partie.getMove());
+                alert.setGraphic(new ImageView("/img/gameOver.png"));
+                if (alert.showAndWait().get() == ButtonType.OK) {
+                    resetGame();
+                    alert.close();
+                }
+            }
+        });
+    }
+
+    // Réinitialise l'interface pour commencer une nouvelle partie
+    private void resetGame() {
+        Iterator it = panes.entrySet().iterator();
+        while (it.hasNext()) {
+            Entry entry = (Entry) it.next();
+            Pane p = (Pane) entry.getValue();
+            Platform.runLater(new Runnable() {
+                @Override
+                public void run() {
+                    container.getChildren().remove(p);
+                }
+            });
+            it.remove();
+        }
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                nb_move.setText("0");
+                nb_score.setText("0");
+            }
+        });
+        panes.clear();
+        if (partie != null) {
+            partie.interrupt();
+            partie = null;
+        }
+        start_button.setDisable(false);
+    }
 }

@@ -58,7 +58,7 @@ public class Projet_2048 extends Application {
 
         scene.getRoot().requestFocus();
         stage.setTitle("2048 3D");
-        stage.getIcons().add(new Image("file:logo.png"));
+        stage.getIcons().add(new Image("/img/logo.png"));
         stage.setScene(scene);
         stage.setResizable(false);
         stage.show();
