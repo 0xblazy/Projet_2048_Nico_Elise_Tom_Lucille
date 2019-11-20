@@ -192,130 +192,140 @@ public class FXMLDocumentController implements Initializable, Parametres {
 
     // Mets à jour les cases dans la vue
     public void updatePanes() {
+        cleanMap();
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
-                cleanMap();
                 nb_score.setText("" + partie.getScore());
                 nb_move.setText("" + partie.getMove());
-                Case cube[][][] = partie.getCube().getCube();
-                for (int k = 0; k < TAILLE; k++) {
-                    for (int j = 0; j < TAILLE; j++) {
-                        for (int i = 0; i < TAILLE; i++) {
-                            Case c = cube[k][j][i];
-                            if (c != null) {
-                                if (panes.containsKey(c.getId())) {
-                                    Pane p = panes.get(c.getId());
-                                    destX = c.getX() * wh_case;
-                                    destY = y + c.getY() * wh_case;
-                                    switch (c.getZ()) {
-                                        case 0:
-                                            destX += x_1;
-                                            break;
-                                        case 1:
-                                            destX += x_2;
-                                            break;
-                                        case 2:
-                                            destX += x_3;
-                                            break;
-                                    }
-                                    currX = p.getLayoutX();
-                                    currY = p.getLayoutY();
-                                    if (false) {
-                                    /*if (!c.isChangeDeGrille()) {*/
-                                        if (currX != destX) {
-                                            Task task = new Task<Void>() {
-                                                @Override
-                                                protected Void call() throws Exception {
-                                                    while(currX != destX) {
-                                                        if (currX < destX) {
-                                                            currX += 1;
-                                                        } else {
-                                                            currX -= 1;
-                                                        }
-                                                        Platform.runLater(new Runnable() {
-                                                            @Override
-                                                            public void run() {
-                                                                p.relocate(currX, destY);
-                                                                p.setVisible(true);
-                                                            }
-                                                        });
-                                                        Thread.sleep(5);
-                                                    }
-                                                    return null;
-                                                }
-                                            };
-                                            Thread thread = new Thread(task);
-                                            thread.setDaemon(true);
-                                            thread.start();
-                                        } else if (currY != destY) {
-                                            Task task = new Task<Void>() {
-                                                @Override
-                                                protected Void call() throws Exception {
-                                                    while(currY != destY) {
-                                                        if (currY < destY) {
-                                                            currY += 1;
-                                                        } else {
-                                                            currY -= 1;
-                                                        }
-                                                        Platform.runLater(new Runnable() {
-                                                            @Override
-                                                            public void run() {
-                                                                p.relocate(destX, currY);
-                                                                p.setVisible(true);
-                                                            }
-                                                        });
-                                                        Thread.sleep(5);
-                                                    }
-                                                    return null;
-                                                }
-                                            };
-                                            Thread thread = new Thread(task);
-                                            thread.setDaemon(true);
-                                            thread.start();
-                                        }
-                                    } else {
-                                        p.relocate(destX, destY);
-                                        p.setVisible(true);
-                                        c.setChangeDeGrille(false);
-                                    }
-                                    if (c.getValeur() != c.getOldValeur()) {
-                                        Label l = (Label) p.getChildren().get(0);
-                                        l.setText("" + c.getValeur());
-                                        l.getStyleClass().remove(0);
-                                        l.getStyleClass().add("case_label_" + c.getValeur());
-                                    }
-                                } else {
-                                    Pane p = new Pane();
-                                    p.getStyleClass().add("case_pane");
-                                    container.getChildren().add(p);
-                                    switch (c.getZ()) {
-                                        case 0:
-                                            p.setLayoutX(x_1 + c.getX() * wh_case);
-                                            break;
-                                        case 1:
-                                            p.setLayoutX(x_2 + c.getX() * wh_case);
-                                            break;
-                                        case 2:
-                                            p.setLayoutX(x_3 + c.getX() * wh_case);
-                                            break;
-                                    }
-                                    p.setLayoutY(y + c.getY() * wh_case);
-                                    Label l = new Label("" + c.getValeur());
-                                    l.getStyleClass().add("case_label_" + c.getValeur());
-                                    p.getChildren().add(l);
-                                    p.setPrefSize(wh_case, wh_case);
-                                    l.setPrefSize(wh_case, wh_case);
-                                    l.setAlignment(Pos.CENTER);
-                                    p.setVisible(true);
-                                    panes.put(c.getId(), p);
-                                }
+            }
+        });
+        Case cube[][][] = partie.getCube().getCube();
+        for (int k = 0; k < TAILLE; k++) {
+            for (int j = 0; j < TAILLE; j++) {
+                for (int i = 0; i < TAILLE; i++) {
+                    Case c = cube[k][j][i];
+                    if (c != null) {
+                        if (panes.containsKey(c.getId())) {
+                            Pane p = panes.get(c.getId());
+                            destX = c.getX() * wh_case;
+                            destY = y + c.getY() * wh_case;
+                            switch (c.getZ()) {
+                                case 0:
+                                    destX += x_1;
+                                    break;
+                                case 1:
+                                    destX += x_2;
+                                    break;
+                                case 2:
+                                    destX += x_3;
+                                    break;
                             }
+                            currX = p.getLayoutX();
+                            currY = p.getLayoutY();
+                            if (false) {
+                                /*if (!c.isChangeDeGrille()) {*/
+                                if (currX != destX) {
+                                    Task task = new Task<Void>() {
+                                        @Override
+                                        protected Void call() throws Exception {
+                                            while (currX != destX) {
+                                                if (currX < destX) {
+                                                    currX += 1;
+                                                } else {
+                                                    currX -= 1;
+                                                }
+                                                Platform.runLater(new Runnable() {
+                                                    @Override
+                                                    public void run() {
+                                                        p.relocate(currX, destY);
+                                                        p.setVisible(true);
+                                                    }
+                                                });
+                                                Thread.sleep(5);
+                                            }
+                                            return null;
+                                        }
+                                    };
+                                    Thread thread = new Thread(task);
+                                    thread.setDaemon(true);
+                                    thread.start();
+                                } else if (currY != destY) {
+                                    Task task = new Task<Void>() {
+                                        @Override
+                                        protected Void call() throws Exception {
+                                            while (currY != destY) {
+                                                if (currY < destY) {
+                                                    currY += 1;
+                                                } else {
+                                                    currY -= 1;
+                                                }
+                                                Platform.runLater(new Runnable() {
+                                                    @Override
+                                                    public void run() {
+                                                        p.relocate(destX, currY);
+                                                        p.setVisible(true);
+                                                    }
+                                                });
+                                                Thread.sleep(5);
+                                            }
+                                            return null;
+                                        }
+                                    };
+                                    Thread thread = new Thread(task);
+                                    thread.setDaemon(true);
+                                    thread.start();
+                                }
+                            } else {
+                                p.relocate(destX, destY);
+                                p.setVisible(true);
+                                c.setChangeDeGrille(false);
+                            }
+                            if (c.getValeur() != c.getOldValeur()) {
+                                Label l = (Label) p.getChildren().get(0);
+                                Platform.runLater(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        l.setText("" + c.getValeur());
+                                    }
+                                });
+                                l.getStyleClass().remove(0);
+                                l.getStyleClass().add("case_label_" + c.getValeur());
+                            }
+                        } else {
+                            Pane p = new Pane();
+                            Label l = new Label("" + c.getValeur());
+                            Platform.runLater(new Runnable() {
+                                @Override
+                                public void run() {
+                                    container.getChildren().add(p);
+                                    p.getChildren().add(l);
+                                }
+                            });
+                            p.getStyleClass().add("case_pane");
+                            switch (c.getZ()) {
+                                case 0:
+                                    p.setLayoutX(x_1 + c.getX() * wh_case);
+                                    break;
+                                case 1:
+                                    p.setLayoutX(x_2 + c.getX() * wh_case);
+                                    break;
+                                case 2:
+                                    p.setLayoutX(x_3 + c.getX() * wh_case);
+                                    break;
+                            }
+                            p.setLayoutY(y + c.getY() * wh_case);
+                            l.getStyleClass().add("case_label_" + c.getValeur());
+                            p.setPrefSize(wh_case, wh_case);
+                            l.setPrefSize(wh_case, wh_case);
+                            l.setAlignment(Pos.CENTER);
+                            p.setVisible(true);
+                            panes.put(c.getId(), p);
                         }
                     }
                 }
             }
-        });
+        }
     }
 
     private void cleanMap() {
@@ -324,7 +334,12 @@ public class FXMLDocumentController implements Initializable, Parametres {
             Entry entry = (Entry) it.next();
             if (partie.getCube().getCase((int) entry.getKey()) == null) {
                 Pane p = (Pane) entry.getValue();
-                container.getChildren().remove(p);
+                Platform.runLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        container.getChildren().remove(p);
+                    }
+                });
                 it.remove();
             }
         }
