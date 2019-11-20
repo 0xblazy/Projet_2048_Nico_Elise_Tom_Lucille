@@ -24,9 +24,92 @@ and open the template in the editor.
     -fx-text-align: center;
     -fx-font-family: "Impact";
 }
-.case_pane{
-    -fx-background-color: #563623;
+.case_label_2{
+    -fx-text-fill: white;
+    -fx-background-color: #DDA092;
+    -fx-font-size: 45px;
     -fx-text-align: center;
+    -fx-font-family: "Impact";
+}
+
+.case_label_4{
+    -fx-text-fill: white;
+    -fx-background-color: #EB9784;
+    -fx-font-size: 45px;
+    -fx-text-align: center;
+    -fx-font-family: "Impact";
+}
+
+.case_label_8{
+    -fx-text-fill: white;
+    -fx-background-color: #FF8A70;
+    -fx-font-size: 45px;
+    -fx-text-align: center;
+    -fx-font-family: "Impact";
+}
+
+.case_label_16{
+    -fx-text-fill: white;
+    -fx-background-color: #FF6947;
+    -fx-font-size: 45px;
+    -fx-text-align: center;
+    -fx-font-family: "Impact";
+}
+
+.case_label_32{
+    -fx-text-fill: white;
+    -fx-background-color: #FF481F;
+    -fx-font-size: 45px;
+    -fx-text-align: center;
+    -fx-font-family: "Impact";
+}
+
+.case_label_64{
+    -fx-text-fill: white;
+    -fx-background-color: #D73814;
+    -fx-font-size: 45px;
+    -fx-text-align: center;
+    -fx-font-family: "Impact";
+}
+
+.case_label_128{
+    -fx-text-fill: white;
+    -fx-background-color: #A85543;
+    -fx-font-size: 45px;
+    -fx-text-align: center;
+    -fx-font-family: "Impact";
+}
+
+.case_label_256{
+    -fx-text-fill: white;
+    -fx-background-color: #9A5E51;
+    -fx-font-size: 45px;
+    -fx-text-align: center;
+    -fx-font-family: "Impact";
+}
+
+.case_label_512{
+    -fx-text-fill: white;
+    -fx-background-color: #B9705F;
+    -fx-font-size: 45px;
+    -fx-text-align: center;
+    -fx-font-family: "Impact";
+}
+
+.case_label_1024{
+    -fx-text-fill: white;
+    -fx-background-color: #67382D;
+    -fx-font-size: 35px;
+    -fx-text-align: center;
+    -fx-font-family: "Impact";
+}
+
+.case_label_2048{
+    -fx-text-fill: white;
+    -fx-background-color: #7E2916;
+    -fx-font-size: 35px;
+    -fx-text-align: center;
+    -fx-font-family: "Impact";
 }
 .score_label{
     -fx-background-color: none;

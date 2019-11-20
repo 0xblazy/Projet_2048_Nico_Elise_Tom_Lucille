@@ -1,0 +1,23 @@
+.container{
+    -fx-background-color: #F6DFD0;
+    -fx-border-color: none;
+}
+.start_button{
+    -fx-border: none;
+    -fx-background-color: grey;
+}
+.label_username{
+    -fx-text-fill: greenyellow;
+    -fx-font-size: 25px;
+}
+.connexion_button{
+    -fx-border: none;
+}
+.inscription_button{
+    -fx-border: none;
+}
+.label_title{
+    -fx-font-size: 2cm;
+    -fx-position: absolute;
+    -fx-background-color: black;
+}

@@ -52,10 +52,11 @@ public class Projet_2048 extends Application {
         }
         
         Parent root = FXMLLoader.load(getClass().getResource("FXMLDocument.fxml"));
-        Scene scene = new Scene(root,800,600);
-        boolean add = scene.getStylesheets().add("css/style_2048_kawaii.css");
-        scene.getRoot().requestFocus();
         
+        Scene scene = new Scene(root,800,600);
+        scene.getStylesheets().add("css/style_2048_kawaii.css");
+
+        scene.getRoot().requestFocus();
         stage.setTitle("2048 3D");
         stage.getIcons().add(new Image("file:logo.png"));
         stage.setScene(scene);

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.FXMLAccueilController">
+    <stylesheets>
+        <URL value="@fxmlaccueil.css" />
+    </stylesheets>
+   <children>
+      <Pane fx:id="container" prefHeight="600.0" prefWidth="800.0" stylesheets="@../css/fxmlaccueil.css">
+         <children>
+            <Label layoutX="350.0" layoutY="220.0" text="Bienvenu" />
+            <Button fx:id="start_button" contentDisplay="CENTER" layoutX="350.0" layoutY="300.0" mnemonicParsing="false" styleClass="bouton_start" text="JOUER" />
+            <Label fx:id="label_username" layoutX="350.0" layoutY="250.0" text="nomUser" />
+            <Button fx:id="connexion_button" layoutX="673.0" layoutY="45.0" mnemonicParsing="false" text="Connexion" />
+            <Button fx:id="inscription_button" layoutX="673.0" layoutY="94.0" mnemonicParsing="false" text="Inscription" />
+            <Label fx:id="label_title" layoutX="350.0" layoutY="50.0" text="2048 3D" textAlignment="CENTER" />
+         </children></Pane>
+   </children>
+</AnchorPane>
