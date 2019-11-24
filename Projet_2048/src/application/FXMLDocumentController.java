@@ -14,25 +14,31 @@ import java.util.Map.Entry;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.application.Platform;
-import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.geometry.HPos;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
+import javafx.util.Pair;
 import model.Case;
 import model.Parametres;
 import static model.Parametres.TAILLE;
@@ -173,6 +179,128 @@ public class FXMLDocumentController implements Initializable, Parametres {
         }
     }
 
+    /***POPUP CONNEXION***/
+    @FXML
+    private void clickConnexion(){
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                Dialog<Pair<String, String>> dialog = new Dialog<>();
+                dialog.setTitle("connexion.exe");
+                dialog.setHeaderText("Connecte-toi !");
+                Stage stage = (Stage) dialog.getDialogPane().getScene().getWindow();
+                //Icônes
+                stage.getIcons().add(new Image(this.getClass().getResource("img/noun_Lock.png").toString()));
+                dialog.setGraphic(new ImageView(this.getClass().getResource("img/noun_Lock.png").toString()));
+                //Set le type de bouton
+                ButtonType bouton_connexion = new ButtonType("Connexion", ButtonData.OK_DONE);
+                dialog.getDialogPane().getButtonTypes().addAll(bouton_connexion, ButtonType.CANCEL);//Création du label et txt field de pseudo et mdp
+                //Set les cases des champs
+                GridPane grid = new GridPane();
+                grid.setHgap(10);
+                grid.setVgap(10);
+                grid.setPadding(new Insets(20, 150, 10, 10));
+
+                TextField username_tf = new TextField();
+                username_tf.setPromptText("Pseudo");
+                PasswordField password_tf = new PasswordField();
+                password_tf.setPromptText("Mot de passe");
+
+                grid.add(new Label("Pseudo:"), 0, 0);
+                grid.add(username_tf, 1, 0);
+                grid.add(new Label("Mot de passe:"), 0, 1);
+                grid.add(password_tf, 1, 1);
+                
+                // Enable/Disable login button depending on whether a username was entered.
+                Node loginButton = dialog.getDialogPane().lookupButton(bouton_connexion);
+                loginButton.setDisable(true);
+                
+                username_tf.textProperty().addListener((observable, oldValue, newValue) -> {
+                loginButton.setDisable(newValue.trim().isEmpty());
+                });
+                dialog.getDialogPane().setContent(grid);
+                
+                Platform.runLater(() -> username_tf.requestFocus());
+
+                // Convert the result to a username-password-pair when the login button is clicked.
+                dialog.setResultConverter(dialogButton -> {
+                    if (dialogButton == bouton_connexion) {
+                        return new Pair<>(username_tf.getText(), password_tf.getText());
+                    }
+                    else return null;
+                });
+                Optional<Pair<String, String>> result = dialog.showAndWait();
+                result.ifPresent(usernamePassword -> {
+                    System.out.println("Pseudo=" + usernamePassword.getKey() + ", Mot de passe=" + usernamePassword.getValue());
+                });
+            }
+        });
+    }
+    @FXML
+    private void clickInscription(){
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                Dialog<Pair<String, String>> dialog = new Dialog<>();
+                dialog.setTitle("inscription.exe");
+                dialog.setHeaderText("Inscris-toi !");
+                Stage stage = (Stage) dialog.getDialogPane().getScene().getWindow();
+                
+                stage.getIcons().add(new Image(this.getClass().getResource("img/noun_Lock.png").toString()));
+                dialog.setGraphic(new ImageView(this.getClass().getResource("img/noun_Lock.png").toString()));
+                
+                ButtonType bouton_inscription = new ButtonType("Connexion", ButtonData.OK_DONE);
+                dialog.getDialogPane().getButtonTypes().addAll(bouton_inscription, ButtonType.CANCEL);
+
+                GridPane grid = new GridPane();
+                grid.setHgap(10);
+                grid.setVgap(10);
+                grid.setPadding(new Insets(20, 150, 10, 10));
+
+                TextField username_tf = new TextField();
+                username_tf.setPromptText("Pseudo");
+                TextField mail_tf = new TextField();
+                mail_tf.setPromptText("E-mail");
+                PasswordField password_tf = new PasswordField();
+                password_tf.setPromptText("Mot de passe");
+                PasswordField password_cf_tf = new PasswordField();
+                password_cf_tf.setPromptText("Confirmation");
+                //Positionnement des fields et labels sur une grille prédéfinie
+                grid.add(new Label("E-mail:"), 0,0);
+                grid.add(mail_tf, 0,1);
+                grid.add(new Label("Pseudo:"), 1,0);
+                grid.add(username_tf, 1,1);
+                grid.add(new Label("Mot de passe:"), 2,0);
+                grid.add(password_tf, 2,1);
+                grid.add(new Label("Confirmation:"), 3,0);
+                grid.add(password_cf_tf, 3,1);
+                
+                Node regButton = dialog.getDialogPane().lookupButton(bouton_inscription);
+                
+                username_tf.textProperty().addListener((observable, oldValue, newValue) -> {
+                    
+                    regButton.setDisable(newValue.trim().isEmpty());
+                });
+                dialog.getDialogPane().setContent(grid);
+                
+                Platform.runLater(() -> mail_tf.requestFocus());
+                Platform.runLater(() -> username_tf.requestFocus());
+                Platform.runLater(() -> password_tf.requestFocus());
+                Platform.runLater(() -> password_cf_tf.requestFocus());
+                
+                dialog.setResultConverter(dialogButton -> {
+                    if (dialogButton == bouton_inscription) {
+                        return new Pair<>(username_tf.getText(), password_tf.getText());
+                    }
+                    else return null;
+                });
+                Optional<Pair<String, String>> result = dialog.showAndWait();
+                result.ifPresent(usernamePassword -> {
+                    System.out.println("Pseudo=" + usernamePassword.getKey() + ", Mot de passe=" + usernamePassword.getValue());
+                });
+            }
+        });
+    }
     @FXML
     public void keyPressed(KeyEvent ke) {
         System.out.println("touche appuyée");
@@ -199,12 +327,12 @@ public class FXMLDocumentController implements Initializable, Parametres {
                 synchronized (partie) {
                     partie.notify();
                 }
-            } else if (touche.compareTo("r") == 0) {
+            } else if (touche.compareTo("a") == 0) {
                 partie.setDirection(AVANT);
                 synchronized (partie) {
                     partie.notify();
                 }
-            } else if (touche.compareTo("f") == 0) {
+            } else if (touche.compareTo("e") == 0) {
                 partie.setDirection(ARRIERE);
                 synchronized (partie) {
                     partie.notify();
