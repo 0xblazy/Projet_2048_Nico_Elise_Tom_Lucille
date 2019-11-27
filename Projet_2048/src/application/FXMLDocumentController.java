@@ -156,14 +156,40 @@ public class FXMLDocumentController implements Initializable, Parametres {
     @FXML
     private void clickStart(ActionEvent event) {
         if (!start_button.isDisable()) {
-            System.out.println("touche START appuyée");
-            partie = new Partie(this);
-            partie.start();
-            start_button.setDisable(true);
-            container.requestFocus();
+            if (start_button.getText().equals("JOUER")){ //Si c'est "jouer" sur le bouton, nous sommes dans la page d'acceuil
+                cacherComposant();
+                start_button.setText("START");
+            }else if (start_button.getText().equals("START")){
+                partie = new Partie(this);
+                partie.start();
+                afficherComposant();
+                start_button.setDisable(true);
+                container.requestFocus(); 
+            }  
         }
     }
-
+    private void afficherComposant(){
+        grid1.setVisible(true);
+        grid2.setVisible(true);
+        grid3.setVisible(true);
+        score_label.setVisible(true);
+        score_pane.setVisible(true);
+        nb_score.setVisible(true);
+        move_pane.setVisible(true);
+        move_label.setVisible(true);
+        nb_move.setVisible(true);
+    }
+    private void cacherComposant(){
+        grid1.setVisible(false);
+        grid2.setVisible(false);
+        grid3.setVisible(false);
+        score_label.setVisible(false);
+        score_pane.setVisible(false);
+        nb_score.setVisible(false);
+        move_pane.setVisible(false);
+        move_label.setVisible(false);
+        nb_move.setVisible(false);
+    }
     @FXML
     private void clickRecommencer(ActionEvent event) {
         System.out.println("Recommencer");

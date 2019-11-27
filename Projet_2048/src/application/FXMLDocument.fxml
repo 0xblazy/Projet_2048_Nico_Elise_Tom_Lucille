@@ -88,14 +88,13 @@
               <menus>
                 <Menu fx:id="game_button" mnemonicParsing="false" styleClass="bouton_menu" text="Partie">
                   <items>
-                    <MenuItem fx:id="pt_save" mnemonicParsing="false" styleClass="bouton_sous_menu" text="Sauvegarder" />
-                        <MenuItem fx:id="pt_giveup" mnemonicParsing="false" styleClass="bouton_sous_menu" text="Abandonner" />
-                        <MenuItem fx:id="pt_restart" mnemonicParsing="false" onAction="#clickRecommencer" styleClass="bouton_sous_menu" text="Recommencer" />
+                    <MenuItem fx:id="pt_save" disable="true" mnemonicParsing="false" styleClass="bouton_sous_menu" text="Sauvegarder" />
+                        <MenuItem fx:id="pt_restart" disable="true" mnemonicParsing="false" onAction="#clickRecommencer" styleClass="bouton_sous_menu" text="Recommencer" />
                   </items>
                 </Menu>
                 <Menu fx:id="option_button" mnemonicParsing="false" styleClass="bouton_menu" text="Option">
                   <items>
-                    <MenuItem fx:id="logout_button" mnemonicParsing="false" styleClass="bouton_sous_menu" text="Déconnexion" />
+                    <MenuItem fx:id="logout_button" disable="true" mnemonicParsing="false" styleClass="bouton_sous_menu" text="Déconnexion" />
                   </items>
                 </Menu>
               </menus>
