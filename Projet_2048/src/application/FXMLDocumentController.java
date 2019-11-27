@@ -86,8 +86,6 @@ public class FXMLDocumentController implements Initializable, Parametres {
     @FXML
     private MenuItem pt_restart; //bouton "recommencer"
     @FXML
-    private MenuItem pt_giveup; //bouton "abandonner"
-    @FXML
     private MenuItem pt_save; //bouton "sauvegarder"
 
     @FXML
@@ -95,8 +93,11 @@ public class FXMLDocumentController implements Initializable, Parametres {
 
     @FXML
     private MenuItem op_theme;
+    
     @FXML
-    private MenuItem op_son;
+    private Button connexion_button;
+    @FXML
+    private Button inscription_button;
 
     // variables globales non définies dans la vue (fichier .fxml)
     private BaseDeDonnees bdd;
@@ -125,13 +126,15 @@ public class FXMLDocumentController implements Initializable, Parametres {
         nb_move.getStyleClass().add("nb_move");
         //bouton start et les boutons du menu
         start_button.getStyleClass().add("bouton_start");
+        //BOUTONS CONNEXION & INSCRIPTION
+        connexion_button.getStyleClass().add("connexion_button");
+        inscription_button.getStyleClass().add("inscription_button");
         //MENU
         menu_bar.getStyleClass().add("menu_bar");
         option_button.getStyleClass().add("bouton_menu");
         game_button.getStyleClass().add("bouton_menu");
         //boutons sous-menu MENU>>PARTIE>>
         pt_restart.getStyleClass().add("bouton_sous_menu");
-        pt_giveup.getStyleClass().add("bouton_sous_menu");
         pt_save.getStyleClass().add("bouton_sous_menu");
         logout_button.getStyleClass().add("bouton_sous_menu");
         //bouton SON et THEME (switch)
@@ -157,12 +160,12 @@ public class FXMLDocumentController implements Initializable, Parametres {
     private void clickStart(ActionEvent event) {
         if (!start_button.isDisable()) {
             if (start_button.getText().equals("JOUER")){ //Si c'est "jouer" sur le bouton, nous sommes dans la page d'acceuil
-                cacherComposant();
                 start_button.setText("START");
+                afficherComposant();
             }else if (start_button.getText().equals("START")){
                 partie = new Partie(this);
                 partie.start();
-                afficherComposant();
+                
                 start_button.setDisable(true);
                 container.requestFocus(); 
             }  
@@ -208,16 +211,13 @@ public class FXMLDocumentController implements Initializable, Parametres {
     /***POPUP CONNEXION***/
     @FXML
     private void clickConnexion(){
-        Platform.runLater(new Runnable() {
-            @Override
-            public void run() {
                 Dialog<Pair<String, String>> dialog = new Dialog<>();
                 dialog.setTitle("connexion.exe");
                 dialog.setHeaderText("Connecte-toi !");
                 Stage stage = (Stage) dialog.getDialogPane().getScene().getWindow();
                 //Icônes
-                stage.getIcons().add(new Image(this.getClass().getResource("img/noun_Lock.png").toString()));
-                dialog.setGraphic(new ImageView(this.getClass().getResource("img/noun_Lock.png").toString()));
+                stage.getIcons().add(new Image(this.getClass().getResource("/img/noun_Lock_small.png").toString()));
+                dialog.setGraphic(new ImageView(this.getClass().getResource("/img/noun_Lock_small.png").toString()));
                 //Set le type de bouton
                 ButtonType bouton_connexion = new ButtonType("Connexion", ButtonData.OK_DONE);
                 dialog.getDialogPane().getButtonTypes().addAll(bouton_connexion, ButtonType.CANCEL);//Création du label et txt field de pseudo et mdp
@@ -242,8 +242,20 @@ public class FXMLDocumentController implements Initializable, Parametres {
                 loginButton.setDisable(true);
                 
                 username_tf.textProperty().addListener((observable, oldValue, newValue) -> {
-                loginButton.setDisable(newValue.trim().isEmpty());
+                    if (!username_tf.getText().equals("")&& !password_tf.getText().equals("")){
+                        loginButton.setDisable(false);
+                    }else{
+                        loginButton.setDisable(true);
+                    }
                 });
+                password_tf.textProperty().addListener((observable, oldValue, newValue) -> {
+                    if (!username_tf.getText().equals("")&& !password_tf.getText().equals("")){
+                        loginButton.setDisable(false);
+                    }else{
+                        loginButton.setDisable(true);
+                    }
+                });
+               
                 dialog.getDialogPane().setContent(grid);
                 
                 Platform.runLater(() -> username_tf.requestFocus());
@@ -259,23 +271,18 @@ public class FXMLDocumentController implements Initializable, Parametres {
                 result.ifPresent(usernamePassword -> {
                     System.out.println("Pseudo=" + usernamePassword.getKey() + ", Mot de passe=" + usernamePassword.getValue());
                 });
-            }
-        });
     }
     @FXML
     private void clickInscription(){
-        Platform.runLater(new Runnable() {
-            @Override
-            public void run() {
                 Dialog<Pair<String, String>> dialog = new Dialog<>();
                 dialog.setTitle("inscription.exe");
                 dialog.setHeaderText("Inscris-toi !");
                 Stage stage = (Stage) dialog.getDialogPane().getScene().getWindow();
                 
-                stage.getIcons().add(new Image(this.getClass().getResource("img/noun_Lock.png").toString()));
-                dialog.setGraphic(new ImageView(this.getClass().getResource("img/noun_Lock.png").toString()));
+                stage.getIcons().add(new Image(this.getClass().getResource("/img/noun_Lock_small.png").toString()));
+                dialog.setGraphic(new ImageView(this.getClass().getResource("/img/noun_Lock_small.png").toString()));
                 
-                ButtonType bouton_inscription = new ButtonType("Connexion", ButtonData.OK_DONE);
+                ButtonType bouton_inscription = new ButtonType("Inscription", ButtonData.OK_DONE);
                 dialog.getDialogPane().getButtonTypes().addAll(bouton_inscription, ButtonType.CANCEL);
 
                 GridPane grid = new GridPane();
@@ -285,15 +292,11 @@ public class FXMLDocumentController implements Initializable, Parametres {
 
                 TextField username_tf = new TextField();
                 username_tf.setPromptText("Pseudo");
-                TextField mail_tf = new TextField();
-                mail_tf.setPromptText("E-mail");
                 PasswordField password_tf = new PasswordField();
                 password_tf.setPromptText("Mot de passe");
                 PasswordField password_cf_tf = new PasswordField();
                 password_cf_tf.setPromptText("Confirmation");
                 //Positionnement des fields et labels sur une grille prédéfinie
-                grid.add(new Label("E-mail:"), 0,0);
-                grid.add(mail_tf, 0,1);
                 grid.add(new Label("Pseudo:"), 1,0);
                 grid.add(username_tf, 1,1);
                 grid.add(new Label("Mot de passe:"), 2,0);
@@ -304,15 +307,30 @@ public class FXMLDocumentController implements Initializable, Parametres {
                 Node regButton = dialog.getDialogPane().lookupButton(bouton_inscription);
                 
                 username_tf.textProperty().addListener((observable, oldValue, newValue) -> {
-                    
-                    regButton.setDisable(newValue.trim().isEmpty());
+                    if (!username_tf.getText().equals("")&& !password_tf.getText().equals("") && password_cf_tf.getText().equals(password_tf.getText())){
+                        regButton.setDisable(false);
+                    }else{
+                        regButton.setDisable(true);
+                    }
                 });
+                password_tf.textProperty().addListener((observable, oldValue, newValue) -> {
+                    if (!username_tf.getText().equals("")&& !password_tf.getText().equals("") && password_cf_tf.getText().equals(password_tf.getText())){
+                        regButton.setDisable(false);
+                    }else{
+                        regButton.setDisable(true);
+                    }
+                });
+                password_cf_tf.textProperty().addListener((observable, oldValue, newValue) -> {
+                    if (!username_tf.getText().equals("")&& !password_tf.getText().equals("") && password_cf_tf.getText().equals(password_tf.getText())){
+                        regButton.setDisable(false);
+                    }else{
+                        regButton.setDisable(true);
+                    }
+                });
+                
                 dialog.getDialogPane().setContent(grid);
                 
-                Platform.runLater(() -> mail_tf.requestFocus());
                 Platform.runLater(() -> username_tf.requestFocus());
-                Platform.runLater(() -> password_tf.requestFocus());
-                Platform.runLater(() -> password_cf_tf.requestFocus());
                 
                 dialog.setResultConverter(dialogButton -> {
                     if (dialogButton == bouton_inscription) {
@@ -324,8 +342,6 @@ public class FXMLDocumentController implements Initializable, Parametres {
                 result.ifPresent(usernamePassword -> {
                     System.out.println("Pseudo=" + usernamePassword.getKey() + ", Mot de passe=" + usernamePassword.getValue());
                 });
-            }
-        });
     }
     @FXML
     public void keyPressed(KeyEvent ke) {

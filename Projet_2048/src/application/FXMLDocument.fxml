@@ -16,7 +16,7 @@
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
          </padding>
          <children>
-            <GridPane fx:id="grid1" alignment="BOTTOM_LEFT" gridLinesVisible="true" layoutX="37.0" layoutY="270.0" prefHeight="240.0" prefWidth="240.0" styleClass="grid">
+            <GridPane fx:id="grid1" alignment="BOTTOM_LEFT" gridLinesVisible="true" layoutX="37.0" layoutY="270.0" prefHeight="240.0" prefWidth="240.0" styleClass="grid" visible="false">
               <columnConstraints>
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -28,7 +28,7 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
             </GridPane>
-            <GridPane fx:id="grid2" alignment="BOTTOM_LEFT" gridLinesVisible="true" layoutX="280.0" layoutY="270.0" prefHeight="240.0" prefWidth="240.0" styleClass="grid">
+            <GridPane fx:id="grid2" alignment="BOTTOM_LEFT" gridLinesVisible="true" layoutX="280.0" layoutY="270.0" prefHeight="240.0" prefWidth="240.0" styleClass="grid" visible="false">
                <columnConstraints>
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -40,7 +40,7 @@
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                </rowConstraints>
             </GridPane>
-            <GridPane fx:id="grid3" alignment="BOTTOM_LEFT" gridLinesVisible="true" layoutX="523.0" layoutY="270.0" prefHeight="240.0" prefWidth="240.0" styleClass="grid">
+            <GridPane fx:id="grid3" alignment="BOTTOM_LEFT" gridLinesVisible="true" layoutX="523.0" layoutY="270.0" prefHeight="240.0" prefWidth="240.0" styleClass="grid" visible="false">
                <columnConstraints>
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -52,9 +52,9 @@
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                </rowConstraints>
             </GridPane>
-            <Pane fx:id="move_pane" layoutX="328.0" layoutY="14.0" prefHeight="135.0" prefWidth="145.0" styleClass="move_pane">
+            <Pane fx:id="move_pane" layoutX="328.0" layoutY="14.0" prefHeight="135.0" prefWidth="145.0" styleClass="move_pane" visible="false">
                <children>
-                  <Label fx:id="move_label" ellipsisString="" layoutX="26.0" layoutY="14.0" prefHeight="40.0" prefWidth="89.0" styleClass="move_label" text="MOVES" textAlignment="CENTER">
+                  <Label fx:id="move_label" ellipsisString="" layoutX="28.0" layoutY="14.0" prefHeight="40.0" prefWidth="89.0" styleClass="move_label" text="MOVES" textAlignment="CENTER">
                      <font>
                         <Font size="23.0" />
                      </font>
@@ -66,8 +66,8 @@
                   </Label>
                </children>
             </Pane>
-            <Button fx:id="start_button" contentDisplay="CENTER" layoutX="335.0" layoutY="187.0" mnemonicParsing="false" onAction="#clickStart" styleClass="bouton_start" text="START" />
-            <Pane fx:id="score_pane" layoutX="536.0" layoutY="88.0" prefHeight="61.0" prefWidth="264.0" styleClass="score_pane">
+            <Button fx:id="start_button" contentDisplay="CENTER" layoutX="335.0" layoutY="187.0" mnemonicParsing="false" onAction="#clickStart" styleClass="bouton_start" text="JOUER" />
+            <Pane fx:id="score_pane" layoutX="536.0" layoutY="88.0" prefHeight="61.0" prefWidth="264.0" styleClass="score_pane" visible="false">
                <children>
                   <Label fx:id="score_label" layoutX="14.0" layoutY="14.0" prefHeight="34.0" prefWidth="135.0" styleClass="score_label" text="score">
                      <font>
@@ -99,6 +99,8 @@
                 </Menu>
               </menus>
             </MenuBar>
+            <Button fx:id="connexion_button" layoutX="697.0" layoutY="22.0" mnemonicParsing="false" onAction="#clickConnexion" text="Connexion" />
+            <Button fx:id="inscription_button" layoutX="697.0" layoutY="69.0" mnemonicParsing="false" onAction="#clickInscription" text="Inscription" />
          </children>
       </Pane>
    </children>
