@@ -3,6 +3,8 @@ USE projet2048elnt;
 CREATE TABLE IF NOT EXISTS Joueur (
     nom VARCHAR(50) NOT NULL,
     mdp VARCHAR(64) NOT NULL,
+    meilleur_deplacements INT,
+    meilleur_temps INT,
     score_max INT,
     UNIQUE (nom),
     PRIMARY KEY (nom)

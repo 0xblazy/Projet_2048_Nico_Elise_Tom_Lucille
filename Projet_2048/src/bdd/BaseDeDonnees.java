@@ -113,6 +113,36 @@ public class BaseDeDonnees implements Parametres {
         }
     }
     
+    // Retourne le meilleurDeplacments d'un joueur, un code erreur sinon
+    public int getMeilleurDeplacements(String _nom) {
+        try {
+            ResultSet rs = stmt.executeQuery("SELECT meilleur_deplacements FROM Joueur WHERE nom = '" + _nom + "'");
+            if (rs.first()) {
+                return rs.getInt("meilleur_deplacements");
+            } else {
+                return ERROR_NOPLAYER;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(BaseDeDonnees.class.getName()).log(Level.SEVERE, null, ex);
+            return ERROR_SQL;
+        }
+    }
+    
+    // Retourne le meilleurTemps d'un joueur, un code erreur sinon
+    public int getMeilleurTemps(String _nom) {
+        try {
+            ResultSet rs = stmt.executeQuery("SELECT meilleur_temps FROM Joueur WHERE nom = '" + _nom + "'");
+            if (rs.first()) {
+                return rs.getInt("meilleur_temps");
+            } else {
+                return ERROR_NOPLAYER;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(BaseDeDonnees.class.getName()).log(Level.SEVERE, null, ex);
+            return ERROR_SQL;
+        }
+    }
+    
     // Met à jour le scoreMax d'un joueur et retourne un code en fonction de la situation
     public int setScoreMax(String _nom, int _scoreMax) {
         try {
@@ -128,13 +158,43 @@ public class BaseDeDonnees implements Parametres {
         }
     }
     
-    // Retourne le classement des joueurs
+    // Met à jour le meilleurDeplacement d'un joueur et retourne un code en fonction de la situation
+    public int setMeilleurDeplacements(String _nom, int _meilleurDeplacement) {
+        try {
+            int result = stmt.executeUpdate("UPDATE Joueur SET meilleur_deplacements = '" + _meilleurDeplacement + "' WHERE nom = '" + _nom + "'");
+            if (result < 1) {
+                return NO_UPDATE;
+            } else {
+                return UPDATED;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(BaseDeDonnees.class.getName()).log(Level.SEVERE, null, ex);
+            return ERROR_SQL;
+        }
+    }
+    
+    // Met à jour le meilleurTemps d'un joueur et retourne un code en fonction de la situation
+    public int setMeilleurTemps(String _nom, int _meilleurTemps) {
+        try {
+            int result = stmt.executeUpdate("UPDATE Joueur SET meilleur_temps = '" + _meilleurTemps + "' WHERE nom = '" + _nom + "'");
+            if (result < 1) {
+                return NO_UPDATE;
+            } else {
+                return UPDATED;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(BaseDeDonnees.class.getName()).log(Level.SEVERE, null, ex);
+            return ERROR_SQL;
+        }
+    }
+    
+    // Retourne le classement des joueurs trié par score
     public List<Object[]> getClassementScore() {
         List<Object[]> list = new ArrayList<>();
         try {
-            ResultSet rs = stmt.executeQuery("SELECT nom, score_max FROM Joueur ORDER BY score_max DESC");
+            ResultSet rs = stmt.executeQuery("SELECT nom, meilleur_deplacements, meilleur_temps, score_max FROM Joueur ORDER BY score_max DESC");
             while (rs.next()) {
-                list.add(new Object[]{rs.getString("nom"), rs.getInt("score_max")});
+                list.add(new Object[]{rs.getString("nom"), rs.getInt("meilleur_deplacements"), rs.getInt("meilleur_temps"), rs.getInt("score_max")});
             }
             return list;
         } catch (SQLException ex) {
@@ -143,12 +203,13 @@ public class BaseDeDonnees implements Parametres {
         }
     }
     
+    // Retourne le classement des joueurs trié par nombre de déplacement
     public List<Object[]> getClassementDeplacements() {
         List<Object[]> list = new ArrayList<>();
         try {
-            ResultSet rs = stmt.executeQuery("SELECT nom, deplacements FROM Joueur ORDER BY deplacements DESC");
+            ResultSet rs = stmt.executeQuery("SELECT nom, meilleur_deplacements, meilleur_temps, score_max FROM Joueur ORDER BY meilleur_deplacements DESC");
             while (rs.next()) {
-                list.add(new Object[]{rs.getString("nom"), rs.getInt("deplacements")});
+                list.add(new Object[]{rs.getString("nom"), rs.getInt("meilleur_deplacements"), rs.getInt("meilleur_temps"), rs.getInt("score_max")});
             }
             return list;
         } catch (SQLException ex) {
@@ -157,12 +218,13 @@ public class BaseDeDonnees implements Parametres {
         }
     }
     
+    // Retourne le classement des joueurs trié par meilleur temps
     public List<Object[]> getClassementTemps() {
         List<Object[]> list = new ArrayList<>();
         try {
-            ResultSet rs = stmt.executeQuery("SELECT nom, temps FROM Joueur ORDER BY temps DESC");
+            ResultSet rs = stmt.executeQuery("SELECT nom, meilleur_deplacements, meilleur_temps, score_max FROM Joueur ORDER BY meilleur_temps DESC");
             while (rs.next()) {
-                list.add(new Object[]{rs.getString("nom"), rs.getInt("temps")});
+                list.add(new Object[]{rs.getString("nom"), rs.getInt("meilleur_deplacements"), rs.getInt("meilleur_temps"), rs.getInt("score_max")});
             }
             return list;
         } catch (SQLException ex) {
@@ -172,9 +234,9 @@ public class BaseDeDonnees implements Parametres {
     }
    
     // Ajoute une partie, retourne un code en fonction de la situation
-    public int insertionPartie (String _nom, int _score, int val_max){
+    public int insertionPartie (String _nom, int _deplacement, int _temps, int _score, int _val_max){
          try {
-            int result = stmt.executeUpdate("INSERT INTO Partie(joueur, score, valeur_max) VALUES ('" + _nom  + "', '" +_score  + "', '" + val_max +"')");
+            int result = stmt.executeUpdate("INSERT INTO Partie(joueur, deplacements, temps, score, valeur_max) VALUES ('" + _nom  + "', '" + _deplacement + "', '" + _temps + "', '" + _score  + "', '" + _val_max +"')");
             if (result < 1) {
                 return NO_UPDATE;
             } else {
@@ -190,9 +252,9 @@ public class BaseDeDonnees implements Parametres {
     public List<int[]> getHistorique(String _joueur) {
         List<int[]> list = new ArrayList<>();
         try {
-            ResultSet rs = stmt.executeQuery("SELECT score, valeur_max FROM Partie WHERE joueur= '" + _joueur +"'");
+            ResultSet rs = stmt.executeQuery("SELECT score, deplacements, temps, valeur_max FROM Partie WHERE joueur= '" + _joueur +"'");
             while (rs.next()) {
-                list.add(new int[]{rs.getInt("score"), rs.getInt("valeur_max")});
+                list.add(new int[]{rs.getInt("score"), rs.getInt("deplacements"), rs.getInt("temps"), rs.getInt("valeur_max")});
             }
             return list;
         } catch (SQLException ex) {
