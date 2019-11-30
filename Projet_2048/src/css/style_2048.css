@@ -154,6 +154,30 @@ and open the template in the editor.
     -fx-margin: auto;
     -fx-font-size: 18px;
 }
+
+.boutons {
+    -fx-position: absolute;
+    -fx-padding: 4 10 4 10;
+    -fx-top: 50%;
+    -fx-left: 50%;
+    -fx-background-color: #C49A89;
+    -fx-text-fill: white;
+    -fx-font-family: "Goudy Stout";
+    -fx-margin: auto;
+    -fx-font-size: 10px;
+}
+
+.connect_has {
+    -fx-position: absolute;
+    -fx-padding: 4 10 4 10;
+    -fx-top: 50%;
+    -fx-left: 50%;
+    -fx-text-fill: black;
+    -fx-font-family: "Calibri";
+    -fx-margin: auto;
+    -fx-font-size: 16px;
+}
+
 .menu_bar{
     -fx-background-color: none;
 }

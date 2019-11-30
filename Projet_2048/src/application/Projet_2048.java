@@ -6,8 +6,8 @@
 package application;
 
 import bdd.BaseDeDonnees;
-import java.util.List;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -20,6 +20,12 @@ import model.Partie;
  * @author nKBlaZy
  */
 public class Projet_2048 extends Application {
+
+    @Override
+    public void stop() throws Exception {
+        Platform.exit();
+        System.exit(0);
+    }
     
     @Override
     public void start(Stage stage) throws Exception {

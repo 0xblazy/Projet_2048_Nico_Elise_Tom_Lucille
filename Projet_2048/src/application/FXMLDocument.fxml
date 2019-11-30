@@ -88,19 +88,21 @@
               <menus>
                 <Menu fx:id="game_button" mnemonicParsing="false" styleClass="bouton_menu" text="Partie">
                   <items>
+                        <MenuItem fx:id="pt_load" disable="true" mnemonicParsing="false" styleClass="bouton_sous_menu" text="Charger" />
                     <MenuItem fx:id="pt_save" disable="true" mnemonicParsing="false" styleClass="bouton_sous_menu" text="Sauvegarder" />
                         <MenuItem fx:id="pt_restart" disable="true" mnemonicParsing="false" onAction="#clickRecommencer" styleClass="bouton_sous_menu" text="Recommencer" />
                   </items>
                 </Menu>
                 <Menu fx:id="option_button" mnemonicParsing="false" styleClass="bouton_menu" text="Option">
                   <items>
-                    <MenuItem fx:id="logout_button" disable="true" mnemonicParsing="false" styleClass="bouton_sous_menu" text="Déconnexion" />
+                    <MenuItem fx:id="logout_button" disable="true" mnemonicParsing="false" onAction="#clickDeconnexion" styleClass="bouton_sous_menu" text="Déconnexion" />
                   </items>
                 </Menu>
               </menus>
             </MenuBar>
-            <Button fx:id="connexion_button" layoutX="697.0" layoutY="22.0" mnemonicParsing="false" onAction="#clickConnexion" text="Connexion" />
-            <Button fx:id="inscription_button" layoutX="697.0" layoutY="69.0" mnemonicParsing="false" onAction="#clickInscription" text="Inscription" />
+            <Button fx:id="connexion_button" layoutX="675.0" layoutY="5.0" mnemonicParsing="false" onAction="#clickConnexion" styleClass="boutons" text="Connexion" />
+            <Button fx:id="inscription_button" layoutX="655.0" layoutY="40.0" mnemonicParsing="false" onAction="#clickInscription" styleClass="boutons" text="Inscription" />
+            <Label fx:id="connect_has" alignment="CENTER_RIGHT" layoutX="473.0" layoutY="1.0" prefHeight="26.0" prefWidth="324.0" styleClass="connect_has" text="Connecté sur le compte de" textAlignment="RIGHT" visible="false" />
          </children>
       </Pane>
    </children>

@@ -79,6 +79,21 @@ public class BaseDeDonnees implements Parametres {
         }
     }
     
+    // Retourne true si un joueur portant le nom passé en paramètre existe déjà
+    public boolean joueurExiste(String _nom) {
+        try {
+            ResultSet rs = stmt.executeQuery("SELECT nom FROM Joueur WHERE nom = '" + _nom + "'");
+            if (rs.first()) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(BaseDeDonnees.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+    }
+    
     // Vérifie le nom et le mot de passe et retourne retourne un code en fonction de la situation
     public int connectJoueur(String _nom, String _mdp) {
         try {
@@ -129,11 +144,11 @@ public class BaseDeDonnees implements Parametres {
     }
     
     // Retourne le meilleurTemps d'un joueur, un code erreur sinon
-    public int getMeilleurTemps(String _nom) {
+    public long getMeilleurTemps(String _nom) {
         try {
             ResultSet rs = stmt.executeQuery("SELECT meilleur_temps FROM Joueur WHERE nom = '" + _nom + "'");
             if (rs.first()) {
-                return rs.getInt("meilleur_temps");
+                return rs.getLong("meilleur_temps");
             } else {
                 return ERROR_NOPLAYER;
             }
@@ -174,7 +189,7 @@ public class BaseDeDonnees implements Parametres {
     }
     
     // Met à jour le meilleurTemps d'un joueur et retourne un code en fonction de la situation
-    public int setMeilleurTemps(String _nom, int _meilleurTemps) {
+    public int setMeilleurTemps(String _nom, long _meilleurTemps) {
         try {
             int result = stmt.executeUpdate("UPDATE Joueur SET meilleur_temps = '" + _meilleurTemps + "' WHERE nom = '" + _nom + "'");
             if (result < 1) {
@@ -234,7 +249,7 @@ public class BaseDeDonnees implements Parametres {
     }
    
     // Ajoute une partie, retourne un code en fonction de la situation
-    public int insertionPartie (String _nom, int _deplacement, int _temps, int _score, int _val_max){
+    public int insertionPartie (String _nom, int _deplacement, long _temps, int _score, int _val_max){
          try {
             int result = stmt.executeUpdate("INSERT INTO Partie(joueur, deplacements, temps, score, valeur_max) VALUES ('" + _nom  + "', '" + _deplacement + "', '" + _temps + "', '" + _score  + "', '" + _val_max +"')");
             if (result < 1) {

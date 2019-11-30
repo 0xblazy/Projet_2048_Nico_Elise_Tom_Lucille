@@ -16,40 +16,12 @@ import java.sql.Statement;
 
 public class Joueur implements Parametres {
     private String nom ;
-    //private String mdp ; //peut être utile pour récupérer le mdp en cas d'oubli de l'utilisateur
-    private int scoreMax;
     
-    public Joueur(String _nom, int score_max) {
+    public Joueur(String _nom) {
         nom=_nom;
-        scoreMax=score_max;
     }
 
     public String getNom(){
         return nom;
-    }
-
-    public void setNom(String _nom){
-        nom=_nom;
-    }
-    
-    public int getScoreMax(){
-        return scoreMax;
-    }
-
-    public void setScoreMax(int score_max){
-        if (this.scoreMax<score_max) {
-           scoreMax=score_max;
-        }
-    }
-    
-    /*
-    public String getMdp(){
-        return mdp;
-    }
-
-    public void setMdp(String _mdp){
-        mdp=_mdp;
-    }
-    */
-    
+    }  
 }

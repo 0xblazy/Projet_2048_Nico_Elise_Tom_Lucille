@@ -22,13 +22,15 @@ public class Partie extends Thread implements Parametres {
     private BaseDeDonnees bdd;
     private int direction;
     private FXMLDocumentController controller;
+    private Joueur joueur;
 
-    public Partie(FXMLDocumentController _controller) {
+    public Partie(FXMLDocumentController _controller, Joueur _joueur) {
         bdd = BaseDeDonnees.getInstance();
         cube = new Cube(this);
         score = 0;
         move = 0;
         controller = _controller;
+        joueur = _joueur;
     }
 
     private void initCube() {
@@ -45,6 +47,7 @@ public class Partie extends Thread implements Parametres {
         controller.updatePanes();
         Scanner sc = new Scanner(System.in);
         boolean nouvelleCase;
+        long debut = System.currentTimeMillis();
         // Boucle de jeu
         while (!cube.partieFinie() && cube.getValeurMax() < OBJECTIF) {
             // Affichage
@@ -73,6 +76,24 @@ public class Partie extends Thread implements Parametres {
             }
         }
         if (!isInterrupted()) {
+            long temps = System.currentTimeMillis() - debut;
+            if (joueur != null) {
+                if (bdd.connection()) {
+                    bdd.insertionPartie(joueur.getNom(), move, temps, score, cube.getValeurMax());
+                    if (cube.getValeurMax() >= OBJECTIF) {
+                        if (bdd.getMeilleurDeplacements(joueur.getNom()) > move || bdd.getMeilleurDeplacements(joueur.getNom()) == 0) {
+                            bdd.setMeilleurDeplacements(joueur.getNom(), move);
+                        }
+                        if (bdd.getMeilleurTemps(joueur.getNom()) > temps || bdd.getMeilleurTemps(joueur.getNom()) == 0) {
+                            bdd.setMeilleurTemps(joueur.getNom(), temps);
+                        }
+                        if (bdd.getScoreMax(joueur.getNom()) < score) {
+                            bdd.setScoreMax(joueur.getNom(), score);
+                        }
+                    }
+                    bdd.deconnection();
+                }
+            }
             afficherCube();
             if (cube.getValeurMax() >= OBJECTIF) {
                 cube.victory();
@@ -100,5 +121,9 @@ public class Partie extends Thread implements Parametres {
 
     public void setDirection(int _direction) {
         this.direction = _direction;
+    }
+
+    public void setJoueur(Joueur _joueur) {
+        this.joueur = _joueur;
     }
 }
