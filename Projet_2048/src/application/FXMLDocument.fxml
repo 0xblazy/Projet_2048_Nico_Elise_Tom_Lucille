@@ -88,8 +88,8 @@
               <menus>
                 <Menu fx:id="game_button" mnemonicParsing="false" styleClass="bouton_menu" text="Partie">
                   <items>
-                        <MenuItem fx:id="pt_load" disable="true" mnemonicParsing="false" styleClass="bouton_sous_menu" text="Charger" />
-                    <MenuItem fx:id="pt_save" disable="true" mnemonicParsing="false" styleClass="bouton_sous_menu" text="Sauvegarder" />
+                        <MenuItem fx:id="pt_load" disable="true" mnemonicParsing="false" onAction="#clickCharger" styleClass="bouton_sous_menu" text="Charger" />
+                    <MenuItem fx:id="pt_save" disable="true" mnemonicParsing="false" onAction="#clickSauvagerder" styleClass="bouton_sous_menu" text="Sauvegarder" />
                         <MenuItem fx:id="pt_restart" disable="true" mnemonicParsing="false" onAction="#clickRecommencer" styleClass="bouton_sous_menu" text="Recommencer" />
                   </items>
                 </Menu>
@@ -102,8 +102,8 @@
             </MenuBar>
             <Button fx:id="connexion_button" layoutX="675.0" layoutY="5.0" mnemonicParsing="false" onAction="#clickConnexion" styleClass="boutons" text="Connexion" />
             <Button fx:id="inscription_button" layoutX="655.0" layoutY="40.0" mnemonicParsing="false" onAction="#clickInscription" styleClass="boutons" text="Inscription" />
-            <Label fx:id="connect_has" alignment="CENTER_RIGHT" layoutX="473.0" layoutY="1.0" prefHeight="26.0" prefWidth="324.0" styleClass="connect_has" text="Connecté sur le compte de" textAlignment="RIGHT" visible="false" />
          </children>
       </Pane>
+      <Label fx:id="connect_has" alignment="CENTER_RIGHT" prefHeight="26.0" prefWidth="324.0" styleClass="connect_has" text="Connecté sur le compte de" textAlignment="RIGHT" visible="false" />
    </children>
 </AnchorPane>

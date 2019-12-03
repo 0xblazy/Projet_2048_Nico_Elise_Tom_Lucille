@@ -6,6 +6,12 @@
 package application;
 
 import bdd.BaseDeDonnees;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -13,6 +19,8 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javafx.application.Platform;
@@ -433,6 +441,56 @@ public class FXMLDocumentController implements Initializable, Parametres {
         });
     }
     
+    // Popup pour SAUVEGARDER la partie en cours
+    @FXML
+    private void clickSauvagerder(){
+        Alert alert = new Alert(AlertType.CONFIRMATION);
+        alert.setTitle("Sauvegarde");
+        alert.setHeaderText("Sauvegarde");
+        alert.setContentText("Voulez-vous sauvegarder la partie en cours ?");
+        if (alert.showAndWait().get() == ButtonType.OK){
+            try{
+                FileOutputStream fos = new FileOutputStream("partie.ser");
+                ObjectOutputStream os = new ObjectOutputStream(fos);
+                os.writeObject(partie);
+                //System.out.println("Objetc sérialisé !");
+                os.close();
+                System.out.println("Partie auvegardée !");
+            } catch(FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException ex) {
+            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            alert.close();
+        } else {
+            alert.close();
+        }
+        
+        
+    }
+    // Popup pour CHARGER une partie enregistrée
+    @FXML
+    private void clickCharger(){
+        Alert alert = new Alert(AlertType.CONFIRMATION);
+        alert.setTitle("Load");
+        alert.setHeaderText("Charger partie");
+        alert.setContentText("Voulez-vous charger la partie précédente ?");
+        if (alert.showAndWait().get() == ButtonType.OK){
+            try{
+            FileInputStream fis = new FileInputStream("partie.ser");
+            ObjectInputStream ois = new ObjectInputStream(fis);
+            this.partie = (Partie) ois.readObject();
+            System.out.println("Partie chargée !");
+            ois.close();
+            } catch (Exception e){
+                e.printStackTrace();
+                alert.close();
+            }
+        } else {
+            alert.close();
+        }
+    }
+
     // Pop up pour se déconnecter
     @FXML
     private void clickDeconnexion() {
