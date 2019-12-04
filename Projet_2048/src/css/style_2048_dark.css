@@ -5,6 +5,213 @@ and open the template in the editor.
 */
 /* 
     Created on : 27 nov. 2019, 16:06:04
-    Author     : Lucile
+    Author     : Lucille
 */
+@font-face {
+    font-family: "earthorbiter";
+    src: url("fonts/earthorbiter.TTF");
+}
 
+@font-face {
+    font-family: "Calibri";
+    src: url("fonts/Calibri.ttf");
+}
+
+@font-face {
+    font-family: "Arial";
+    src: url("fonts/Arial.ttf");
+}
+
+@font-face {
+    font-family: "spaceman";
+    src: url("fonts/SPACEMAN.TTF");
+}
+
+@font-face {
+    font-family: "space_age";
+    src: url("fonts/space_age.ttf");
+}
+
+.container{
+    -fx-background-color: #200540;
+    -fx-border-color: none;
+}
+.grid{
+    -fx-background-color: #3A106D;
+    -fx-border-color: #401277;
+    -fx-border-width: 2px;
+    -fx-halignment: center;
+    -fx-alignment: CENTER;
+}
+.case_label_2{
+    -fx-text-fill: #FFF7D6;
+    -fx-background-color: #AE94B9;
+    -fx-font-size: 45px;
+    -fx-text-align: center;
+    -fx-font-family: "space_age";
+}
+
+.case_label_4{
+    -fx-text-fill: #FFF7D6;
+    -fx-background-color: #897294;
+    -fx-font-size: 45px;
+    -fx-text-align: center;
+    -fx-font-family: "space_age";
+}
+
+.case_label_8{
+    -fx-text-fill: #FFF7D6;
+    -fx-background-color: #7D5690;
+    -fx-font-size: 45px;
+    -fx-text-align: center;
+    -fx-font-family: "space_age";
+}
+
+.case_label_16{
+    -fx-text-fill: #FFF7D6;
+    -fx-background-color: #6A477B;
+    -fx-font-size: 45px;
+    -fx-text-align: center;
+    -fx-font-family: "space_age";
+}
+
+.case_label_32{
+    -fx-text-fill: #FFF7D6;
+    -fx-background-color: #50395B;
+    -fx-font-size: 45px;
+    -fx-text-align: center;
+    -fx-font-family: "space_age";
+}
+
+.case_label_64{
+    -fx-text-fill: #FFF7D6;
+    -fx-background-color: #351E40;
+    -fx-font-size: 45px;
+    -fx-text-align: center;
+    -fx-font-family: "space_age";
+}
+
+.case_label_128{
+    -fx-text-fill: #FFF7D6;
+    -fx-background-color: #211029;
+    -fx-font-size: 45px;
+    -fx-text-align: center;
+    -fx-font-family: "space_age";
+}
+
+.case_label_256{
+    -fx-text-fill: #FFF7D6;
+    -fx-background-color: #3A0851;
+    -fx-font-size: 45px;
+    -fx-text-align: center;
+    -fx-font-family: "space_age";
+}
+
+.case_label_512{
+    -fx-text-fill: #FFF7D6;
+    -fx-background-color: #4E0571;
+    -fx-font-size: 45px;
+    -fx-text-align: center;
+    -fx-font-family: "space_age";
+}
+
+.case_label_1024{
+    -fx-text-fill: #FFF7D6;
+    -fx-background-color: #620190;
+    -fx-font-size: 35px;
+    -fx-text-align: center;
+    -fx-font-family: "space_age";
+}
+
+.case_label_2048{
+    -fx-text-fill: #FFF7D6;
+    -fx-background-color: #9C09E2;
+    -fx-font-size: 35px;
+    -fx-text-align: center;
+    -fx-font-family: "space_age";
+}
+.score_label{
+    -fx-background-color: none;
+    -fx-text-fill: #FFEEA9;
+    -fx-font-family: "earthorbiter";
+    -fx-font-size: 30px;
+    -fx-text-transform: uppercase;
+}
+.nb_score{
+    -fx-backgroud-color: none;
+    -fx-text-fill: #FFEEA9;
+    -fx-font-family: "space_age";
+    -fx-font-size: 30px;
+}
+.score_pane{
+    -fx-background-color: #532D81;
+    -fx-border-width: 0px;
+}
+.move_pane{
+    -fx-background-color: #532D81;
+    -fx-border-width: 0px;
+}
+.move_label{
+    -fx-text-alignment: center;
+    -fx-background-color: none;
+    -fx-text-fill: #FFEEA9;
+    -fx-font-family: "earthorbiter";
+    -fx-text-weight: bold;
+    -fx-font-size: 25px;
+    -fx-padding: 5 5 5 5;
+}
+.nb_move{
+    -fx-text-fill: #FFEEA9;
+    -fx-font-family: "space_age";
+    -fx-font-size: 40px;
+    -fx-padding: 5 5 5 5;
+}
+.bouton_start{
+    -fx-position: absolute;
+    -fx-padding: 4 10 4 10;
+    -fx-top: 50%;
+    -fx-left: 50%;
+    -fx-background-color: #3F1B6A;
+    -fx-text-fill: #FFF7D6;
+    -fx-font-family: "spaceman";
+    -fx-margin: auto;
+    -fx-font-size: 18px;
+}
+
+.boutons {
+    -fx-position: absolute;
+    -fx-padding: 4 10 4 10;
+    -fx-top: 50%;
+    -fx-left: 50%;
+    -fx-background-color: #532689;
+    -fx-text-fill: #FFF7D6;
+    -fx-font-family: "spaceman";
+    -fx-margin: auto;
+    -fx-font-size: 10px;
+}
+
+.connect_has {
+    -fx-position: absolute;
+    -fx-padding: 4 10 4 10;
+    -fx-top: 50%;
+    -fx-left: 50%;
+    -fx-text-fill: black;
+    -fx-font-family: "earthorbiter";
+    -fx-margin: auto;
+    -fx-font-size: 16px;
+}
+
+.menu_bar{
+    -fx-background-color: none;
+}
+.bouton_menu{
+    -fx-background-color: #120421;
+    -fx-text-fill: white;
+    -fx-font-family: "Arial";
+    -fx-font-size: 16px;
+}
+.bouton_sous_menu{
+    -fx-background-color: #120421;
+    -fx-font-family: "Arial";
+    -fx-text-fill: white;
+}
