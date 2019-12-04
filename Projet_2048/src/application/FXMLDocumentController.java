@@ -120,11 +120,10 @@ public class FXMLDocumentController implements Initializable, Parametres {
     private BaseDeDonnees bdd;
     private Partie partie;
     private Joueur joueur = null;
-    private double destX, destY, currX, currY;
+    private boolean reloaded = false;
     //Cases du jeu
     private final Map<Integer, Pane> panes = new HashMap<>();
     private final int wh_case = 80; //largeur et hauteur de la case (en px)
-    private int x_1 = 37, x_2 = 280, x_3 = 523, y = 270;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -240,6 +239,7 @@ public class FXMLDocumentController implements Initializable, Parametres {
         alert.setGraphic(new ImageView("/img/reset.png"));
         if (alert.showAndWait().get() == ButtonType.OK) {
             resetGame();
+            reloaded = false;
         } else {
             alert.close();
         }
@@ -505,6 +505,7 @@ public class FXMLDocumentController implements Initializable, Parametres {
                 partie.setController(this);
                 partie.setBdd(bdd);
                 partie.start();
+                reloaded = true;
                 container.requestFocus();
             } catch (FileNotFoundException ex) {
                 Alert a = new Alert(AlertType.ERROR);
@@ -532,6 +533,7 @@ public class FXMLDocumentController implements Initializable, Parametres {
         alert.setGraphic(new ImageView("/img/noun_Lock_small.png"));
         if (alert.showAndWait().get() == ButtonType.OK) {
             resetGame();
+            reloaded = false;
             joueur = null;
             cacherComposant();
             logout_button.setDisable(true);
@@ -632,26 +634,18 @@ public class FXMLDocumentController implements Initializable, Parametres {
                             public void run() {
                                 if (panes.containsKey(c.getId())) {
                                     Pane p = panes.get(c.getId());
-
                                     grid1.getChildren().remove(p);
                                     grid2.getChildren().remove(p);
                                     grid3.getChildren().remove(p);
-
                                     switch (c.getZ()) {
                                         case 0:
-
                                             grid1.add(p, c.getX(), c.getY());
-
                                             break;
                                         case 1:
-
                                             grid2.add(p, c.getX(), c.getY());
-
                                             break;
                                         case 2:
-
                                             grid3.add(p, c.getX(), c.getY());
-
                                             break;
                                     }
                                     if (c.getValeur() != c.getOldValeur()) {
@@ -671,16 +665,12 @@ public class FXMLDocumentController implements Initializable, Parametres {
                                             p.getChildren().add(l);
                                             break;
                                         case 1:
-
                                             grid2.add(p, c.getX(), c.getY());
                                             p.getChildren().add(l);
-
                                             break;
                                         case 2:
-
                                             grid3.add(p, c.getX(), c.getY());
                                             p.getChildren().add(l);
-
                                             break;
                                     }
                                     l.getStyleClass().add("case_label_" + c.getValeur());
@@ -729,6 +719,11 @@ public class FXMLDocumentController implements Initializable, Parametres {
                 alert.setContentText("Vous avez terminé la partie\nScore : " + partie.getScore() + "\nDéplacements : " + partie.getMove());
                 alert.setGraphic(new ImageView("/img/victory.png"));
                 if (alert.showAndWait().get() == ButtonType.OK) {
+                    if (reloaded) {
+                        File file = new File("saves/" + joueur.getNom() + ".save");
+                        file.delete();
+                        reloaded = false;
+                    }
                     resetGame();
                     alert.close();
                 }
@@ -748,6 +743,7 @@ public class FXMLDocumentController implements Initializable, Parametres {
                 alert.setGraphic(new ImageView("/img/gameOver.png"));
                 if (alert.showAndWait().get() == ButtonType.OK) {
                     resetGame();
+                    reloaded = false;
                     alert.close();
                 }
             }
@@ -786,5 +782,6 @@ public class FXMLDocumentController implements Initializable, Parametres {
         pt_load.setDisable(false);
         pt_save.setDisable(true);
         pt_restart.setDisable(true);
+        reloaded = false;
     }
 }
