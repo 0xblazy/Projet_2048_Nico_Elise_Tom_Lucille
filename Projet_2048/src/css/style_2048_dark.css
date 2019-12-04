@@ -46,7 +46,7 @@ and open the template in the editor.
 .case_label_2{
     -fx-text-fill: #FFF7D6;
     -fx-background-color: #AE94B9;
-    -fx-font-size: 45px;
+    -fx-font-size: 25px;
     -fx-text-align: center;
     -fx-font-family: "Space Age";
 }
@@ -54,7 +54,7 @@ and open the template in the editor.
 .case_label_4{
     -fx-text-fill: #FFF7D6;
     -fx-background-color: #897294;
-    -fx-font-size: 45px;
+    -fx-font-size: 25px;
     -fx-text-align: center;
     -fx-font-family: "Space Age";
 }
@@ -62,7 +62,7 @@ and open the template in the editor.
 .case_label_8{
     -fx-text-fill: #FFF7D6;
     -fx-background-color: #7D5690;
-    -fx-font-size: 45px;
+    -fx-font-size: 25px;
     -fx-text-align: center;
     -fx-font-family: "Space Age";
 }
@@ -70,7 +70,7 @@ and open the template in the editor.
 .case_label_16{
     -fx-text-fill: #FFF7D6;
     -fx-background-color: #6A477B;
-    -fx-font-size: 45px;
+    -fx-font-size: 25px;
     -fx-text-align: center;
     -fx-font-family: "Space Age";
 }
@@ -78,7 +78,7 @@ and open the template in the editor.
 .case_label_32{
     -fx-text-fill: #FFF7D6;
     -fx-background-color: #50395B;
-    -fx-font-size: 45px;
+    -fx-font-size: 25px;
     -fx-text-align: center;
     -fx-font-family: "Space Age";
 }
@@ -86,7 +86,7 @@ and open the template in the editor.
 .case_label_64{
     -fx-text-fill: #FFF7D6;
     -fx-background-color: #351E40;
-    -fx-font-size: 45px;
+    -fx-font-size: 25px;
     -fx-text-align: center;
     -fx-font-family: "Space Age";
 }
@@ -94,7 +94,7 @@ and open the template in the editor.
 .case_label_128{
     -fx-text-fill: #FFF7D6;
     -fx-background-color: #211029;
-    -fx-font-size: 45px;
+    -fx-font-size: 25px;
     -fx-text-align: center;
     -fx-font-family: "Space Age";
 }
@@ -102,7 +102,7 @@ and open the template in the editor.
 .case_label_256{
     -fx-text-fill: #FFF7D6;
     -fx-background-color: #3A0851;
-    -fx-font-size: 45px;
+    -fx-font-size: 25px;
     -fx-text-align: center;
     -fx-font-family: "Space Age";
 }
@@ -110,7 +110,7 @@ and open the template in the editor.
 .case_label_512{
     -fx-text-fill: #FFF7D6;
     -fx-background-color: #4E0571;
-    -fx-font-size: 45px;
+    -fx-font-size: 25px;
     -fx-text-align: center;
     -fx-font-family: "Space Age";
 }
@@ -118,7 +118,7 @@ and open the template in the editor.
 .case_label_1024{
     -fx-text-fill: #FFF7D6;
     -fx-background-color: #620190;
-    -fx-font-size: 35px;
+    -fx-font-size: 20px;
     -fx-text-align: center;
     -fx-font-family: "Space Age";
 }
@@ -126,7 +126,7 @@ and open the template in the editor.
 .case_label_2048{
     -fx-text-fill: #FFF7D6;
     -fx-background-color: #9C09E2;
-    -fx-font-size: 35px;
+    -fx-font-size: 20px;
     -fx-text-align: center;
     -fx-font-family: "Space Age";
 }
@@ -142,6 +142,7 @@ and open the template in the editor.
     -fx-text-fill: #FFEEA9;
     -fx-font-family: "Space Age";
     -fx-font-size: 30px;
+    -fx-padding: 0;
 }
 .score_pane{
     -fx-background-color: #532D81;
@@ -163,7 +164,7 @@ and open the template in the editor.
 .nb_move{
     -fx-text-fill: #FFEEA9;
     -fx-font-family: "Space Age";
-    -fx-font-size: 40px;
+    -fx-font-size: 30px;
     -fx-padding: 5 5 5 5;
 }
 .bouton_start{
@@ -196,7 +197,7 @@ and open the template in the editor.
     -fx-top: 50%;
     -fx-left: 50%;
     -fx-text-fill: white;
-    -fx-font-family: "Earth Orbiter";
+    -fx-font-family: "Arial";
     -fx-margin: auto;
     -fx-font-size: 16px;
 }
