@@ -443,7 +443,7 @@ public class FXMLDocumentController implements Initializable, Parametres {
     
     // Popup pour SAUVEGARDER la partie en cours
     @FXML
-    private void clickSauvagerder(){
+    private void clickSauvegarder(){
         Alert alert = new Alert(AlertType.CONFIRMATION);
         alert.setTitle("Sauvegarde");
         alert.setHeaderText("Sauvegarde");

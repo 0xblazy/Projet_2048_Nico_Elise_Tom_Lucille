@@ -5,6 +5,7 @@
  */
 package model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -14,7 +15,7 @@ import java.util.Random;
  *
  * @author nKBlaZy
  */
-public class Cube implements Parametres {
+public class Cube implements Parametres, Serializable {
 
     private Case[][][] cube; //[z][y][x]
     private Partie partie;

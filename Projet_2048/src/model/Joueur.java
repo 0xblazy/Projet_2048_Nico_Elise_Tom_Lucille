@@ -6,6 +6,7 @@
 
 package model;
 
+import java.io.Serializable;
 import java.sql.SQLException;
 import java.sql.Statement;
 
@@ -14,7 +15,7 @@ import java.sql.Statement;
  * @author elise
  */
 
-public class Joueur implements Parametres {
+public class Joueur implements Serializable {
     private String nom ;
     
     public Joueur(String _nom) {

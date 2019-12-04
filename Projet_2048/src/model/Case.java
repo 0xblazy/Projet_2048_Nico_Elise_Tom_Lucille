@@ -5,11 +5,13 @@
  */
 package model;
 
+import java.io.Serializable;
+
 /**
  *
  * @author nKBlaZy
  */
-public class Case implements Parametres {
+public class Case implements Parametres, Serializable {
     private int valeur;
     private int oldValeur;
     private int x, y, z; // x: largeur, y: hauteur, z: profondeur

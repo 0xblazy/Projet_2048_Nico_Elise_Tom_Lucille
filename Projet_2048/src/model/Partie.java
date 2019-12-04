@@ -7,6 +7,7 @@ package model;
 
 import application.FXMLDocumentController;
 import bdd.BaseDeDonnees;
+import java.io.Serializable;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -15,13 +16,13 @@ import java.util.logging.Logger;
  *
  * @author nKBlaZy
  */
-public class Partie extends Thread implements Parametres {
+public class Partie extends Thread implements Parametres, Serializable {
 
     private int score, move;
     private Cube cube;
-    private BaseDeDonnees bdd;
+    private transient BaseDeDonnees bdd;
     private int direction;
-    private FXMLDocumentController controller;
+    private transient FXMLDocumentController controller;
     private Joueur joueur;
 
     public Partie(FXMLDocumentController _controller, Joueur _joueur) {
