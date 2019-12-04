@@ -8,6 +8,41 @@ and open the template in the editor.
     Author     : Lucille
 */
 
+@font-face {
+    font-family: "Bauhaus 93";
+    src: url("fonts/BAUHS93.TTF");
+}
+
+@font-face {
+    font-family: "Goudy Stout";
+    src: url("fonts/GOUDYSTO.TTF");
+}
+
+@font-face {
+    font-family: "Calibri";
+    src: url("fonts/Calibri.ttf");
+}
+
+@font-face {
+    font-family: "Calibri Bold";
+    src: url("fonts/CalibriBold.TTF");
+}
+
+@font-face {
+    font-family: "Segoe UI";
+    src: url("fonts/SegoeUI.ttf");
+}
+
+@font-face {
+    font-family: "Impact";
+    src: url("fonts/impact.ttf");
+}
+
+@font-face {
+    font-family: "Arial";
+    src: url("fonts/Arial.ttf");
+}
+
 .container{
     -fx-background-color: #F6DFD0;
     -fx-border-color: none;
@@ -132,7 +167,7 @@ and open the template in the editor.
     -fx-text-alignment:center;
     -fx-background-color: none;
     -fx-text-fill: #F7EFEB;
-    -fx-font-family: "Calibri";
+    -fx-font-family: "Calibri Bold";
     -fx-text-weight: bold;
     -fx-font-size: 25px;
     -fx-padding: 5 5 5 5;
@@ -190,5 +225,4 @@ and open the template in the editor.
 .bouton_sous_menu{
     -fx-background-color: #C49A89;
     -fx-text-fill: white;
-    
 }

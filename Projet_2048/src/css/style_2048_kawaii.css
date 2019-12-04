@@ -7,6 +7,32 @@ and open the template in the editor.
     Created on : 6 nov. 2019, 15:33:14
     Author     : Lucille
 */
+
+@font-face {
+    font-family: "Impact";
+    src: url("fonts/impact.ttf");
+}
+
+@font-face {
+    font-family: "Calibri";
+    src: url("fonts/Calibri.ttf");
+}
+
+@font-face {
+    font-family: "rilakkuma dingbat";
+    src: url("fonts/rilakkumadingbat-Bold.ttf");
+}
+
+@font-face {
+    font-family: "Gill Sans Ultra Bold Condensed";
+    src: url("fonts/GILLUBCD.TTF");
+}
+
+@font-face {
+    font-family: "Agency FB";
+    src: url("fonts/AGENCYR.TTF");
+}
+
 .container{
     -fx-background-color: #F8D2F2;
     -fx-border-color: none;
@@ -165,9 +191,9 @@ and open the template in the editor.
     -fx-padding: 4 10 4 10;
     -fx-top: 50%;
     -fx-left: 50%;
-    -fx-background-color: #C49A89;
+    -fx-background-color: #F9AFEE;
     -fx-text-fill: white;
-    -fx-font-family: "Goudy Stout";
+    -fx-font-family: "rilakkuma dingbat";
     -fx-margin: auto;
     -fx-font-size: 10px;
 }
@@ -177,7 +203,7 @@ and open the template in the editor.
     -fx-padding: 4 10 4 10;
     -fx-top: 50%;
     -fx-left: 50%;
-    -fx-text-fill: black;
+    -fx-text-fill: white;
     -fx-font-family: "Calibri";
     -fx-margin: auto;
     -fx-font-size: 16px;

@@ -60,7 +60,6 @@ public class Projet_2048 extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("FXMLDocument.fxml"));
         
         Scene scene = new Scene(root,800,600);
-        scene.getStylesheets().add("css/style_2048.css");
 
         scene.getRoot().requestFocus();
         stage.setTitle("2048 3D");

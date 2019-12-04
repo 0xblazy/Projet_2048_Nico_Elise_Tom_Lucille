@@ -130,6 +130,10 @@ public class FXMLDocumentController implements Initializable, Parametres {
     public void initialize(URL url, ResourceBundle rb) {
         bdd = BaseDeDonnees.getInstance();
         System.out.println("le contrôleur initialise la vue");
+        
+        container.getStylesheets().clear();
+        container.getStylesheets().add("css/style_2048.css");
+        
         // utilisation de styles pour la grille et la tuile (voir style_2048.css)
         grid1.getStyleClass().add("grid");
         grid2.getStyleClass().add("grid");
