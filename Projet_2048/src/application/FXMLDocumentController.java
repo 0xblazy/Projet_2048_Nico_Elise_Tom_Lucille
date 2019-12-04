@@ -111,7 +111,7 @@ public class FXMLDocumentController implements Initializable, Parametres {
     private MenuItem logout_button; //bouton déconnexion
 
     @FXML
-    private MenuItem op_theme;
+    private Button switch_theme;
 
     @FXML
     private Button connexion_button;
@@ -164,6 +164,10 @@ public class FXMLDocumentController implements Initializable, Parametres {
         pt_restart.getStyleClass().add("bouton_sous_menu");
         pt_save.getStyleClass().add("bouton_sous_menu");
         logout_button.getStyleClass().add("bouton_sous_menu");
+        //BOUTON CHANGER THEME
+        switch_theme.setGraphic(new ImageView("/img/theme_icon.png"));
+        switch_theme.getStyleClass().add("switch_theme");
+       
         //bouton SON et THEME (switch)
         //op_son.getStyleClass().add("bouton");
         //op_theme.getStyleClass().add("bouton");

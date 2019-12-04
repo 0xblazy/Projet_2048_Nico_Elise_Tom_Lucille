@@ -216,3 +216,10 @@ and open the template in the editor.
     -fx-font-family: "Arial";
     -fx-text-fill: white;
 }
+
+.switch_theme{
+    -fx-width: 45px;
+    -fx-height: 45px;
+    -fx-border: none;
+    -fx-background: none;
+}

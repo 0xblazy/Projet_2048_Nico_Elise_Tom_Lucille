@@ -226,3 +226,10 @@ and open the template in the editor.
     -fx-background-color: #C49A89;
     -fx-text-fill: white;
 }
+
+.switch_theme{
+    -fx-width: 45px;
+    -fx-height: 45px;
+    -fx-border: none;
+    -fx-background: none;
+}
