@@ -130,10 +130,10 @@ public class FXMLDocumentController implements Initializable, Parametres {
     public void initialize(URL url, ResourceBundle rb) {
         bdd = BaseDeDonnees.getInstance();
         System.out.println("le contrôleur initialise la vue");
-        
+
         container.getStylesheets().clear();
         container.getStylesheets().add("css/style_2048.css");
-        
+
         // utilisation de styles pour la grille et la tuile (voir style_2048.css)
         grid1.getStyleClass().add("grid");
         grid2.getStyleClass().add("grid");
@@ -194,10 +194,10 @@ public class FXMLDocumentController implements Initializable, Parametres {
                 if (joueur != null) {
                     pt_save.setDisable(false);
                 }
-                
+
                 partie = new Partie(this, joueur);
                 partie.start();
-                
+
                 container.requestFocus();
             }
         }
@@ -284,7 +284,7 @@ public class FXMLDocumentController implements Initializable, Parametres {
         // Active ou désactive le bouton de connexion en fonction de la situation
         Node loginButton = dialog.getDialogPane().lookupButton(bouton_connexion);
         loginButton.setDisable(true);
-        
+
         Node cancelButton = dialog.getDialogPane().lookupButton(ButtonType.CANCEL);
 
         username_tf.textProperty().addListener((observable, oldValue, newValue) -> {
@@ -305,7 +305,7 @@ public class FXMLDocumentController implements Initializable, Parametres {
         dialog.getDialogPane().setContent(grid);
 
         Platform.runLater(() -> username_tf.requestFocus());
-        
+
         dialog.setOnCloseRequest(e -> {
             if (cancelButton.isFocused()) {
                 dialog.close();
@@ -315,7 +315,9 @@ public class FXMLDocumentController implements Initializable, Parametres {
                     if (code == CORRECT_DATA) {
                         joueur = new Joueur(username_tf.getText());
                         logout_button.setDisable(false);
-                        pt_load.setDisable(false);
+                        if (partie == null) {
+                            pt_load.setDisable(false);
+                        }
                         inscription_button.setVisible(false);
                         connexion_button.setVisible(false);
                         connect_has.setText("Connecté sur le compte de " + username_tf.getText());
@@ -432,7 +434,9 @@ public class FXMLDocumentController implements Initializable, Parametres {
                 bdd.creationJoueur(usernamePassword.getKey(), usernamePassword.getValue());
                 joueur = new Joueur(usernamePassword.getKey());
                 logout_button.setDisable(false);
-                pt_load.setDisable(false);
+                if (partie == null) {
+                    pt_load.setDisable(false);
+                }
                 inscription_button.setVisible(false);
                 connexion_button.setVisible(false);
                 connect_has.setText("Connecté sur le compte de " + usernamePassword.getKey());
@@ -446,47 +450,48 @@ public class FXMLDocumentController implements Initializable, Parametres {
             }
         });
     }
-    
+
     // Popup pour SAUVEGARDER la partie en cours
     @FXML
-    private void clickSauvegarder(){
+    private void clickSauvegarder() {
         Alert alert = new Alert(AlertType.CONFIRMATION);
         alert.setTitle("Sauvegarde");
         alert.setHeaderText("Sauvegarde");
         alert.setContentText("Voulez-vous sauvegarder la partie en cours ?");
-        if (alert.showAndWait().get() == ButtonType.OK){
-            try{
+        if (alert.showAndWait().get() == ButtonType.OK) {
+            try {
                 File file = new File("saves/" + joueur.getNom() + ".save");
                 file.getParentFile().mkdirs();
                 file.createNewFile();
                 FileOutputStream fos = new FileOutputStream(file, false);
                 ObjectOutputStream os = new ObjectOutputStream(fos);
+                partie.sauvegardeTemps();
                 partie.setReload(true);
                 os.writeObject(partie);
                 //System.out.println("Objetc sérialisé !");
                 os.close();
                 System.out.println("Partie sauvegardée !");
-            } catch(FileNotFoundException e) {
+            } catch (FileNotFoundException e) {
                 e.printStackTrace();
             } catch (IOException ex) {
-            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
             }
             alert.close();
         } else {
             alert.close();
         }
-        
-        
+
     }
+
     // Popup pour CHARGER une partie enregistrée
     @FXML
-    private void clickCharger(){
+    private void clickCharger() {
         Alert alert = new Alert(AlertType.CONFIRMATION);
         alert.setTitle("Charger");
         alert.setHeaderText("Charger partie");
         alert.setContentText("Voulez-vous charger la partie précédente ?");
-        if (alert.showAndWait().get() == ButtonType.OK){
-            try{
+        if (alert.showAndWait().get() == ButtonType.OK) {
+            try {
                 FileInputStream fis = new FileInputStream("saves/" + joueur.getNom() + ".save");
                 ObjectInputStream ois = new ObjectInputStream(fis);
                 this.partie = (Partie) ois.readObject();
@@ -511,7 +516,7 @@ public class FXMLDocumentController implements Initializable, Parametres {
                 Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
             } catch (ClassNotFoundException ex) {
                 Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
-            } 
+            }
         } else {
             alert.close();
         }
@@ -622,122 +627,71 @@ public class FXMLDocumentController implements Initializable, Parametres {
                 for (int i = 0; i < TAILLE; i++) {
                     Case c = cube[k][j][i];
                     if (c != null) {
-                        if (panes.containsKey(c.getId())) {
-                            Pane p = panes.get(c.getId());
-                            destX = c.getX() * wh_case;
-                            destY = y + c.getY() * wh_case;
-                            switch (c.getZ()) {
-                                case 0:
-                                    destX += x_1;
-                                    break;
-                                case 1:
-                                    destX += x_2;
-                                    break;
-                                case 2:
-                                    destX += x_3;
-                                    break;
-                            }
-                            currX = p.getLayoutX();
-                            currY = p.getLayoutY();
-                            if (false) {
-                                /*if (!c.isChangeDeGrille()) {
-                                if (currX != destX) {
-                                    Task task = new Task<Void>() {
-                                        @Override
-                                        protected Void call() throws Exception {
-                                            while (currX != destX) {
-                                                if (currX < destX) {
-                                                    currX += 1;
-                                                } else {
-                                                    currX -= 1;
-                                                }
-                                                Platform.runLater(new Runnable() {
-                                                    @Override
-                                                    public void run() {
-                                                        p.relocate(currX, destY);
-                                                        p.setVisible(true);
-                                                    }
-                                                });
-                                                Thread.sleep(5);
-                                            }
-                                            return null;
-                                        }
-                                    };
-                                    Thread thread = new Thread(task);
-                                    thread.setDaemon(true);
-                                    thread.start();
-                                } else if (currY != destY) {
-                                    Task task = new Task<Void>() {
-                                        @Override
-                                        protected Void call() throws Exception {
-                                            while (currY != destY) {
-                                                if (currY < destY) {
-                                                    currY += 1;
-                                                } else {
-                                                    currY -= 1;
-                                                }
-                                                Platform.runLater(new Runnable() {
-                                                    @Override
-                                                    public void run() {
-                                                        p.relocate(destX, currY);
-                                                        p.setVisible(true);
-                                                    }
-                                                });
-                                                Thread.sleep(5);
-                                            }
-                                            return null;
-                                        }
-                                    };
-                                    Thread thread = new Thread(task);
-                                    thread.setDaemon(true);
-                                    thread.start();
-                                }*/
-                            } else {
-                                p.relocate(destX, destY);
-                                p.setVisible(true);
-                                c.setChangeDeGrille(false);
-                            }
-                            if (c.getValeur() != c.getOldValeur()) {
-                                Label l = (Label) p.getChildren().get(0);
-                                Platform.runLater(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        l.setText("" + c.getValeur());
+                        Platform.runLater(new Runnable() {
+                            @Override
+                            public void run() {
+                                if (panes.containsKey(c.getId())) {
+                                    Pane p = panes.get(c.getId());
+
+                                    grid1.getChildren().remove(p);
+                                    grid2.getChildren().remove(p);
+                                    grid3.getChildren().remove(p);
+
+                                    switch (c.getZ()) {
+                                        case 0:
+
+                                            grid1.add(p, c.getX(), c.getY());
+
+                                            break;
+                                        case 1:
+
+                                            grid2.add(p, c.getX(), c.getY());
+
+                                            break;
+                                        case 2:
+
+                                            grid3.add(p, c.getX(), c.getY());
+
+                                            break;
                                     }
-                                });
-                                l.getStyleClass().remove(0);
-                                l.getStyleClass().add("case_label_" + c.getValeur());
-                            }
-                        } else {
-                            Pane p = new Pane();
-                            Label l = new Label("" + c.getValeur());
-                            Platform.runLater(new Runnable() {
-                                @Override
-                                public void run() {
-                                    container.getChildren().add(p);
-                                    p.getChildren().add(l);
+                                    if (c.getValeur() != c.getOldValeur()) {
+                                        Label l = (Label) p.getChildren().get(0);
+
+                                        l.setText("" + c.getValeur());
+                                        l.getStyleClass().remove(0);
+                                        l.getStyleClass().add("case_label_" + c.getValeur());
+                                    }
+                                } else {
+                                    Pane p = new Pane();
+                                    Label l = new Label("" + c.getValeur());
+                                    p.getStyleClass().add("case_pane");
+                                    switch (c.getZ()) {
+                                        case 0:
+                                            grid1.add(p, c.getX(), c.getY());
+                                            p.getChildren().add(l);
+                                            break;
+                                        case 1:
+
+                                            grid2.add(p, c.getX(), c.getY());
+                                            p.getChildren().add(l);
+
+                                            break;
+                                        case 2:
+
+                                            grid3.add(p, c.getX(), c.getY());
+                                            p.getChildren().add(l);
+
+                                            break;
+                                    }
+                                    l.getStyleClass().add("case_label_" + c.getValeur());
+                                    p.setPrefSize(wh_case, wh_case);
+                                    l.setPrefSize(wh_case, wh_case);
+                                    l.setAlignment(Pos.CENTER);
+                                    p.setVisible(true);
+                                    panes.put(c.getId(), p);
                                 }
-                            });
-                            p.getStyleClass().add("case_pane");
-                            switch (c.getZ()) {
-                                case 0:
-                                    p.setLayoutX(x_1 + c.getX() * wh_case);
-                                    break;
-                                case 1:
-                                    p.setLayoutX(x_2 + c.getX() * wh_case);
-                                    break;
-                                case 2:
-                                    p.setLayoutX(x_3 + c.getX() * wh_case);
-                                    break;
                             }
-                            p.setLayoutY(y + c.getY() * wh_case);
-                            l.getStyleClass().add("case_label_" + c.getValeur());
-                            p.setPrefSize(wh_case, wh_case);
-                            l.setPrefSize(wh_case, wh_case);
-                            l.setAlignment(Pos.CENTER);
-                            p.setVisible(true);
-                            panes.put(c.getId(), p);
-                        }
+                        });
                     }
                 }
             }
@@ -754,7 +708,9 @@ public class FXMLDocumentController implements Initializable, Parametres {
                 Platform.runLater(new Runnable() {
                     @Override
                     public void run() {
-                        container.getChildren().remove(p);
+                        grid1.getChildren().remove(p);
+                        grid2.getChildren().remove(p);
+                        grid3.getChildren().remove(p);
                     }
                 });
                 it.remove();
@@ -762,7 +718,7 @@ public class FXMLDocumentController implements Initializable, Parametres {
         }
     }
 
-    // Affiche un pop up en cas de victoire
+    // Affiche un pop up en cas de victoire{
     public void victory() {
         Platform.runLater(new Runnable() {
             @Override
@@ -807,7 +763,9 @@ public class FXMLDocumentController implements Initializable, Parametres {
             Platform.runLater(new Runnable() {
                 @Override
                 public void run() {
-                    container.getChildren().remove(p);
+                    grid1.getChildren().remove(p);
+                    grid2.getChildren().remove(p);
+                    grid3.getChildren().remove(p);
                 }
             });
             it.remove();

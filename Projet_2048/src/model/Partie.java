@@ -9,8 +9,6 @@ import application.FXMLDocumentController;
 import bdd.BaseDeDonnees;
 import java.io.Serializable;
 import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -23,10 +21,12 @@ public class Partie extends Thread implements Parametres, Serializable {
     private int score, move;
     private Cube cube;
     private transient BaseDeDonnees bdd;
-    private int direction;
+    private transient int direction;
     private transient FXMLDocumentController controller;
     private Joueur joueur;
     private boolean reload;
+    private long temps;
+    private transient long debut;
 
     public Partie(FXMLDocumentController _controller, Joueur _joueur) {
         bdd = BaseDeDonnees.getInstance();
@@ -36,6 +36,7 @@ public class Partie extends Thread implements Parametres, Serializable {
         controller = _controller;
         joueur = _joueur;
         reload = false;
+        temps = 0;
     }
 
     private void initCube() {
@@ -54,7 +55,7 @@ public class Partie extends Thread implements Parametres, Serializable {
         controller.updatePanes();
         Scanner sc = new Scanner(System.in);
         boolean nouvelleCase;
-        long debut = System.currentTimeMillis();
+        debut = System.currentTimeMillis();
         // Boucle de jeu
         while (!cube.partieFinie() && cube.getValeurMax() < OBJECTIF) {
             // Affichage
@@ -83,7 +84,7 @@ public class Partie extends Thread implements Parametres, Serializable {
             }
         }
         if (!isInterrupted()) {
-            long temps = System.currentTimeMillis() - debut;
+            temps += System.currentTimeMillis() - debut;
             if (joueur != null) {
                 if (bdd.connection()) {
                     bdd.insertionPartie(joueur.getNom(), move, temps, score, cube.getValeurMax());
@@ -112,6 +113,10 @@ public class Partie extends Thread implements Parametres, Serializable {
         } else {
             System.out.println("Partie interrompue");
         }
+    }
+    
+    public void sauvegardeTemps() {
+        temps += System.currentTimeMillis() - debut;
     }
 
     public int getScore() {
