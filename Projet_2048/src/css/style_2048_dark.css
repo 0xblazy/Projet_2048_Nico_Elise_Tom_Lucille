@@ -8,8 +8,8 @@ and open the template in the editor.
     Author     : Lucille
 */
 @font-face {
-    font-family: "earthorbiter";
-    src: url("fonts/earthorbiter.TTF");
+    font-family: "Earth Orbiter";
+    src: url("fonts/earthorbiter.ttf");
 }
 
 @font-face {
@@ -28,7 +28,7 @@ and open the template in the editor.
 }
 
 @font-face {
-    font-family: "space_age";
+    font-family: "Space Age";
     src: url("fonts/space_age.ttf");
 }
 
@@ -37,7 +37,7 @@ and open the template in the editor.
     -fx-border-color: none;
 }
 .grid{
-    -fx-background-color: #3A106D;
+    -fx-background-color: #75549C;
     -fx-border-color: #401277;
     -fx-border-width: 2px;
     -fx-halignment: center;
@@ -48,7 +48,7 @@ and open the template in the editor.
     -fx-background-color: #AE94B9;
     -fx-font-size: 45px;
     -fx-text-align: center;
-    -fx-font-family: "space_age";
+    -fx-font-family: "Space Age";
 }
 
 .case_label_4{
@@ -56,7 +56,7 @@ and open the template in the editor.
     -fx-background-color: #897294;
     -fx-font-size: 45px;
     -fx-text-align: center;
-    -fx-font-family: "space_age";
+    -fx-font-family: "Space Age";
 }
 
 .case_label_8{
@@ -64,7 +64,7 @@ and open the template in the editor.
     -fx-background-color: #7D5690;
     -fx-font-size: 45px;
     -fx-text-align: center;
-    -fx-font-family: "space_age";
+    -fx-font-family: "Space Age";
 }
 
 .case_label_16{
@@ -72,7 +72,7 @@ and open the template in the editor.
     -fx-background-color: #6A477B;
     -fx-font-size: 45px;
     -fx-text-align: center;
-    -fx-font-family: "space_age";
+    -fx-font-family: "Space Age";
 }
 
 .case_label_32{
@@ -80,7 +80,7 @@ and open the template in the editor.
     -fx-background-color: #50395B;
     -fx-font-size: 45px;
     -fx-text-align: center;
-    -fx-font-family: "space_age";
+    -fx-font-family: "Space Age";
 }
 
 .case_label_64{
@@ -88,7 +88,7 @@ and open the template in the editor.
     -fx-background-color: #351E40;
     -fx-font-size: 45px;
     -fx-text-align: center;
-    -fx-font-family: "space_age";
+    -fx-font-family: "Space Age";
 }
 
 .case_label_128{
@@ -96,7 +96,7 @@ and open the template in the editor.
     -fx-background-color: #211029;
     -fx-font-size: 45px;
     -fx-text-align: center;
-    -fx-font-family: "space_age";
+    -fx-font-family: "Space Age";
 }
 
 .case_label_256{
@@ -104,7 +104,7 @@ and open the template in the editor.
     -fx-background-color: #3A0851;
     -fx-font-size: 45px;
     -fx-text-align: center;
-    -fx-font-family: "space_age";
+    -fx-font-family: "Space Age";
 }
 
 .case_label_512{
@@ -112,7 +112,7 @@ and open the template in the editor.
     -fx-background-color: #4E0571;
     -fx-font-size: 45px;
     -fx-text-align: center;
-    -fx-font-family: "space_age";
+    -fx-font-family: "Space Age";
 }
 
 .case_label_1024{
@@ -120,7 +120,7 @@ and open the template in the editor.
     -fx-background-color: #620190;
     -fx-font-size: 35px;
     -fx-text-align: center;
-    -fx-font-family: "space_age";
+    -fx-font-family: "Space Age";
 }
 
 .case_label_2048{
@@ -128,19 +128,19 @@ and open the template in the editor.
     -fx-background-color: #9C09E2;
     -fx-font-size: 35px;
     -fx-text-align: center;
-    -fx-font-family: "space_age";
+    -fx-font-family: "Space Age";
 }
 .score_label{
     -fx-background-color: none;
     -fx-text-fill: #FFEEA9;
-    -fx-font-family: "earthorbiter";
+    -fx-font-family: "Earth Orbiter";
     -fx-font-size: 30px;
     -fx-text-transform: uppercase;
 }
 .nb_score{
     -fx-backgroud-color: none;
     -fx-text-fill: #FFEEA9;
-    -fx-font-family: "space_age";
+    -fx-font-family: "Space Age";
     -fx-font-size: 30px;
 }
 .score_pane{
@@ -155,14 +155,14 @@ and open the template in the editor.
     -fx-text-alignment: center;
     -fx-background-color: none;
     -fx-text-fill: #FFEEA9;
-    -fx-font-family: "earthorbiter";
+    -fx-font-family: "Earth Orbiter";
     -fx-text-weight: bold;
     -fx-font-size: 25px;
     -fx-padding: 5 5 5 5;
 }
 .nb_move{
     -fx-text-fill: #FFEEA9;
-    -fx-font-family: "space_age";
+    -fx-font-family: "Space Age";
     -fx-font-size: 40px;
     -fx-padding: 5 5 5 5;
 }
@@ -195,8 +195,8 @@ and open the template in the editor.
     -fx-padding: 4 10 4 10;
     -fx-top: 50%;
     -fx-left: 50%;
-    -fx-text-fill: black;
-    -fx-font-family: "earthorbiter";
+    -fx-text-fill: white;
+    -fx-font-family: "Earth Orbiter";
     -fx-margin: auto;
     -fx-font-size: 16px;
 }
