@@ -84,7 +84,7 @@
                   </Label>
                </children>
             </Pane>
-            <MenuBar fx:id="menu_bar" prefHeight="34.0" prefWidth="214.0" styleClass="menu_bar">
+            <MenuBar fx:id="menu_bar" prefHeight="34.0" prefWidth="324.0" styleClass="menu_bar">
               <menus>
                 <Menu fx:id="game_button" mnemonicParsing="false" styleClass="bouton_menu" text="Partie">
                   <items>
@@ -93,6 +93,8 @@
                         <MenuItem fx:id="pt_restart" disable="true" mnemonicParsing="false" onAction="#clickRecommencer" styleClass="bouton_sous_menu" text="Recommencer" />
                   </items>
                 </Menu>
+                  <Menu fx:id="classement_button" disable="true" mnemonicParsing="false" text="Classement" />
+                  <Menu fx:id="historique_button" disable="true" mnemonicParsing="false" text="Historique" />
                 <Menu fx:id="option_button" mnemonicParsing="false" styleClass="bouton_menu" text="Option">
                   <items>
                     <MenuItem fx:id="logout_button" disable="true" mnemonicParsing="false" onAction="#clickDeconnexion" styleClass="bouton_sous_menu" text="Déconnexion" />

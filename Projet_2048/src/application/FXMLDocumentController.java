@@ -93,6 +93,10 @@ public class FXMLDocumentController implements Initializable, Parametres {
     private Menu option_button;
     @FXML
     private Menu game_button;
+    @FXML
+    private Menu classement_button;
+    @FXML
+    private Menu historique_button;
 
     @FXML
     private MenuBar menu_bar;
@@ -149,13 +153,12 @@ public class FXMLDocumentController implements Initializable, Parametres {
         start_button.getStyleClass().add("bouton_start");
         connexion_button.getStyleClass().add("boutons");
         inscription_button.getStyleClass().add("boutons");
-        //BOUTONS CONNEXION & INSCRIPTION
-        connexion_button.getStyleClass().add("connexion_button");
-        inscription_button.getStyleClass().add("inscription_button");
         //MENU
         menu_bar.getStyleClass().add("menu_bar");
         option_button.getStyleClass().add("bouton_menu");
         game_button.getStyleClass().add("bouton_menu");
+        classement_button.getStyleClass().add("bouton_menu");
+        historique_button.getStyleClass().add("bouton_menu");
         //boutons sous-menu MENU>>PARTIE>>
         pt_load.getStyleClass().add("bouton_sous_menu");
         pt_restart.getStyleClass().add("bouton_sous_menu");
