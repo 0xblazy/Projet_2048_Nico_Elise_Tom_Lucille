@@ -6,6 +6,7 @@
 package application;
 
 import bdd.BaseDeDonnees;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -184,6 +185,7 @@ public class FXMLDocumentController implements Initializable, Parametres {
                 afficherComposant();
             } else if (start_button.getText().equals("START")) {
                 start_button.setDisable(true);
+                pt_load.setDisable(true);
                 pt_restart.setDisable(false);
                 if (joueur != null) {
                     pt_save.setDisable(false);
@@ -450,12 +452,16 @@ public class FXMLDocumentController implements Initializable, Parametres {
         alert.setContentText("Voulez-vous sauvegarder la partie en cours ?");
         if (alert.showAndWait().get() == ButtonType.OK){
             try{
-                FileOutputStream fos = new FileOutputStream("partie.ser");
+                File file = new File("saves/" + joueur.getNom() + ".save");
+                file.getParentFile().mkdirs();
+                file.createNewFile();
+                FileOutputStream fos = new FileOutputStream(file, false);
                 ObjectOutputStream os = new ObjectOutputStream(fos);
+                partie.setReload(true);
                 os.writeObject(partie);
                 //System.out.println("Objetc sérialisé !");
                 os.close();
-                System.out.println("Partie auvegardée !");
+                System.out.println("Partie sauvegardée !");
             } catch(FileNotFoundException e) {
                 e.printStackTrace();
             } catch (IOException ex) {
@@ -472,20 +478,36 @@ public class FXMLDocumentController implements Initializable, Parametres {
     @FXML
     private void clickCharger(){
         Alert alert = new Alert(AlertType.CONFIRMATION);
-        alert.setTitle("Load");
+        alert.setTitle("Charger");
         alert.setHeaderText("Charger partie");
         alert.setContentText("Voulez-vous charger la partie précédente ?");
         if (alert.showAndWait().get() == ButtonType.OK){
             try{
-            FileInputStream fis = new FileInputStream("partie.ser");
-            ObjectInputStream ois = new ObjectInputStream(fis);
-            this.partie = (Partie) ois.readObject();
-            System.out.println("Partie chargée !");
-            ois.close();
-            } catch (Exception e){
-                e.printStackTrace();
-                alert.close();
-            }
+                FileInputStream fis = new FileInputStream("saves/" + joueur.getNom() + ".save");
+                ObjectInputStream ois = new ObjectInputStream(fis);
+                this.partie = (Partie) ois.readObject();
+                System.out.println("Partie chargée !");
+                ois.close();
+                afficherComposant();
+                start_button.setDisable(true);
+                pt_load.setDisable(true);
+                pt_restart.setDisable(false);
+                pt_save.setDisable(false);
+                partie.setController(this);
+                partie.setBdd(bdd);
+                partie.start();
+                container.requestFocus();
+            } catch (FileNotFoundException ex) {
+                Alert a = new Alert(AlertType.ERROR);
+                alert.setTitle("Aucune sauvegarde");
+                alert.setHeaderText("Aucune sauvegarde");
+                alert.setContentText("Aucune sauvegarde n'a été trouvée pour " + joueur.getNom());
+                alert.show();
+            } catch (IOException ex) {
+                Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+            } 
         } else {
             alert.close();
         }
@@ -799,6 +821,7 @@ public class FXMLDocumentController implements Initializable, Parametres {
             partie = null;
         }
         start_button.setDisable(false);
+        pt_load.setDisable(false);
         pt_save.setDisable(true);
         pt_restart.setDisable(true);
     }

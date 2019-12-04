@@ -18,12 +18,15 @@ import java.util.logging.Logger;
  */
 public class Partie extends Thread implements Parametres, Serializable {
 
+    private static final long serialVersionUID = 1L;
+    
     private int score, move;
     private Cube cube;
     private transient BaseDeDonnees bdd;
     private int direction;
     private transient FXMLDocumentController controller;
     private Joueur joueur;
+    private boolean reload;
 
     public Partie(FXMLDocumentController _controller, Joueur _joueur) {
         bdd = BaseDeDonnees.getInstance();
@@ -32,6 +35,7 @@ public class Partie extends Thread implements Parametres, Serializable {
         move = 0;
         controller = _controller;
         joueur = _joueur;
+        reload = false;
     }
 
     private void initCube() {
@@ -44,7 +48,9 @@ public class Partie extends Thread implements Parametres, Serializable {
     }
 
     public void run() {
-        initCube();
+        if (!reload) {
+            initCube();
+        }
         controller.updatePanes();
         Scanner sc = new Scanner(System.in);
         boolean nouvelleCase;
@@ -126,5 +132,17 @@ public class Partie extends Thread implements Parametres, Serializable {
 
     public void setJoueur(Joueur _joueur) {
         this.joueur = _joueur;
+    }
+
+    public void setController(FXMLDocumentController _controller) {
+        this.controller = _controller;
+    }
+
+    public void setBdd(BaseDeDonnees _bdd) {
+        this.bdd = _bdd;
+    }
+
+    public void setReload(boolean _reload) {
+        this.reload = _reload;
     }
 }
