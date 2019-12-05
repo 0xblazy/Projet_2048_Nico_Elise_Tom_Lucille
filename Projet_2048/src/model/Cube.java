@@ -12,34 +12,40 @@ import java.util.List;
 import java.util.Random;
 
 /**
- *
+ * Cube caractérisé par un tableau en trois dimensions de Case.
+ * 
  * @author nKBlaZy
+ * @author Lixye
+ * @author TomWyso
+ * @author elise-per
+ * 
+ * @see Case
  */
 public class Cube implements Parametres, Serializable {
 
     private Case[][][] cube; //[z][y][x]
-    private Partie partie;
+
     private int valeurMax;
     private boolean deplacement;
     private int scoreTour;
     private int idCases;
 
-    public Cube(Partie _p) {
-        partie = _p;
+    /**
+     * Constructeur.
+     */
+    public Cube() {
         cube = new Case[TAILLE][TAILLE][TAILLE];
         valeurMax = 0;
         idCases = 0;
     }
     
-    public int getScoreTour(){
-        return scoreTour;
-    }
-
-    public int getValeurMax(){
-        return valeurMax;
-    }
-    
-    // Génère une nouvelle case
+    /**
+     * Génère une nouvelle Case.
+     * 
+     * @return <code>true</code> si une Case est générée, <code>false</code> sinon.
+     * 
+     * @see Case
+     */
     public boolean nouvelleCase() {
         List<int[]> casesLibres = casesLibres();
         Random ra = new Random();
@@ -67,7 +73,13 @@ public class Cube implements Parametres, Serializable {
         return false;
     }
 
-    // Retourne la liste des cases libres
+    /**
+     * Cherches les Cases libres.
+     * 
+     * @return La liste des Cases  libres, données sous la forme d'un tableau <code>{x,y,z}</code>.
+     * 
+     * @see Case
+     */
     private List<int[]> casesLibres() {
         ArrayList<int[]> casesLibres = new ArrayList<>();
 
@@ -84,6 +96,12 @@ public class Cube implements Parametres, Serializable {
         return casesLibres;
     }
 
+    /**
+     * Lance le déplacement dans une direction donnée.
+     * 
+     * @param direction Direction dans laquelle lancer le déplacement.
+     * @return <code>true</code> si au moins une Case a été déplacée, <code>false</code> sinon.
+     */
     public boolean lanceurDeplacerCases(int direction) {
         Case[] casesAuBord = this.getCasesAuBord(direction); //casesAuBord = tableau de 9 cases au bord d'une direction donnée par l'utilisateur
         //System.out.println("Cases au bord " + Arrays.toString(casesAuBord));
@@ -95,6 +113,14 @@ public class Cube implements Parametres, Serializable {
         return deplacement;
     }
     
+    /**
+     * Déplace les Cases dans une direction donnée, de manière récursive.
+     * 
+     * @param casesAuBord Cases au bord de la grille.
+     * @param direction Direction dans laquelle déplacer les Cases.
+     * @param rangee Rangée dans laquelle le déplacement s'effectue.
+     * @param compteur Compteur pour l'appel itératif, mettre 0 pour le premier appel.
+     */
     private void deplacerCase(Case[] casesAuBord, int direction, int rangee, int compteur) {
         if (casesAuBord[rangee] != null) {
             if ((direction == HAUT && casesAuBord[rangee].getY() != compteur)
@@ -148,6 +174,12 @@ public class Cube implements Parametres, Serializable {
         }
     }
     
+    /**
+     * Fusionne deux Cases.
+     * 
+     * @param c Case sur laquelle faire la fusion (la deuxième disparait).
+     * @return La valeur de la Case une fois fusionnée.
+     */
     private int fusion(Case c) {
         c.setValeur(c.getValeur() * 2);
         if (this.valeurMax < c.getValeur()) { //On vérifie si la nouvelle case générée n'est pas une valeur max des 3 grilles
@@ -157,6 +189,16 @@ public class Cube implements Parametres, Serializable {
         return c.getValeur();
     }
 
+    /**
+     * Cherche les Cases les plus au bord dans une direction donnée.
+     * 
+     * @param direction Direction dans laquelle chercher les Cases les plus au bord.
+     * @return Le tableau contenant les Cases les plus au bord.<br>
+     * Certains index du tableau peuvent être vides si il n'y a pas de Case dans la rangée/colonne correspondante.<br>
+     * <code>{Grille1Case1,Grille1Case2,....,GrilleNCaseN}</code>
+     * 
+     * @see Case
+     */
     private Case[] getCasesAuBord(int direction) { //retourne les cases au bord d'une direction donnée
         Case[] cAuBord = new Case[TAILLE * TAILLE];
         for (int i = 0; i < TAILLE; i++) { //i = coord Z, la couche
@@ -207,6 +249,12 @@ public class Cube implements Parametres, Serializable {
         return cAuBord;
     }
 
+    /**
+     * Retourne le Cube sous forme d'une chaîne de caractères.
+     * La chaîne se forme avec la concaténation de la n ligne de chaque grille, un retourne à la ligne, puis avec la n+1 ligne, etc.
+     * 
+     * @return Le Cube sous forme d'une chaîne de caractères.
+     */
     @Override
     public String toString() {
         return Arrays.toString(cube[0][0]) + Arrays.toString(cube[1][0])
@@ -216,37 +264,28 @@ public class Cube implements Parametres, Serializable {
                 + Arrays.toString(cube[2][2]);
     }
 
-    public Case[][][] getCube() {
-        return cube;
-    }
-    
-    public Case getCase(int _id) {
-        for (int k = 0 ; k < TAILLE ; k++) {
-            for (int j = 0 ; j < TAILLE ; j++) {
-                for (int i = 0 ; i < TAILLE ; i++) {
-                    Case c = cube[k][j][i];
-                    if (c != null) {
-                        if (c.getId() == _id) {
-                            return c;
-                        }
-                    }
-                }
-            }
-        }
-        return null;
-    }
-
+    /**
+     * Affiche un message de victoire dans la console.
+     */
     public void victory() {
         System.out.println("Victoire ! Vous avez atteint le score de " + this.valeurMax);
         // System.exit(0);
     }
 
+    /**
+     * Affiche un message de défaite dans la console.
+     */
     public void gameOver() {
         System.out.println("Plus de déplacements possibles! Votre score est " + this.valeurMax);
         // System.exit(1);
     }
         
-    // Vérifie que la partie est bien finie et retourne un booléen
+    /**
+     * Vérifie si la partie est finie.
+     * La partie est finie si il n'y plus de Case libre et si aucune Case n'a de voisin avec la même valeur.
+     * 
+     * @return <code>true</code> si la partie est finie, <code>false</code> sinon. 
+     */
     public boolean partieFinie(){
         if (this.casesLibres().size() > 0){
             return false;
@@ -268,5 +307,56 @@ public class Cube implements Parametres, Serializable {
             }
         }
         return true;
+    }
+    
+    /**
+     * Retourne le Cube.
+     * 
+     * @return Le Cube.
+     */
+    public Case[][][] getCube() {
+        return cube;
+    }
+    
+    /**
+     * Cherche la Case avec un id donné.
+     * 
+     * @param _id id de la Case à chercher.
+     * @return La Case si elle a été trouvée, <code>null</code> sinon.
+     * 
+     * @see Case
+     */
+    public Case getCase(int _id) {
+        for (int k = 0 ; k < TAILLE ; k++) {
+            for (int j = 0 ; j < TAILLE ; j++) {
+                for (int i = 0 ; i < TAILLE ; i++) {
+                    Case c = cube[k][j][i];
+                    if (c != null) {
+                        if (c.getId() == _id) {
+                            return c;
+                        }
+                    }
+                }
+            }
+        }
+        return null;
+    }
+    
+    /**
+     * Retourne le score pour le tour actuel (derniers déplacements).
+     * 
+     * @return Le score pour le tour actuel. 
+     */
+    public int getScoreTour(){
+        return scoreTour;
+    }
+
+    /**
+     * Retourne la valeur maximale du Cube.
+     * 
+     * @return La valeur maximale du Cube.
+     */
+    public int getValeurMax(){
+        return valeurMax;
     }
 }

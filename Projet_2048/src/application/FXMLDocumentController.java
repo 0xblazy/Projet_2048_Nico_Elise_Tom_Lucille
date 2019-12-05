@@ -54,12 +54,11 @@ import javafx.util.Pair;
 import model.Case;
 import model.Joueur;
 import model.Parametres;
-import static model.Parametres.TAILLE;
 import model.Partie;
 
 /**
  *
- * @author Lucille
+ * @author Lixye
  */
 public class FXMLDocumentController implements Initializable, Parametres {
 
@@ -319,30 +318,32 @@ public class FXMLDocumentController implements Initializable, Parametres {
             } else {
                 if (bdd.connection()) {
                     int code = bdd.connectJoueur(username_tf.getText(), password_tf.getText());
-                    if (code == CORRECT_DATA) {
-                        joueur = new Joueur(username_tf.getText());
-                        logout_button.setDisable(false);
-                        if (partie == null) {
-                            pt_load.setDisable(false);
-                        }
-                        inscription_button.setVisible(false);
-                        connexion_button.setVisible(false);
-                        connect_has.setText("Connecté sur le compte de " + username_tf.getText());
-                        connect_has.setVisible(true);
-                        if (partie != null) {
-                            partie.setJoueur(joueur);
-                            pt_save.setDisable(false);
-                            container.requestFocus();
-                        }
-                        dialog.close();
-                    } else if (code == ERROR_NOPLAYER) {
-                        wrong_pseudo.setText("Pseudo incorrect");
-                        wrong_pass.setText("");
-                        e.consume();
-                    } else if (code == ERROR_WRONG_PASS) {
-                        wrong_pseudo.setText("");
-                        wrong_pass.setText("Mot de passe incorrect");
-                        e.consume();
+                    switch (code) {
+                        case CORRECT_DATA:
+                            joueur = new Joueur(username_tf.getText());
+                            logout_button.setDisable(false);
+                            if (partie == null) {
+                                pt_load.setDisable(false);
+                            }   inscription_button.setVisible(false);
+                            connexion_button.setVisible(false);
+                            connect_has.setText("Connecté sur le compte de " + username_tf.getText());
+                            connect_has.setVisible(true);
+                            if (partie != null) {
+                                partie.setJoueur(joueur);
+                                pt_save.setDisable(false);
+                                container.requestFocus();
+                            }   dialog.close();
+                            break;
+                        case ERROR_NOPLAYER:
+                            wrong_pseudo.setText("Pseudo incorrect");
+                            wrong_pass.setText("");
+                            e.consume();
+                            break;
+                        case ERROR_WRONG_PASS:
+                            wrong_pseudo.setText("");
+                            wrong_pass.setText("Mot de passe incorrect");
+                            e.consume();
+                            break;
                     }
                     bdd.deconnection();
                 }

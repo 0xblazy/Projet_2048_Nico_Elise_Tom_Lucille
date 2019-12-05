@@ -3,25 +3,33 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package model;
 
 import java.io.Serializable;
-import java.sql.SQLException;
-import java.sql.Statement;
 
 /**
- *
- * @author elise
+ *  Joueur caractérisé par son nom.
+ * 
+ * @author elise-per
  */
 
 public class Joueur implements Serializable {
     private String nom ;
     
+    /**
+     * Constructeur.
+     * 
+     * @param _nom Nom du Joueur.
+     */
     public Joueur(String _nom) {
         nom=_nom;
     }
 
+    /**
+     * Retourne le nom du Joueur.
+     * 
+     * @return Le nom du Joueur.
+     */
     public String getNom(){
         return nom;
     }  

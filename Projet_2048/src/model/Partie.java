@@ -30,7 +30,7 @@ public class Partie extends Thread implements Parametres, Serializable {
 
     public Partie(FXMLDocumentController _controller, Joueur _joueur) {
         bdd = BaseDeDonnees.getInstance();
-        cube = new Cube(this);
+        cube = new Cube();
         score = 0;
         move = 0;
         controller = _controller;
