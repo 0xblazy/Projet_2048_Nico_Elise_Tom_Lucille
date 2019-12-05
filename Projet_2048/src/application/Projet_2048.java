@@ -22,12 +22,23 @@ import javafx.stage.Stage;
  */
 public class Projet_2048 extends Application {
 
+    /**
+     * Arrête l'exécution du programme.
+     * 
+     * @throws Exception 
+     */
     @Override
     public void stop() throws Exception {
         Platform.exit();
         System.exit(0);
     }
     
+    /**
+     * Appelé lors du lancement du programme.
+     * 
+     * @param stage Stage de l'application.
+     * @throws Exception 
+     */
     @Override
     public void start(Stage stage) throws Exception {        
         Parent root = FXMLLoader.load(getClass().getResource("FXMLDocument.fxml"));
