@@ -22,6 +22,8 @@ import java.util.Random;
  * @see Case
  */
 public class Cube implements Parametres, Serializable {
+    
+    private static final long serialVersionUID = 1L;
 
     private Case[][][] cube; //[z][y][x]
 

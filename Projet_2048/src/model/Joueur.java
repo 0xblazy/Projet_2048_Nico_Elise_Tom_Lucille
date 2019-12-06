@@ -14,6 +14,9 @@ import java.io.Serializable;
  */
 
 public class Joueur implements Serializable {
+    
+    private static final long serialVersionUID = 1L;
+    
     private String nom ;
     
     /**

@@ -8,10 +8,10 @@ package model;
 import application.FXMLDocumentController;
 import bdd.BaseDeDonnees;
 import java.io.Serializable;
-import java.util.Scanner;
 
 /**
- *
+ * Thread de la Partie, caractérisée par un Cube, un score, un nombre de déplacement et un temps.
+ * 
  * @author nKBlaZy
  */
 public class Partie extends Thread implements Parametres, Serializable {
@@ -28,6 +28,15 @@ public class Partie extends Thread implements Parametres, Serializable {
     private long temps;
     private transient long debut;
 
+    /**
+     * Constructeur.
+     * 
+     * @param _controller Controller de la Partie.
+     * @param _joueur Joueur de la Partie.
+     * 
+     * @see application.FXMLDocumentController
+     * @see Joueur
+     */
     public Partie(FXMLDocumentController _controller, Joueur _joueur) {
         bdd = BaseDeDonnees.getInstance();
         cube = new Cube();
@@ -39,21 +48,34 @@ public class Partie extends Thread implements Parametres, Serializable {
         temps = 0;
     }
 
+    /**
+     * Initialise le Cube en générant deux Cases.
+     * 
+     * @see Cube
+     */
     private void initCube() {
         cube.nouvelleCase();
         cube.nouvelleCase();
     }
 
+    /**
+     * Affiche le Cube dans la console.
+     * 
+     * @see Cube
+     */
     private void afficherCube() {
         System.out.println(cube + "\n");
     }
 
+    /**
+     * Lance le Thread de la Partie.
+     * Si c'est le premier lancement de la Partie, on commence par initaliser le Cube.
+     */
     public void run() {
         if (!reload) {
             initCube();
         }
         controller.updatePanes();
-        Scanner sc = new Scanner(System.in);
         boolean nouvelleCase;
         debut = System.currentTimeMillis();
         // Boucle de jeu
@@ -115,38 +137,95 @@ public class Partie extends Thread implements Parametres, Serializable {
         }
     }
     
+    /**
+     * Ajoute le temps depuis le lancement de Thread au temps total de la Partie.
+     * Cela permet d'avoir un temps total cohérent si on sauvegarde la Partie et qu'on la reprend plus tard.
+     */
     public void sauvegardeTemps() {
         temps += System.currentTimeMillis() - debut;
     }
 
+    /**
+     * Retourne le score de la Partie.
+     * 
+     * @return Le score de la Partie.
+     */
     public int getScore() {
         return score;
     }
 
+    /**
+     * Retourne le nombre de déplacement de la Partie.
+     * 
+     * @return Le nombre de déplacement de la Partie.
+     */
     public int getMove() {
         return move;
     }
 
+    /**
+     * Retourne le Cube de la Partie.
+     * 
+     * @return Le Cube de la Partie.
+     * 
+     * @see Cube
+     */
     public Cube getCube() {
         return cube;
     }
 
+    /**
+     * Défini la direction pour le prochain déplacement.
+     * 
+     * @param _direction Nouvelle direction.
+     */
     public void setDirection(int _direction) {
         this.direction = _direction;
     }
 
+    /**
+     * Défini le Joueur de la Partie.
+     * Permet d'ajouter le Joueur si jamais il se connecte après avoir commencé la Partie ou lorsqu'il recharge la Partie.
+     * 
+     * @param _joueur Joueur de la Partie.
+     * 
+     * @see Joueur
+     */
     public void setJoueur(Joueur _joueur) {
         this.joueur = _joueur;
     }
 
+    /**
+     * Défini le Controller de la Partie.
+     * Utilisée lorsque l'on recharge la Partie, car le Controller n'est pas Serializable.
+     * 
+     * @param _controller Controller de la Partie.
+     * 
+     * @see application.FXMLDocumentController
+     */
     public void setController(FXMLDocumentController _controller) {
         this.controller = _controller;
     }
 
+    /**
+     * Défini la BaseDeDonnees de la Partie.
+     * Utilisée lorsque l'on recharge la Partie, car la BaseDeDonnees n'est pas Serializable.
+     * 
+     * @param _bdd BaseDeDonnees de la Partie.
+     * 
+     * @see bdd.BaseDeDonnees
+     */
     public void setBdd(BaseDeDonnees _bdd) {
         this.bdd = _bdd;
     }
 
+    /**
+     * Défini sur la Partie est rechargée ou pas.
+     * Utilisée lorsque l'on sauvegarde la Partie.
+     * 
+     * @param _reload <code>true</code> si la Partie sera rechargée.<br>
+     * En principe, toujours utilisée avec <code>true</code>.
+     */
     public void setReload(boolean _reload) {
         this.reload = _reload;
     }

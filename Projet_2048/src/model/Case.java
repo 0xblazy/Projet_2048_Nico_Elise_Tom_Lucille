@@ -14,6 +14,9 @@ import java.io.Serializable;
  * @author TomWyso
  */
 public class Case implements Parametres, Serializable {
+    
+    private static final long serialVersionUID = 1L;
+    
     private int valeur;
     private int oldValeur;
     private int x, y, z; // x: largeur, y: hauteur, z: profondeur

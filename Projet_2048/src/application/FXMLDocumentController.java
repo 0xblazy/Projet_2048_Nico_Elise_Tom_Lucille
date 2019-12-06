@@ -57,8 +57,12 @@ import model.Parametres;
 import model.Partie;
 
 /**
- *
+ * Controller du programme.<br>
+ * Gère toutes les interactions de l'utilisateur avec l'interface et le clavier.
+ * 
  * @author Lixye
+ * @author TomWyso
+ * @author nKBlaZy
  */
 public class FXMLDocumentController implements Initializable, Parametres {
 
@@ -128,6 +132,12 @@ public class FXMLDocumentController implements Initializable, Parametres {
     private final Map<Integer, Pane> panes = new HashMap<>();
     private final int wh_case = 80; //largeur et hauteur de la case (en px)
 
+    /**
+     * Initialise l'interface et modifie des éléments du FXML.
+     * 
+     * @param url
+     * @param rb 
+     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         bdd = BaseDeDonnees.getInstance();
@@ -166,28 +176,17 @@ public class FXMLDocumentController implements Initializable, Parametres {
         //BOUTON CHANGER THEME
         switch_theme.setGraphic(new ImageView("/img/theme_icon.png"));
         switch_theme.getStyleClass().add("switch_theme");
-       
-        //bouton SON et THEME (switch)
-        //op_son.getStyleClass().add("bouton");
-        //op_theme.getStyleClass().add("bouton");
-
-        //GridPane.setHalignment(case_pane, HPos.CENTER);
-        //GridPane.setHalignment(case_label_2, HPos.CENTER);
-        //grid1.getChildren().add(case_pane); //ajout de la case à son conteneur: la grille 1
-        //case_pane.getChildren().add(case_label_2);
-        // on place la tuile en précisant les coordonnées (x,y) du coin supérieur gauche d'une des trois grilles
-        //Case 0,0 grille 1: layout X=38, layout Y=271
-        //Case 0,0 grille 2: layout X=282
-        //Case 0,0 grille 3: layout X=525
-        //case_pane.setLayoutX(x_1);  //a gauche
-        //case_pane.setLayoutY(y);    //en haut
-        //case_pane.setPrefSize(wh_case, wh_case);
-        //case_pane.setVisible(true);
-        //case_label_2.setVisible(true);
     }
 
+    /**
+     * Appelé lorsque l'utilisateur clique sur le boutou JOUER ou START.<br>
+     * JOUER : Affiche les éléments du jeu (grilles, score...) et passe le bouton à START<br>
+     * START : Active certains menu, créer et lance la Partie.
+     * 
+     * @see model.Partie
+     */
     @FXML
-    private void clickStart(ActionEvent event) {
+    private void clickStart() {
         if (!start_button.isDisable()) {
             if (start_button.getText().equals("JOUER")) { //Si c'est "jouer" sur le bouton, nous sommes dans la page d'acceuil
                 start_button.setText("START");
@@ -208,7 +207,9 @@ public class FXMLDocumentController implements Initializable, Parametres {
         }
     }
 
-    // Affiche les éléments du jeu
+    /**
+     * Affiche les éléments du jeu : grilles, score, déplacements.
+     */
     private void afficherComposant() {
         grid1.setVisible(true);
         grid2.setVisible(true);
@@ -221,7 +222,9 @@ public class FXMLDocumentController implements Initializable, Parametres {
         nb_move.setVisible(true);
     }
 
-    // Cache les éléments du jeu
+    /**
+     * Cache les éléments du jeu : grilles, score, déplacements. 
+     */
     private void cacherComposant() {
         grid1.setVisible(false);
         grid2.setVisible(false);
@@ -234,9 +237,13 @@ public class FXMLDocumentController implements Initializable, Parametres {
         nb_move.setVisible(false);
     }
 
-    // Pop up pour recommencer la partie
+    /**
+     * Ouvre un pop up demandant confirmation. Réinitialise la Partie si l'utilisateur confirme.
+     * 
+     * @see Alert
+     */
     @FXML
-    private void clickRecommencer(ActionEvent event) {
+    private void clickRecommencer() {
         System.out.println("Recommencer");
         Alert alert = new Alert(AlertType.CONFIRMATION);
         alert.setTitle("Recommencer la partie");
@@ -251,7 +258,11 @@ public class FXMLDocumentController implements Initializable, Parametres {
         }
     }
 
-    // Pop up de connexion
+    /**
+     * Ouvre un pop up de connexion. Vérifie les informations saisies et connecte le Joueur si les informations sont correctes.
+     * 
+     * @see Dialog
+     */
     @FXML
     private void clickConnexion() {
         Dialog<Pair<String, String>> dialog = new Dialog<>();
@@ -354,7 +365,11 @@ public class FXMLDocumentController implements Initializable, Parametres {
         dialog.showAndWait();
     }
 
-    // Pop up d'inscription
+    /**
+     * Ouvre un pop up d'inscription. Vérifie les informations saisies, créer le Joueur dans la BaseDeDonnees et le connecte si les informations sont correctes.
+     * 
+     * @see Dialog
+     */
     @FXML
     private void clickInscription() {
         Dialog<Pair<String, String>> dialog = new Dialog<>();
@@ -459,7 +474,12 @@ public class FXMLDocumentController implements Initializable, Parametres {
         });
     }
 
-    // Popup pour SAUVEGARDER la partie en cours
+    /**
+     * Ouvre un pop up demandant confirmation pour sauvegarder la Partie.<br>
+     * Créer un fichier nomDuJoueur.save dans le répertoire saves/.
+     * 
+     * @see Alert
+     */
     @FXML
     private void clickSauvegarder() {
         Alert alert = new Alert(AlertType.CONFIRMATION);
@@ -491,7 +511,11 @@ public class FXMLDocumentController implements Initializable, Parametres {
 
     }
 
-    // Popup pour CHARGER une partie enregistrée
+    /**
+     * Ouvre un pop up de confirmation pour charger la Partie sauvegardée. Ouvre un second pop up si il n'y a pas de sauvegarde pour le Joueur.
+     * 
+     * @see Alert
+     */
     @FXML
     private void clickCharger() {
         Alert alert = new Alert(AlertType.CONFIRMATION);
@@ -531,7 +555,11 @@ public class FXMLDocumentController implements Initializable, Parametres {
         }
     }
 
-    // Pop up pour se déconnecter
+    /**
+     * Ouvre un pop up de confirmation pour se déconnecter. Réinitialise la Partie et cache les éléments du jeu si l'utilisateur confirme.
+     * 
+     * @see Alert
+     */
     @FXML
     private void clickDeconnexion() {
         Alert alert = new Alert(AlertType.CONFIRMATION);
@@ -555,14 +583,29 @@ public class FXMLDocumentController implements Initializable, Parametres {
         }
     }
 
-    // Vérifie la forme du pseudo
+    /**
+     * Vérifie la forme du pseudo avec des regex.
+     * 
+     * @param _pseudo Pseudo à vérifier.
+     * @return <code>true</code> si le pseudo respect les règles de formulation, <code>false</code> sinon.
+     * 
+     * @see Pattern
+     * @see Matcher
+     */
     private boolean checkPseudo(String _pseudo) {
         Pattern p = Pattern.compile("^[a-zA-Z0-9-\\_]{5,}$");
         Matcher m = p.matcher(_pseudo);
         return m.matches();
     }
 
-    // Vérifie si le pseudo existe dans la bdd
+    /**
+     * Vérifie si un Joueur portant ce pseudo existe déjà dans la BaseDeDonnees.
+     * 
+     * @param _pseudo Pseudo à vérifier.
+     * @return <code>true</code> si le Joueur existe, <code>false</code> sinon.
+     * 
+     * @see bdd.BaseDeDonnees
+     */
     private boolean pseudoExist(String _pseudo) {
         if (bdd.connection()) {
             boolean exist = bdd.joueurExiste(_pseudo);
@@ -572,13 +615,31 @@ public class FXMLDocumentController implements Initializable, Parametres {
         return false;
     }
 
-    // Vérifie la forme du mot de passe
+    /**
+     * Vérifie la forme du mot de passe avec des regex.
+     * 
+     * @param _password Mot de passe à vérifier
+     * @return <code>true</code> si le mot de passe respecte les règles de formulation, <code>false</code> sinon.
+     * 
+     * @see Pattern
+     * @see Matcher
+     */
     private boolean checkPassword(String _password) {
         Pattern p = Pattern.compile("^(?=.{6,}$)(?=.*?[a-z])(?=.*?[A-Z])(?=.*?[0-9])[a-zA-Z0-9]*$");
         Matcher m = p.matcher(_password);
         return m.matches();
     }
 
+    /**
+     * Appelée dès que l'utilisateur presse un touche du clavier.<br>
+     * Si la Partie existe et si l'utilisateur presse z,q,s,d,a ou e, défini la direction dans la Partie.<br>
+     * Si la Partie n'existe pas et si l'utilisateur presse SPACE, simule un appuie sur le bouton JOUER ou START.
+     * 
+     * @param ke Évènement clavier.
+     * 
+     * @see model.Partie
+     * @see KeyEvent
+     */
     @FXML
     public void keyPressed(KeyEvent ke) {
         System.out.println("touche appuyée");
@@ -617,11 +678,13 @@ public class FXMLDocumentController implements Initializable, Parametres {
                 }
             }
         } else if (touche.compareTo(" ") == 0) {
-            clickStart(new ActionEvent());
+            clickStart();
         }
     }
 
-    // Mets à jour les cases dans la vue
+    /**
+     * Mets à jour les Cases dans la vue, ainsi que le nombre de déplacements et le score.
+     */
     public void updatePanes() {
         cleanMap();
         Platform.runLater(new Runnable() {
@@ -696,7 +759,9 @@ public class FXMLDocumentController implements Initializable, Parametres {
         }
     }
 
-    // Supprime les cases détruites dans le modèle sur la vue et dans panes
+    /**
+     * Supprime les Cases détruites dans le modèle sur la vue et dans <code>panes</code>.
+     */
     private void cleanMap() {
         Iterator it = panes.entrySet().iterator();
         while (it.hasNext()) {
@@ -716,7 +781,11 @@ public class FXMLDocumentController implements Initializable, Parametres {
         }
     }
 
-    // Affiche un pop up en cas de victoire{
+    /**
+     * Affiche un pop up en cas de victoire. Supprime la sauvegarde du Joueur et réinitalise la Partie à la fermeture du pop up.
+     * 
+     * @see Alert
+     */
     public void victory() {
         Platform.runLater(new Runnable() {
             @Override
@@ -739,7 +808,9 @@ public class FXMLDocumentController implements Initializable, Parametres {
         });
     }
 
-    // Affiche un pop up en cas de défaite
+    /**
+     * Affiche un pop up en cas de défaite. Réinitialise la Partie à la fermeture du pop up.
+     */
     public void gameOver() {
         Platform.runLater(new Runnable() {
             @Override
@@ -758,7 +829,9 @@ public class FXMLDocumentController implements Initializable, Parametres {
         });
     }
 
-    // Réinitialise l'interface pour commencer une nouvelle partie
+    /**
+     * Réinitialise l'interface pour commencer une nouvelle Partie. Supprime les Cases de la vue et de <code>panes</code>, remets le score et le nombre de déplacements à 0 et active/désactive certains éléments.
+     */
     private void resetGame() {
         Iterator it = panes.entrySet().iterator();
         while (it.hasNext()) {
