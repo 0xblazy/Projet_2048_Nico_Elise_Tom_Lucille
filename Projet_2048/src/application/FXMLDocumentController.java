@@ -25,7 +25,6 @@ import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javafx.application.Platform;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
@@ -109,6 +108,8 @@ public class FXMLDocumentController implements Initializable, Parametres {
     private MenuItem pt_save; //bouton "sauvegarder"
     @FXML
     private MenuItem pt_load; //bouton "charger"
+    @FXML
+    private MenuItem inConsole; //bouton "partie dans la console"
 
     @FXML
     private MenuItem logout_button; //bouton déconnexion
@@ -141,7 +142,7 @@ public class FXMLDocumentController implements Initializable, Parametres {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         bdd = BaseDeDonnees.getInstance();
-        System.out.println("le contrôleur initialise la vue");
+        //System.out.println("le contrôleur initialise la vue");
 
         container.getStylesheets().clear();
         container.getStylesheets().add("css/style_2048.css");
@@ -169,6 +170,7 @@ public class FXMLDocumentController implements Initializable, Parametres {
         classement_button.getStyleClass().add("bouton_menu");
         historique_button.getStyleClass().add("bouton_menu");
         //boutons sous-menu MENU>>PARTIE>>
+        inConsole.getStyleClass().add("bouton_sous_menu");
         pt_load.getStyleClass().add("bouton_sous_menu");
         pt_restart.getStyleClass().add("bouton_sous_menu");
         pt_save.getStyleClass().add("bouton_sous_menu");
@@ -199,7 +201,7 @@ public class FXMLDocumentController implements Initializable, Parametres {
                     pt_save.setDisable(false);
                 }
 
-                partie = new Partie(this, joueur);
+                partie = new Partie(this, joueur, false);
                 partie.start();
 
                 container.requestFocus();
@@ -236,6 +238,29 @@ public class FXMLDocumentController implements Initializable, Parametres {
         move_label.setVisible(false);
         nb_move.setVisible(false);
     }
+    
+    /**
+     * Ouvre un pop up demandant confirmation. Réinitialise la Partie et cache l'interface si l'utilisateur confirme.
+     * 
+     * @see Alert
+     */
+    @FXML
+    private void clickInConsole() {
+        Alert alert = new Alert(AlertType.CONFIRMATION);
+        alert.setTitle("Lancer une partie dans la console");
+        alert.setHeaderText("Lancer une partie dans la console");
+        alert.setContentText("Voulez-vous lancer une partie dans la console ?\nToute progression non sauvegardée sera perdue");
+        alert.setGraphic(new ImageView("/img/reset.png"));
+        if (alert.showAndWait().get() == ButtonType.OK) {
+            resetGame();
+            partie = new Partie(this, joueur, true);
+            partie.start();
+            Platform.setImplicitExit(false);
+            getStage().hide();
+        } else {
+            alert.close();
+        }
+    }
 
     /**
      * Ouvre un pop up demandant confirmation. Réinitialise la Partie si l'utilisateur confirme.
@@ -244,7 +269,7 @@ public class FXMLDocumentController implements Initializable, Parametres {
      */
     @FXML
     private void clickRecommencer() {
-        System.out.println("Recommencer");
+        //System.out.println("Recommencer");
         Alert alert = new Alert(AlertType.CONFIRMATION);
         alert.setTitle("Recommencer la partie");
         alert.setHeaderText("Recommencer la partie");
@@ -498,7 +523,7 @@ public class FXMLDocumentController implements Initializable, Parametres {
                 os.writeObject(partie);
                 //System.out.println("Objetc sérialisé !");
                 os.close();
-                System.out.println("Partie sauvegardée !");
+                //System.out.println("Partie sauvegardée !");
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             } catch (IOException ex) {
@@ -527,7 +552,7 @@ public class FXMLDocumentController implements Initializable, Parametres {
                 FileInputStream fis = new FileInputStream("saves/" + joueur.getNom() + ".save");
                 ObjectInputStream ois = new ObjectInputStream(fis);
                 this.partie = (Partie) ois.readObject();
-                System.out.println("Partie chargée !");
+                //System.out.println("Partie chargée !");
                 ois.close();
                 afficherComposant();
                 start_button.setDisable(true);
@@ -642,7 +667,7 @@ public class FXMLDocumentController implements Initializable, Parametres {
      */
     @FXML
     public void keyPressed(KeyEvent ke) {
-        System.out.println("touche appuyée");
+        //System.out.println("touche appuyée");
         String touche = ke.getText();
 
         if (partie != null) {
@@ -860,9 +885,22 @@ public class FXMLDocumentController implements Initializable, Parametres {
             partie = null;
         }
         start_button.setDisable(false);
-        pt_load.setDisable(false);
+        if (joueur != null) {
+            pt_load.setDisable(false);
+        }
         pt_save.setDisable(true);
         pt_restart.setDisable(true);
         reloaded = false;
+    }
+    
+    /**
+     * Retourne le Stage du controller.
+     * 
+     * @return Le Stage du controller.
+     * 
+     * @see Stage
+     */
+    public Stage getStage() {
+        return (Stage) container.getScene().getWindow();
     }
 }

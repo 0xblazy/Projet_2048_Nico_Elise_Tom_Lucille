@@ -8,6 +8,8 @@ package model;
 import application.FXMLDocumentController;
 import bdd.BaseDeDonnees;
 import java.io.Serializable;
+import java.util.Scanner;
+import javafx.application.Platform;
 
 /**
  * Thread de la Partie, caractérisée par un Cube, un score, un nombre de déplacement et un temps.
@@ -24,6 +26,7 @@ public class Partie extends Thread implements Parametres, Serializable {
     private transient int direction;
     private transient FXMLDocumentController controller;
     private Joueur joueur;
+    private boolean inConsole;
     private boolean reload;
     private long temps;
     private transient long debut;
@@ -37,13 +40,14 @@ public class Partie extends Thread implements Parametres, Serializable {
      * @see application.FXMLDocumentController
      * @see Joueur
      */
-    public Partie(FXMLDocumentController _controller, Joueur _joueur) {
+    public Partie(FXMLDocumentController _controller, Joueur _joueur, boolean _inConsole) {
         bdd = BaseDeDonnees.getInstance();
         cube = new Cube();
         score = 0;
         move = 0;
         controller = _controller;
         joueur = _joueur;
+        inConsole = _inConsole;
         reload = false;
         temps = 0;
     }
@@ -75,20 +79,57 @@ public class Partie extends Thread implements Parametres, Serializable {
         if (!reload) {
             initCube();
         }
-        controller.updatePanes();
-        boolean nouvelleCase;
+        if (inConsole) {
+            System.out.println("Déplacements : " + move + " Score : " + score + " Max : " + cube.getValeurMax());
+            afficherCube();
+        } else {
+            controller.updatePanes();
+        }
+        Scanner sc = new Scanner(System.in);
         debut = System.currentTimeMillis();
         // Boucle de jeu
         while (!cube.partieFinie() && cube.getValeurMax() < OBJECTIF) {
             // Affichage
-            System.out.println("Score : " + score + " Max : " + cube.getValeurMax());
-            afficherCube();
-            synchronized (this) {
-                try {
-                    wait();
-                } catch (InterruptedException ex) {
-                    Thread.currentThread().interrupt();
-                    break;
+            if (inConsole) {
+                System.out.println("z -> HAUT\ns -> BAS\nq -> GAUCHE\nd -> DROITE\na -> AVANT\ne -> ARRIERE\nl -> Quitter la partie et retourner à l'interface");
+                System.out.print("Choix : ");
+                String s = sc.nextLine();
+                while (!s.equals("z") && !s.equals("s") && !s.equals("q") && !s.equals("d") && !s.equals("a") && !s.equals("e") && !s.equals("l")) {
+                    System.out.print("Saisie incorrecte, veuillez faire votre choix : ");
+                    s = sc.nextLine();
+                }
+                switch (s) {
+                    case "z" :
+                        direction = HAUT;
+                        break;
+                    case "s" :
+                        direction = BAS;
+                        break;
+                    case "q" :
+                        direction = GAUCHE;
+                        break;
+                    case "d" :
+                        direction = DROITE;
+                        break;
+                    case "a" :
+                        direction = AVANT;
+                        break;
+                    case "e" : 
+                        direction = ARRIERE;
+                        break;
+                    case "l" :
+                        Thread.currentThread().interrupt();
+                        break;
+                }
+                if (isInterrupted()) break;
+            } else {
+                synchronized (this) {
+                    try {
+                        wait();
+                    } catch (InterruptedException ex) {
+                        Thread.currentThread().interrupt();
+                        break;
+                    }
                 }
             }
             // Déplacements
@@ -98,11 +139,15 @@ public class Partie extends Thread implements Parametres, Serializable {
             // Génération d'une nouvelle case si déplacement
             if (deplacement) {
                 move++;
-                nouvelleCase = cube.nouvelleCase();
-                controller.updatePanes();
-                if (!nouvelleCase) {
-                    cube.gameOver();
+                cube.nouvelleCase();
+                if (!inConsole) {
+                    controller.updatePanes();
                 }
+            }
+            if (inConsole) {
+                System.out.println("");
+                System.out.println("Déplacements : " + move + " Score : " + score + " Max : " + cube.getValeurMax());
+                afficherCube();
             }
         }
         if (!isInterrupted()) {
@@ -124,16 +169,55 @@ public class Partie extends Thread implements Parametres, Serializable {
                     bdd.deconnection();
                 }
             }
-            afficherCube();
-            if (cube.getValeurMax() >= OBJECTIF) {
-                cube.victory();
-                controller.victory();
+            if (inConsole) {
+                afficherCube();
             } else {
-                cube.gameOver();
-                controller.gameOver();
+                controller.updatePanes();
+            }
+            if (cube.getValeurMax() >= OBJECTIF) {
+                if (inConsole) {
+                    cube.victory();
+                    Platform.runLater(new Runnable() {
+                        @Override
+                        public void run() {
+                            controller.getStage().show();
+                            controller.getStage().requestFocus();
+                            controller.getStage().toFront();
+                            Platform.setImplicitExit(true);
+                        }
+                    });
+                } else {
+                    controller.victory();
+                } 
+            } else {
+                if (inConsole) {
+                    cube.gameOver();
+                    Platform.runLater(new Runnable() {
+                        @Override
+                        public void run() {
+                            controller.getStage().show();
+                            controller.getStage().requestFocus();
+                            controller.getStage().toFront();
+                            Platform.setImplicitExit(true);
+                        }
+                    });
+                } else {
+                    controller.gameOver();
+                } 
             }
         } else {
-            System.out.println("Partie interrompue");
+            if (inConsole) {
+                System.out.println("Partie interrompue");
+                Platform.runLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        controller.getStage().show();
+                        controller.getStage().requestFocus();
+                        controller.getStage().toFront();
+                        Platform.setImplicitExit(true);
+                    }
+                });
+            }
         }
     }
     

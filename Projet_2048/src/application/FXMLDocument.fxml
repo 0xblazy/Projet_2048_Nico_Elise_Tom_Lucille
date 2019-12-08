@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
@@ -14,7 +20,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane focusTraversable="true" onKeyPressed="#keyPressed" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.FXMLDocumentController">
+<AnchorPane focusTraversable="true" onKeyPressed="#keyPressed" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.FXMLDocumentController">
    <children>
       <Pane fx:id="container" layoutX="-7.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" styleClass="container" stylesheets="@../css/style_2048.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <padding>
@@ -93,6 +99,7 @@
               <menus>
                 <Menu fx:id="game_button" mnemonicParsing="false" styleClass="bouton_menu" text="Partie">
                   <items>
+                        <MenuItem fx:id="inConsole" mnemonicParsing="false" onAction="#clickInConsole" text="Partie dans la console" />
                         <MenuItem fx:id="pt_load" disable="true" mnemonicParsing="false" onAction="#clickCharger" styleClass="bouton_sous_menu" text="Charger" />
                     <MenuItem fx:id="pt_save" disable="true" mnemonicParsing="false" onAction="#clickSauvegarder" styleClass="bouton_sous_menu" text="Sauvegarder" />
                         <MenuItem fx:id="pt_restart" disable="true" mnemonicParsing="false" onAction="#clickRecommencer" styleClass="bouton_sous_menu" text="Recommencer" />
