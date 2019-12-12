@@ -228,8 +228,9 @@ and open the template in the editor.
 }
 
 .switch_theme{
-    -fx-width: 45px;
-    -fx-height: 45px;
     -fx-border: none;
     -fx-background: none;
+}
+.switch_theme:focus{
+    -fx-outline: none;
 }

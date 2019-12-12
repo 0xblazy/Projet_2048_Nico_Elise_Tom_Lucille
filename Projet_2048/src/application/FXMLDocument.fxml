@@ -117,7 +117,7 @@
             <Button fx:id="connexion_button" layoutX="675.0" layoutY="5.0" mnemonicParsing="false" onAction="#clickConnexion" styleClass="boutons" text="Connexion" />
             <Button fx:id="inscription_button" layoutX="655.0" layoutY="40.0" mnemonicParsing="false" onAction="#clickInscription" styleClass="boutons" text="Inscription" />
             <Label fx:id="connect_has" alignment="CENTER_RIGHT" layoutX="473.0" layoutY="1.0" prefHeight="26.0" prefWidth="324.0" styleClass="connect_has" text="Connecté sur le compte de" textAlignment="RIGHT" visible="false" />
-            <Button fx:id="switch_theme" layoutX="37.0" layoutY="94.0" mnemonicParsing="false" />
+            <Button fx:id="switch_theme" layoutX="37.0" layoutY="94.0" mnemonicParsing="false" onAction="#clickSwitchTheme" />
          </children>
       </Pane>
    </children>
