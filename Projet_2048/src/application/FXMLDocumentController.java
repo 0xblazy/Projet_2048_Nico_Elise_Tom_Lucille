@@ -498,23 +498,30 @@ public class FXMLDocumentController implements Initializable, Parametres {
             }
         });
     }
-
+    /**
+     * Change le thème du jeu à l'aide de sheets css.
+     */
+    @FXML
+    private void clickSwitchTheme(){
+        if (container.getStylesheets().contains("css/style_2048.css")) {
+            container.getStylesheets().clear();
+            container.getStylesheets().add("css/style_2048_kawaii.css");
+            
+        }else if(container.getStylesheets().contains("css/style_2048_kawaii.css")){
+            container.getStylesheets().clear();
+            container.getStylesheets().add("css/style_2048_dark.css");
+            
+        }else if(container.getStylesheets().contains("css/style_2048_dark.css")){
+            container.getStylesheets().clear();
+            container.getStylesheets().add("css/style_2048.css");
+        }
+    }
     /**
      * Ouvre un pop up demandant confirmation pour sauvegarder la partie.<br>
      * Créer un fichier nomDuJoueur.save dans le répertoire saves/.
      * 
      * @see Alert
      */
-    @FXML
-    private void clickSwitchTheme(){
-        if (container.getStylesheets().add("css/style_2048.css")) {
-            container.getStylesheets().add("css/style_2048_kawaii.css");
-        }else if(container.getStylesheets().add("css/style_2048_kawaii.css")){
-            container.getStylesheets().add("css/style_2048_dark.css");
-        }else if(container.getStylesheets().add("css/style_2048_dark.css")){
-            container.getStylesheets().add("css/style_2048.css");
-        }
-    }
     @FXML
     private void clickSauvegarder() {
         Alert alert = new Alert(AlertType.CONFIRMATION);
