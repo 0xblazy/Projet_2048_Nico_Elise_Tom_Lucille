@@ -230,7 +230,7 @@ and open the template in the editor.
 }
 .switch_theme{
     -fx-border: none;
-    -fx-background: none;
+    -fx-background-color: #F9AFEE;
 }
 .switch_theme:focus{
     -fx-outline: none;
