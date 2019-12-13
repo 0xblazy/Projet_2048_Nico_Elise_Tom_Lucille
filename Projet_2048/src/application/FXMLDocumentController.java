@@ -41,13 +41,17 @@ import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.PasswordField;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.util.Pair;
 import model.Case;
@@ -178,6 +182,14 @@ public class FXMLDocumentController implements Initializable, Parametres {
         //BOUTON CHANGER THEME
         switch_theme.setGraphic(new ImageView("/img/theme_icon.png"));
         switch_theme.getStyleClass().add("switch_theme");
+        //LABEL POUR CLASSEMENT
+        Label labelClassement = new Label("Classement");
+        labelClassement.setOnMouseClicked(event -> clickClassement());
+        classement_button.setGraphic(labelClassement);
+        //LABEL POUR HISTORIQUE
+        Label labelHistorique = new Label("Historique");
+        labelHistorique.setOnMouseClicked(event -> clickHistorique());
+        historique_button.setGraphic(labelHistorique);
     }
 
     /**
@@ -222,6 +234,8 @@ public class FXMLDocumentController implements Initializable, Parametres {
         move_pane.setVisible(true);
         move_label.setVisible(true);
         nb_move.setVisible(true);
+        classement_button.setVisible(true);
+        classement_button.setDisable(false);
     }
 
     /**
@@ -364,6 +378,11 @@ public class FXMLDocumentController implements Initializable, Parametres {
                             connexion_button.setVisible(false);
                             connect_has.setText("Connecté sur le compte de " + username_tf.getText());
                             connect_has.setVisible(true);
+                            switch_theme.setVisible(true);
+                            classement_button.setVisible(true);
+                            classement_button.setDisable(false);
+                            historique_button.setVisible(true);
+                            historique_button.setDisable(false);
                             if (partie != null) {
                                 partie.setJoueur(joueur);
                                 pt_save.setDisable(false);
@@ -489,6 +508,11 @@ public class FXMLDocumentController implements Initializable, Parametres {
                 connexion_button.setVisible(false);
                 connect_has.setText("Connecté sur le compte de " + usernamePassword.getKey());
                 connect_has.setVisible(true);
+                switch_theme.setVisible(true);
+                classement_button.setVisible(true);
+                classement_button.setDisable(false);
+                historique_button.setVisible(true);
+                historique_button.setDisable(false);
                 if (partie != null) {
                     partie.setJoueur(joueur);
                     pt_save.setDisable(false);
@@ -619,12 +643,60 @@ public class FXMLDocumentController implements Initializable, Parametres {
             connexion_button.setVisible(true);
             inscription_button.setVisible(true);
             connect_has.setVisible(false);
+            container.getStylesheets().clear();
+            container.getStylesheets().add("css/style_2048.css");
+            switch_theme.setVisible(false);
             start_button.setText("JOUER");
         } else {
             alert.close();
         }
     }
+    
+    // Affiche le classement des parties jouées
+    @FXML
+    private void clickClassement(){
+        Alert alert = new Alert(AlertType.INFORMATION);
+        alert.setTitle("Classement");
+        alert.setHeaderText("Classement des parties précédentes");
+        Pane paneclassement = new Pane();
+        paneclassement.setPrefSize(400, 400);
+        //alert.getDialogPane().setContent(paneclassement);
+        TableView table = new TableView();
+        
+        Label label = new Label("Address Book");
+        label.setFont(new Font("Arial", 20));
+        
+        table.setEditable(true);
+ 
+        TableColumn firstNameCol = new TableColumn("First Name");
+        TableColumn lastNameCol = new TableColumn("Last Name");
+        TableColumn emailCol = new TableColumn("Email");
+        
+        table.getColumns().addAll(firstNameCol, lastNameCol, emailCol);
+ 
+        VBox vbox = new VBox();
+        vbox.setSpacing(5);
+        vbox.setPadding(new Insets(10, 0, 0, 10));
+        vbox.getChildren().addAll(label, table);
+        paneclassement.getChildren().add(vbox);
+        alert.getDialogPane().setContent(paneclassement);
+        //alert.getDialogPane().getChildren().add(paneclassement);
+        
+        alert.showAndWait();
 
+    }
+
+    // Affiche le classement des parties jouées
+    @FXML
+    private void clickHistorique(){
+        Alert alert = new Alert(AlertType.INFORMATION);
+        //alert.getDialogPane().setContent(pane); // construire la pane
+        alert.setTitle("Historique");
+        alert.setHeaderText("Historique de vos parties");
+        alert.showAndWait();
+    }
+
+    
     /**
      * Vérifie la forme du pseudo avec des regex.
      * 

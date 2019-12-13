@@ -95,7 +95,7 @@
                   </Label>
                </children>
             </Pane>
-            <MenuBar fx:id="menu_bar" prefHeight="34.0" prefWidth="324.0" styleClass="menu_bar">
+            <MenuBar fx:id="menu_bar" prefHeight="34.0" prefWidth="397.0" styleClass="menu_bar">
               <menus>
                 <Menu fx:id="game_button" mnemonicParsing="false" styleClass="bouton_menu" text="Partie">
                   <items>
@@ -105,8 +105,8 @@
                         <MenuItem fx:id="pt_restart" disable="true" mnemonicParsing="false" onAction="#clickRecommencer" styleClass="bouton_sous_menu" text="Recommencer" />
                   </items>
                 </Menu>
-                  <Menu fx:id="classement_button" disable="true" mnemonicParsing="false" text="Classement" />
-                  <Menu fx:id="historique_button" disable="true" mnemonicParsing="false" text="Historique" />
+                  <Menu fx:id="classement_button" disable="true" mnemonicParsing="false" onAction="#clickClassement" />
+                  <Menu fx:id="historique_button" disable="true" mnemonicParsing="false" onAction="#clickHistorique" />
                 <Menu fx:id="option_button" mnemonicParsing="false" styleClass="bouton_menu" text="Option">
                   <items>
                     <MenuItem fx:id="logout_button" disable="true" mnemonicParsing="false" onAction="#clickDeconnexion" styleClass="bouton_sous_menu" text="Déconnexion" />
@@ -117,7 +117,7 @@
             <Button fx:id="connexion_button" layoutX="675.0" layoutY="5.0" mnemonicParsing="false" onAction="#clickConnexion" styleClass="boutons" text="Connexion" />
             <Button fx:id="inscription_button" layoutX="655.0" layoutY="40.0" mnemonicParsing="false" onAction="#clickInscription" styleClass="boutons" text="Inscription" />
             <Label fx:id="connect_has" alignment="CENTER_RIGHT" layoutX="473.0" layoutY="1.0" prefHeight="26.0" prefWidth="324.0" styleClass="connect_has" text="Connecté sur le compte de" textAlignment="RIGHT" visible="false" />
-            <Button fx:id="switch_theme" layoutX="37.0" layoutY="94.0" mnemonicParsing="false" onAction="#clickSwitchTheme" />
+            <Button fx:id="switch_theme" layoutX="37.0" layoutY="94.0" mnemonicParsing="false" onAction="#clickSwitchTheme" visible="false" />
          </children>
       </Pane>
    </children>
