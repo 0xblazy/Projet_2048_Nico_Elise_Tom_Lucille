@@ -314,8 +314,8 @@ public class FXMLDocumentController implements Initializable, Parametres {
         Label wrong_pass = new Label("");
         wrong_pass.setTextFill(Color.RED);
         //Icônes
-        stage.getIcons().add(new Image(this.getClass().getResource("/img/noun_Lock_small.png").toString()));
-        dialog.setGraphic(new ImageView(this.getClass().getResource("/img/noun_Lock_small.png").toString()));
+        stage.getIcons().add(new Image(this.getClass().getResource("/img/login.png").toString()));
+        dialog.setGraphic(new ImageView(this.getClass().getResource("/img/login.png").toString()));
         // Défini le type de bouton
         ButtonType bouton_connexion = new ButtonType("Connexion", ButtonData.OK_DONE);
         dialog.getDialogPane().getButtonTypes().addAll(bouton_connexion, ButtonType.CANCEL);//Création du label et txt field de pseudo et mdp
@@ -423,8 +423,8 @@ public class FXMLDocumentController implements Initializable, Parametres {
         Label pseudoExist = new Label("");
         pseudoExist.setTextFill(Color.RED);
 
-        stage.getIcons().add(new Image(this.getClass().getResource("/img/noun_Lock_small.png").toString()));
-        dialog.setGraphic(new ImageView(this.getClass().getResource("/img/noun_Lock_small.png").toString()));
+        stage.getIcons().add(new Image(this.getClass().getResource("/img/register.png").toString()));
+        dialog.setGraphic(new ImageView(this.getClass().getResource("/img/register.png").toString()));
 
         ButtonType bouton_inscription = new ButtonType("Inscription", ButtonData.OK_DONE);
         dialog.getDialogPane().getButtonTypes().addAll(bouton_inscription, ButtonType.CANCEL);
@@ -549,9 +549,14 @@ public class FXMLDocumentController implements Initializable, Parametres {
     @FXML
     private void clickSauvegarder() {
         Alert alert = new Alert(AlertType.CONFIRMATION);
+        Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
         alert.setTitle("Sauvegarde");
         alert.setHeaderText("Sauvegarde");
         alert.setContentText("Voulez-vous sauvegarder la partie en cours ?");
+        
+        stage.getIcons().add(new Image(this.getClass().getResource("/img/save.png").toString()));
+        alert.setGraphic(new ImageView(this.getClass().getResource("/img/save.png").toString()));
+        
         if (alert.showAndWait().get() == ButtonType.OK) {
             try {
                 File file = new File("saves/" + joueur.getNom() + ".save");
@@ -585,9 +590,14 @@ public class FXMLDocumentController implements Initializable, Parametres {
     @FXML
     private void clickCharger() {
         Alert alert = new Alert(AlertType.CONFIRMATION);
+        Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
         alert.setTitle("Charger");
         alert.setHeaderText("Charger partie");
         alert.setContentText("Voulez-vous charger la partie précédente ?");
+        
+        stage.getIcons().add(new Image(this.getClass().getResource("/img/load.png").toString()));
+        alert.setGraphic(new ImageView(this.getClass().getResource("/img/load.png").toString()));
+        
         if (alert.showAndWait().get() == ButtonType.OK) {
             try {
                 FileInputStream fis = new FileInputStream("saves/" + joueur.getNom() + ".save");
@@ -632,7 +642,7 @@ public class FXMLDocumentController implements Initializable, Parametres {
         alert.setTitle("Déconnexion");
         alert.setHeaderText("Déconnexion");
         alert.setContentText("Voulez-vous vous déconnecter ?\nToute progression non sauvegardée sera perdue");
-        alert.setGraphic(new ImageView("/img/noun_Lock_small.png"));
+        alert.setGraphic(new ImageView("/img/logout.png"));
         if (alert.showAndWait().get() == ButtonType.OK) {
             resetGame();
             reloaded = false;
