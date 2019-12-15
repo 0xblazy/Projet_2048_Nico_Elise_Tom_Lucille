@@ -14,8 +14,10 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.URL;
+import static java.util.Collections.list;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Optional;
@@ -44,6 +46,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
@@ -58,6 +61,8 @@ import model.Case;
 import model.Joueur;
 import model.Parametres;
 import model.Partie;
+import bdd.BaseDeDonnees;
+import static java.util.Collections.list;
 
 /**
  * Controller du programme.<br>
@@ -234,8 +239,6 @@ public class FXMLDocumentController implements Initializable, Parametres {
         move_pane.setVisible(true);
         move_label.setVisible(true);
         nb_move.setVisible(true);
-        classement_button.setVisible(true);
-        classement_button.setDisable(false);
     }
 
     /**
@@ -567,9 +570,9 @@ public class FXMLDocumentController implements Initializable, Parametres {
                 partie.sauvegardeTemps();
                 partie.setReload(true);
                 os.writeObject(partie);
-                //System.out.println("Objetc sérialisé !");
+                //System.out.println("Objet sérialisé !");
                 os.close();
-                //System.out.println("Partie sauvegardée !");
+                System.out.println("Partie sauvegardée !");
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             } catch (IOException ex) {
@@ -667,42 +670,112 @@ public class FXMLDocumentController implements Initializable, Parametres {
     private void clickClassement(){
         Alert alert = new Alert(AlertType.INFORMATION);
         alert.setTitle("Classement");
-        alert.setHeaderText("Classement des parties précédentes");
+        alert.setHeaderText("");
         Pane paneclassement = new Pane();
-        paneclassement.setPrefSize(400, 400);
-        //alert.getDialogPane().setContent(paneclassement);
+        paneclassement.setPrefSize(500, 500);
         TableView table = new TableView();
         
-        Label label = new Label("Address Book");
-        label.setFont(new Font("Arial", 20));
-        
+        Label label = new Label("Classement");
+        label.setFont(new Font("Arial", 28));
+                
         table.setEditable(true);
- 
-        TableColumn firstNameCol = new TableColumn("First Name");
-        TableColumn lastNameCol = new TableColumn("Last Name");
-        TableColumn emailCol = new TableColumn("Email");
         
-        table.getColumns().addAll(firstNameCol, lastNameCol, emailCol);
- 
+        if (bdd.connection()){
+            List<Object[]> list = bdd.getClassementScore();
+
+        TableColumn pseudoCol = new TableColumn("Pseudo");
+        pseudoCol.setMinWidth(100);
+        for (int i = 0; i < list.size(); i++){
+            pseudoCol.setCellValueFactory(new PropertyValueFactory(list.get(i)[0].toString()));
+        }
+        
+        TableColumn timeCol = new TableColumn("Time");
+        timeCol.setMinWidth(100);
+        for (int i = 0; i < list.size(); i++){
+            timeCol.setCellValueFactory(new PropertyValueFactory(list.get(i)[2].toString()));
+        }
+        
+        TableColumn movesCol = new TableColumn("Moves");
+        movesCol.setMinWidth(100);
+        for (int i = 0; i < list.size(); i++){
+            movesCol.setCellValueFactory(new PropertyValueFactory(list.get(i)[1].toString()));
+        }
+        
+        TableColumn scoreCol = new TableColumn("Score");
+        scoreCol.setMinWidth(100);
+        for (int i = 0; i < list.size(); i++){
+            scoreCol.setCellValueFactory(new PropertyValueFactory(list.get(i)[3].toString()));
+        }
+        
+        table.getColumns().addAll(pseudoCol, timeCol, movesCol, scoreCol);
+                
         VBox vbox = new VBox();
-        vbox.setSpacing(5);
-        vbox.setPadding(new Insets(10, 0, 0, 10));
+        vbox.setSpacing(50);
+        vbox.setPadding(new Insets(10, 20, 30, 40));
         vbox.getChildren().addAll(label, table);
         paneclassement.getChildren().add(vbox);
         alert.getDialogPane().setContent(paneclassement);
-        //alert.getDialogPane().getChildren().add(paneclassement);
-        
         alert.showAndWait();
-
+        bdd.deconnection();
+        }
     }
 
     // Affiche le classement des parties jouées
     @FXML
     private void clickHistorique(){
         Alert alert = new Alert(AlertType.INFORMATION);
-        //alert.getDialogPane().setContent(pane); // construire la pane
         alert.setTitle("Historique");
-        alert.setHeaderText("Historique de vos parties");
+        alert.setHeaderText("");
+        
+        Pane panehistorique = new Pane();
+        panehistorique.setPrefSize(500, 500);
+        TableView table = new TableView();
+        
+        Label label = new Label("Historique");
+        label.setFont(new Font("Arial", 28));
+        
+        table.setEditable(true);
+        
+        if (bdd.connection() && !(connect_has.setText().isEmpty())) { //vérifie qu'un utilisateur est connecté
+            
+            List<int[]> list = bdd.getHistorique(String_joueur);
+
+        TableColumn pseudoCol = new TableColumn("Score");
+        pseudoCol.setMinWidth(100);
+        for (int i = 0; i < list.size(); i++){
+            pseudoCol.setCellValueFactory(new PropertyValueFactory(list.get(i)[0].toString()));
+        }
+        
+        TableColumn timeCol = new TableColumn("Moves");
+        timeCol.setMinWidth(100);
+        for (int i = 0; i < list.size(); i++){
+            timeCol.setCellValueFactory(new PropertyValueFactory(list.get(i)[1].toString()));
+        }
+        
+        TableColumn movesCol = new TableColumn("Temps");
+        movesCol.setMinWidth(100);
+        for (int i = 0; i < list.size(); i++){
+            movesCol.setCellValueFactory(new PropertyValueFactory(list.get(i)[2].toString()));
+        }
+        
+        TableColumn scoreCol = new TableColumn("Valeur Max");
+        scoreCol.setMinWidth(100);
+        for (int i = 0; i < list.size(); i++){
+            scoreCol.setCellValueFactory(new PropertyValueFactory(list.get(i)[3].toString()));
+        }
+        
+        table.getColumns().addAll(pseudoCol, timeCol, movesCol, scoreCol);
+                
+        VBox vbox = new VBox();
+        vbox.setSpacing(50);
+        vbox.setPadding(new Insets(10, 20, 30, 40));
+        vbox.getChildren().addAll(label, table);
+        panehistorique.getChildren().add(vbox);
+        alert.getDialogPane().setContent(panehistorique);
+        alert.showAndWait();
+        bdd.deconnection();
+        }
+        
         alert.showAndWait();
     }
 

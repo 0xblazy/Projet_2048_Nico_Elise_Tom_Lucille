@@ -95,7 +95,7 @@
                   </Label>
                </children>
             </Pane>
-            <MenuBar fx:id="menu_bar" prefHeight="34.0" prefWidth="397.0" styleClass="menu_bar">
+            <MenuBar fx:id="menu_bar" prefHeight="34.0" prefWidth="317.0" styleClass="menu_bar">
               <menus>
                 <Menu fx:id="game_button" mnemonicParsing="false" styleClass="bouton_menu" text="Partie">
                   <items>
