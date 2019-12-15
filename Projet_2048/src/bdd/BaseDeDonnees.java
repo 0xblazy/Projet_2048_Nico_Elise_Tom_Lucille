@@ -115,7 +115,6 @@ public class BaseDeDonnees implements Parametres {
             return ERROR_SQL;
         }
     }
-    
     /**
      * Vérifie si un joueur existe déjà dans la base de données.
      * 

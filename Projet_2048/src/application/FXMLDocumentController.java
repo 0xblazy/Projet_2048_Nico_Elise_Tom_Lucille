@@ -63,6 +63,8 @@ import model.Parametres;
 import model.Partie;
 import bdd.BaseDeDonnees;
 import static java.util.Collections.list;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 
 /**
  * Controller du programme.<br>
@@ -141,7 +143,17 @@ public class FXMLDocumentController implements Initializable, Parametres {
     //Cases du jeu
     private final Map<Integer, Pane> panes = new HashMap<>();
     private final int wh_case = 80; //largeur et hauteur de la case (en px)
-
+    //Sons
+    private String sound_default_dir = "/sound/sound_default.mp3";
+    private String sound_kawaii_dir = "/sound/sound_kawaii.mp3";
+    private String sound_dark_dir = "/sound/sound_dark.mp3";
+    private Media sound_default = new Media(new File(sound_default_dir).toURI().toString());
+    private Media sound_kawaii = new Media(new File(sound_kawaii_dir).toURI().toString());
+    private Media sound_dark = new Media(new File(sound_dark_dir).toURI().toString());
+    MediaPlayer mp_de = new MediaPlayer(sound_default);
+    MediaPlayer mp_ka = new MediaPlayer(sound_kawaii);
+    MediaPlayer mp_da = new MediaPlayer(sound_dark);
+    
     /**
      * Initialise l'interface et modifie des éléments du FXML.
      * 
@@ -533,14 +545,17 @@ public class FXMLDocumentController implements Initializable, Parametres {
         if (container.getStylesheets().contains("css/style_2048.css")) {
             container.getStylesheets().clear();
             container.getStylesheets().add("css/style_2048_kawaii.css");
+            mp_de.play();
             
         }else if(container.getStylesheets().contains("css/style_2048_kawaii.css")){
             container.getStylesheets().clear();
             container.getStylesheets().add("css/style_2048_dark.css");
+            mp_ka.play();
             
         }else if(container.getStylesheets().contains("css/style_2048_dark.css")){
             container.getStylesheets().clear();
             container.getStylesheets().add("css/style_2048.css");
+            mp_da.play();
         }
     }
     /**
@@ -736,50 +751,49 @@ public class FXMLDocumentController implements Initializable, Parametres {
         
         table.setEditable(true);
         
-        if (bdd.connection() && !(connect_has.setText().isEmpty())) { //vérifie qu'un utilisateur est connecté
-            
-            List<int[]> list = bdd.getHistorique(String_joueur);
+        if (bdd.connection() && !(connect_has.getText().isEmpty())) { //vérifie qu'un utilisateur est connecté
+            String nom_joueur = joueur.getNom();
+            List<int[]> list = bdd.getHistorique(nom_joueur);
+            TableColumn table_score = new TableColumn("Score");
+            table_score.setMinWidth(100);
+            /*for (int i = 0; i < list.size(); i++){
+                table_score.setCellValueFactory(new PropertyValueFactory(list.get(i)[0]));
+            }
+        
+            TableColumn timeCol = new TableColumn("Moves");
+            timeCol.setMinWidth(100);
+            for (int i = 0; i < list.size(); i++){
+                timeCol.setCellValueFactory(new PropertyValueFactory(list.get(i)[1].toString()));
+            }
 
-        TableColumn pseudoCol = new TableColumn("Score");
-        pseudoCol.setMinWidth(100);
-        for (int i = 0; i < list.size(); i++){
-            pseudoCol.setCellValueFactory(new PropertyValueFactory(list.get(i)[0].toString()));
-        }
-        
-        TableColumn timeCol = new TableColumn("Moves");
-        timeCol.setMinWidth(100);
-        for (int i = 0; i < list.size(); i++){
-            timeCol.setCellValueFactory(new PropertyValueFactory(list.get(i)[1].toString()));
-        }
-        
-        TableColumn movesCol = new TableColumn("Temps");
-        movesCol.setMinWidth(100);
-        for (int i = 0; i < list.size(); i++){
-            movesCol.setCellValueFactory(new PropertyValueFactory(list.get(i)[2].toString()));
-        }
-        
-        TableColumn scoreCol = new TableColumn("Valeur Max");
-        scoreCol.setMinWidth(100);
-        for (int i = 0; i < list.size(); i++){
-            scoreCol.setCellValueFactory(new PropertyValueFactory(list.get(i)[3].toString()));
-        }
-        
-        table.getColumns().addAll(pseudoCol, timeCol, movesCol, scoreCol);
-                
-        VBox vbox = new VBox();
-        vbox.setSpacing(50);
-        vbox.setPadding(new Insets(10, 20, 30, 40));
-        vbox.getChildren().addAll(label, table);
-        panehistorique.getChildren().add(vbox);
-        alert.getDialogPane().setContent(panehistorique);
-        alert.showAndWait();
-        bdd.deconnection();
-        }
-        
-        alert.showAndWait();
+            TableColumn movesCol = new TableColumn("Temps");
+            movesCol.setMinWidth(100);
+            for (int i = 0; i < list.size(); i++){
+                movesCol.setCellValueFactory(new PropertyValueFactory(list.get(i)[2].toString()));
+            }
+
+            TableColumn scoreCol = new TableColumn("Valeur Max");
+            scoreCol.setMinWidth(100);
+            for (int i = 0; i < list.size(); i++){
+                scoreCol.setCellValueFactory(new PropertyValueFactory(list.get(i)[3].toString()));
+            }
+
+            table.getColumns().addAll(table_score, timeCol, movesCol, scoreCol);
+
+            VBox vbox = new VBox();
+            vbox.setSpacing(50);
+            vbox.setPadding(new Insets(10, 20, 30, 40));
+            vbox.getChildren().addAll(label, table);
+            panehistorique.getChildren().add(vbox);
+            alert.getDialogPane().setContent(panehistorique);
+            alert.showAndWait();
+            bdd.deconnection();
+            }
+            */
+            alert.showAndWait();
+
+            }
     }
-
-    
     /**
      * Vérifie la forme du pseudo avec des regex.
      * 
