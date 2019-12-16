@@ -5,6 +5,7 @@
  */
 package bdd;
 
+import model.Game;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -17,6 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import model.Joueur;
 import model.Parametres;
 
 /**
@@ -309,14 +311,16 @@ public class BaseDeDonnees implements Parametres {
     /**
      * Retourne le classement des joueurs triés par score.
      * 
-     * @return Une liste de tableaux d'objets <code>{nom, meilleur déplacements, meilleur temps, score maximal}</code>, <code>null</code> sinon.
+     * @return Une liste de Joueurs triés par score, <code>null</code> sinon.
+     * 
+     * @see Joueur
      */
-    public List<Object[]> getClassementScore() {
-        List<Object[]> list = new ArrayList<>();
+    public List<Joueur> getClassementScore() {
+        List<Joueur> list = new ArrayList<>();
         try {
             ResultSet rs = stmt.executeQuery("SELECT nom, meilleur_deplacements, meilleur_temps, score_max FROM Joueur ORDER BY score_max DESC");
             while (rs.next()) {
-                list.add(new Object[]{rs.getString("nom"), rs.getInt("meilleur_deplacements"), rs.getInt("meilleur_temps"), rs.getInt("score_max")});
+                list.add(new Joueur(rs.getString("nom"), rs.getInt("meilleur_deplacements"), ((double) (rs.getInt("meilleur_temps") / 1000)) / 60, rs.getInt("score_max")));
             }
             return list;
         } catch (SQLException ex) {
@@ -328,14 +332,16 @@ public class BaseDeDonnees implements Parametres {
     /**
      * Retourne le classement des joueurs triés par nombre de déplacements.
      * 
-     * @return Une liste de tableaux d'objets <code>{nom, meilleur déplacements, meilleur temps, score maximal}</code>, <code>null</code> sinon.
+     * @return Une liste de Joueurs triés par nombre de déplacements, <code>null</code> sinon.
+     * 
+     * @see Joueur
      */
-    public List<Object[]> getClassementDeplacements() {
-        List<Object[]> list = new ArrayList<>();
+    public List<Joueur> getClassementDeplacements() {
+        List<Joueur> list = new ArrayList<>();
         try {
-            ResultSet rs = stmt.executeQuery("SELECT nom, meilleur_deplacements, meilleur_temps, score_max FROM Joueur ORDER BY meilleur_deplacements DESC");
+            ResultSet rs = stmt.executeQuery("SELECT nom, meilleur_deplacements, meilleur_temps, score_max FROM Joueur ORDER BY meilleur_deplacements ASC");
             while (rs.next()) {
-                list.add(new Object[]{rs.getString("nom"), rs.getInt("meilleur_deplacements"), rs.getInt("meilleur_temps"), rs.getInt("score_max")});
+                list.add(new Joueur(rs.getString("nom"), rs.getInt("meilleur_deplacements"), ((double) (rs.getInt("meilleur_temps") / 1000)) / 60, rs.getInt("score_max")));
             }
             return list;
         } catch (SQLException ex) {
@@ -347,14 +353,16 @@ public class BaseDeDonnees implements Parametres {
      /**
      * Retourne le classement des joueurs triés par temps.
      * 
-     * @return Une liste de tableaux d'objets <code>{nom, meilleur déplacements, meilleur temps, score maximal}</code>, <code>null</code> sinon.
+     * @return Une liste de Joueurs triés par temps, <code>null</code> sinon.
+     * 
+     * @see Joueur
      */
-    public List<Object[]> getClassementTemps() {
-        List<Object[]> list = new ArrayList<>();
+    public List<Joueur> getClassementTemps() {
+        List<Joueur> list = new ArrayList<>();
         try {
-            ResultSet rs = stmt.executeQuery("SELECT nom, meilleur_deplacements, meilleur_temps, score_max FROM Joueur ORDER BY meilleur_temps DESC");
+            ResultSet rs = stmt.executeQuery("SELECT nom, meilleur_deplacements, meilleur_temps, score_max FROM Joueur ORDER BY meilleur_temps ASC");
             while (rs.next()) {
-                list.add(new Object[]{rs.getString("nom"), rs.getInt("meilleur_deplacements"), rs.getInt("meilleur_temps"), rs.getInt("score_max")});
+                list.add(new Joueur(rs.getString("nom"), rs.getInt("meilleur_deplacements"), ((double) (rs.getInt("meilleur_temps") / 1000)) / 60, rs.getInt("score_max")));
             }
             return list;
         } catch (SQLException ex) {
@@ -393,14 +401,16 @@ public class BaseDeDonnees implements Parametres {
      * Retourne l'historique des partie d'un joueur.
      * 
      * @param _joueur Nom du joueur.
-     * @return Une liste de tableaux d'entier <code>{score, déplacements, temps, valeur maximale}</code>, <code>null</code> sinon.
+     * @return List des parties du joueur, <code>null</code> sinon.
+     * 
+     * @see Game
      */
-    public List<int[]> getHistorique(String _joueur) {
-        List<int[]> list = new ArrayList<>();
+    public List<Game> getHistorique(String _joueur) {
+        List<Game> list = new ArrayList<>();
         try {
             ResultSet rs = stmt.executeQuery("SELECT score, deplacements, temps, valeur_max FROM Partie WHERE joueur= '" + _joueur +"'");
             while (rs.next()) {
-                list.add(new int[]{rs.getInt("score"), rs.getInt("deplacements"), rs.getInt("temps"), rs.getInt("valeur_max")});
+                list.add(new Game(rs.getInt("score"), rs.getInt("deplacements"), ((double) (rs.getInt("temps") / 1000)) / 60, rs.getInt("valeur_max")));
             }
             return list;
         } catch (SQLException ex) {
