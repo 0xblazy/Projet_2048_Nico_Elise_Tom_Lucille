@@ -5,7 +5,6 @@
  */
 package application;
 
-import bdd.BaseDeDonnees;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -14,7 +13,6 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.URL;
-import static java.util.Collections.list;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -62,7 +60,7 @@ import model.Joueur;
 import model.Parametres;
 import model.Partie;
 import bdd.BaseDeDonnees;
-import static java.util.Collections.list;
+import javafx.scene.media.AudioClip;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 
@@ -144,15 +142,9 @@ public class FXMLDocumentController implements Initializable, Parametres {
     private final Map<Integer, Pane> panes = new HashMap<>();
     private final int wh_case = 80; //largeur et hauteur de la case (en px)
     //Sons
-    private String sound_default_dir = "/sound/sound_default.mp3";
-    private String sound_kawaii_dir = "/sound/sound_kawaii.mp3";
-    private String sound_dark_dir = "/sound/sound_dark.mp3";
-    private Media sound_default = new Media(new File(sound_default_dir).toURI().toString());
-    private Media sound_kawaii = new Media(new File(sound_kawaii_dir).toURI().toString());
-    private Media sound_dark = new Media(new File(sound_dark_dir).toURI().toString());
-    MediaPlayer mp_de = new MediaPlayer(sound_default);
-    MediaPlayer mp_ka = new MediaPlayer(sound_kawaii);
-    MediaPlayer mp_da = new MediaPlayer(sound_dark);
+    private AudioClip mp_de;
+    private AudioClip mp_ka;
+    private AudioClip mp_da;
     
     /**
      * Initialise l'interface et modifie des éléments du FXML.
@@ -207,6 +199,10 @@ public class FXMLDocumentController implements Initializable, Parametres {
         Label labelHistorique = new Label("Historique");
         labelHistorique.setOnMouseClicked(event -> clickHistorique());
         historique_button.setGraphic(labelHistorique);
+        // Sons
+        mp_de = new AudioClip(getClass().getResource("/sound/sound_default.wav").toString());
+        mp_ka = new AudioClip(getClass().getResource("/sound/sound_kawaii.wav").toString());
+        mp_da = new AudioClip(getClass().getResource("/sound/sound_dark.wav").toString());
     }
 
     /**
@@ -537,6 +533,7 @@ public class FXMLDocumentController implements Initializable, Parametres {
             }
         });
     }
+    
     /**
      * Change le thème du jeu à l'aide de sheets css.
      */
@@ -545,17 +542,15 @@ public class FXMLDocumentController implements Initializable, Parametres {
         if (container.getStylesheets().contains("css/style_2048.css")) {
             container.getStylesheets().clear();
             container.getStylesheets().add("css/style_2048_kawaii.css");
-            mp_de.play();
-            
-        }else if(container.getStylesheets().contains("css/style_2048_kawaii.css")){
+            mp_ka.play();          
+        } else if(container.getStylesheets().contains("css/style_2048_kawaii.css")) {
             container.getStylesheets().clear();
             container.getStylesheets().add("css/style_2048_dark.css");
-            mp_ka.play();
-            
-        }else if(container.getStylesheets().contains("css/style_2048_dark.css")){
+            mp_da.play();
+        } else if(container.getStylesheets().contains("css/style_2048_dark.css")) {
             container.getStylesheets().clear();
             container.getStylesheets().add("css/style_2048.css");
-            mp_da.play();
+            mp_de.play();
         }
     }
     /**
@@ -794,6 +789,7 @@ public class FXMLDocumentController implements Initializable, Parametres {
 
             }
     }
+    
     /**
      * Vérifie la forme du pseudo avec des regex.
      * 
