@@ -63,9 +63,9 @@
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                </rowConstraints>
             </GridPane>
-            <Pane fx:id="move_pane" layoutX="328.0" layoutY="14.0" prefHeight="135.0" prefWidth="145.0" styleClass="move_pane" visible="false">
+            <Pane fx:id="move_pane" layoutX="328.0" layoutY="40.0" prefHeight="135.0" prefWidth="145.0" styleClass="move_pane" visible="false">
                <children>
-                  <Label fx:id="move_label" ellipsisString="" layoutX="28.0" layoutY="14.0" prefHeight="40.0" prefWidth="89.0" styleClass="move_label" text="MOVES" textAlignment="CENTER">
+                  <Label fx:id="move_label" ellipsisString="" layoutX="24.0" layoutY="14.0" prefHeight="46.0" prefWidth="95.0" styleClass="move_label" text="MOVES" textAlignment="CENTER">
                      <font>
                         <Font size="23.0" />
                      </font>
@@ -95,7 +95,7 @@
                   </Label>
                </children>
             </Pane>
-            <MenuBar fx:id="menu_bar" prefHeight="34.0" prefWidth="317.0" styleClass="menu_bar">
+            <MenuBar fx:id="menu_bar" prefHeight="34.0" prefWidth="372.0" styleClass="menu_bar">
               <menus>
                 <Menu fx:id="game_button" mnemonicParsing="false" styleClass="bouton_menu" text="Partie">
                   <items>
